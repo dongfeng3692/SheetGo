@@ -1,0 +1,53 @@
+# Rust / Tauri
+src-tauri/target/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+.python-version
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# SQLite
+*.db
+*.db-journal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data (user workspace data)
+data/
+
+# Claude Code local settings
+.claude/settings.local.json

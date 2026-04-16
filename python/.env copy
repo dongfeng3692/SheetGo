@@ -1,0 +1,45 @@
+# Exceler 配置
+# 优先级: .env 文件 > 环境变量 > 代码默认值
+
+# ---------- 路径 ----------
+# 数据目录（默认 ~/.exceler）
+# EXCELER_HOME=~/.exceler
+
+# ---------- LLM ----------
+# LLM_PROVIDER=openai
+# LLM_MODEL=gpt-4o
+LLM_API_KEY=
+# LLM_BASE_URL=
+
+# ---------- Agent ----------
+# DOOM_LOOP_THRESHOLD=3
+# AGENT_MAIN_MAX_STEPS=50
+# AGENT_EXPLORE_MAX_STEPS=30
+# AGENT_FORMULA_MAX_STEPS=30
+# AGENT_CHART_MAX_STEPS=20
+
+# ---------- Validation ----------
+# NULL_RATE_THRESHOLD=0.3
+# IQR_MULTIPLIER=1.5
+
+# ---------- Preload ----------
+# PRELOAD_SAMPLE_ROWS=20
+# PRELOAD_MAX_STATS_ROWS=100000
+# PRELOAD_MAX_STYLE_SCAN_ROWS=100
+
+# ---------- Database ----------
+# DB_SESSION_LIST_LIMIT=50
+# DB_MESSAGE_LIST_LIMIT=50
+# DB_RECENT_MESSAGES_COUNT=10
+# DB_KEEP_RECENT_MESSAGES=100
+
+# ---------- Memory ----------
+# MEMORY_CONTEXT_MAX_MESSAGES=10
+# MEMORY_COMPACT_KEEP_RECENT=4
+
+# ---------- File Manager ----------
+# FILE_MAX_SIZE_MB=100
+
+# ---------- Benchmark ----------
+# BENCHMARK_EXEC_TIMEOUT=120
+# BENCHMARK_PREVIEW_ROWS=5
