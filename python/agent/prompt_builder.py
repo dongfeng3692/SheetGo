@@ -28,6 +28,7 @@ class PromptContext:
     db_paths: dict[str, str] = field(default_factory=dict)        # file_id → duckdb_path
     schemas: dict[str, dict] = field(default_factory=dict)        # file_id → schema
     samples: dict[str, dict] = field(default_factory=dict)        # file_id → sample rows
+    structures: dict[str, dict] = field(default_factory=dict)     # file_id → structure.json
     memory_summary: str | None = None                             # compacted conversation
     workspace_dir: str = ""                                        # session workspace path
 
@@ -189,6 +190,49 @@ def _format_sample(sample: dict) -> str:
     return "\n".join(lines)
 
 
+def _format_structure_section(structures: dict[str, dict]) -> str:
+    """Format structure analysis as a compact text section."""
+    if not structures:
+        return ""
+    parts: list[str] = ["# File Structure Analysis"]
+    for file_id, struct in structures.items():
+        if struct.get("status") != "ok":
+            continue
+        parts.append(f'<structure_analysis file="{file_id}">')
+        for sheet in struct.get("sheets", []):
+            name = sheet.get("name", "?")
+            layout = sheet.get("layout", "unknown")
+            desc = sheet.get("description", "")
+            parts.append(f'  Sheet "{name}" ({layout}): {desc}')
+            for region in sheet.get("regions", []):
+                rtype = region.get("type", "?")
+                rname = region.get("name", "")
+                start = region.get("startCell", "?")
+                end = region.get("endCell", "?")
+                rc = region.get("rowCount", "?")
+                cc = region.get("colCount", "?")
+                if rtype == "table":
+                    cols = region.get("columns", [])
+                    col_str = ", ".join(
+                        f'{c.get("name","?")}({c.get("dtype","?")})' for c in cols[:10]
+                    )
+                    parts.append(f'    {rtype} "{rname}" {start}:{end} ({rc} rows, {cc} cols)')
+                    if col_str:
+                        parts.append(f'      Columns: {col_str}')
+                elif rtype == "form":
+                    fields = region.get("fields", [])
+                    field_str = ", ".join(
+                        f'{f.get("label","?")}→{f.get("valueCell","?")}' for f in fields[:8]
+                    )
+                    parts.append(f'    {rtype} "{rname}" {start}:{end}')
+                    if field_str:
+                        parts.append(f'      Fields: {field_str}')
+                else:
+                    parts.append(f'    {rtype} "{rname}" {start}:{end} ({rc} rows)')
+        parts.append("</structure_analysis>")
+    return "\n".join(parts)
+
+
 # ---------------------------------------------------------------------------
 # Builder
 # ---------------------------------------------------------------------------
@@ -262,20 +306,59 @@ class SystemPromptBuilder:
 # PromptBuilder is kept as a thin wrapper so existing engine code works
 # with minimal changes. New code should use SystemPromptBuilder directly.
 class PromptBuilder:
-    """Compatibility wrapper - delegates to SystemPromptBuilder."""
+    """Compatibility wrapper - delegates to SystemPromptBuilder.
 
-    def build_system_prompt(self, context: PromptContext) -> str:
+    Outputs Anthropic content blocks with cache_control breakpoints:
+      Block 1: static rules (always cached)
+      Block 2: structure analysis (cached per file)
+      Block 3: schema + env + paths (not separately cached)
+    """
+
+    def build_system_blocks(self, context: PromptContext) -> list[dict]:
+        """Build system prompt as Anthropic content blocks with cache breakpoints."""
         import datetime
 
         today = datetime.date.today().isoformat()
         cwd = context.workspace_dir or ""
 
-        return (
-            SystemPromptBuilder()
-            .with_environment(today, cwd)
-            .with_file_context(context)
-            .render()
-        )
+        # Block 1: static content — never changes → cache breakpoint 1
+        blocks: list[dict] = [
+            {
+                "type": "text",
+                "text": f"{_INTRO}\n\n{_SYSTEM}\n\n{_DOING_TASKS}\n\n{_EXCEL_EXPERTISE}",
+                "cache_control": {"type": "ephemeral"},
+            },
+        ]
+
+        # Block 2: structure analysis — changes per file → cache breakpoint 2
+        if context.structures:
+            struct_text = _format_structure_section(context.structures)
+            if struct_text:
+                blocks.append({
+                    "type": "text",
+                    "text": struct_text,
+                    "cache_control": {"type": "ephemeral"},
+                })
+
+        # Block 3: dynamic content (env + schema + file paths + memory)
+        dynamic_parts: list[str] = []
+        env = _environment_section(today, cwd)
+        if env:
+            dynamic_parts.append(env)
+        fc = _file_context_section(context)
+        if len(fc) > len("# File context"):
+            dynamic_parts.append(fc)
+        if context.memory_summary:
+            dynamic_parts.append(f"# Conversation summary\n{context.memory_summary}")
+
+        if dynamic_parts:
+            blocks.append({"type": "text", "text": "\n\n".join(dynamic_parts)})
+
+        return blocks
+
+    def build_system_prompt(self, context: PromptContext) -> str | list[dict]:
+        """Build system prompt. Returns content blocks for Anthropic API."""
+        return self.build_system_blocks(context)
 
     def build_messages(
         self,

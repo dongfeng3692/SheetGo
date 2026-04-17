@@ -191,6 +191,9 @@ class ConversationState:
     file_ids: list[str] = field(default_factory=list)
     file_paths: dict[str, str] = field(default_factory=dict)     # file_id → working_path
     db_paths: dict[str, str] = field(default_factory=dict)        # file_id → duckdb_path
+    schemas: dict[str, dict] = field(default_factory=dict)        # file_id → schema.json
+    samples: dict[str, dict] = field(default_factory=dict)        # file_id → sample rows
+    structures: dict[str, dict] = field(default_factory=dict)     # file_id → structure.json
     messages: list[Message] = field(default_factory=list)
     total_tokens: int = 0
     workspace_dir: str = ""                                       # session workspace path

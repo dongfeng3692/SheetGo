@@ -149,13 +149,18 @@ def _handle_file_info(params: dict, req_id: int | str | None) -> dict:
 
 
 def _handle_preload_start(params: dict, req_id: int | str | None) -> dict:
+    # Derive structure_path from schema_path convention
+    schema_path = params["schemaPath"]
+    structure_path = schema_path.replace("_schema.json", "_structure.json") if "_schema.json" in schema_path else ""
+
     cfg = PreloadConfig(
         file_id=params["fileId"],
         source_path=params["sourcePath"],
         working_path=params["workingPath"],
         duckdb_path=params["duckdbPath"],
-        schema_path=params["schemaPath"],
+        schema_path=schema_path,
         stats_path=params["statsPath"],
+        structure_path=structure_path,
     )
     pipeline = PreloadPipeline(cfg)
 
@@ -230,22 +235,63 @@ def _ensure_engine() -> Any:
     return _engine
 
 
-def _resolve_file_paths(file_ids: list[str]) -> tuple[dict[str, str], dict[str, str]]:
-    """Resolve file_ids → (file_paths, db_paths) from the database."""
+def _resolve_file_paths(file_ids: list[str]) -> tuple[dict[str, str], dict[str, str], dict[str, dict], dict[str, dict], dict[str, dict]]:
+    """Resolve file_ids → (file_paths, db_paths, schemas, samples, structures)."""
     fm = _ensure_fm()
     file_paths: dict[str, str] = {}
     db_paths: dict[str, str] = {}
+    schemas: dict[str, dict] = {}
+    samples: dict[str, dict] = {}
+    structures: dict[str, dict] = {}
+
     for fid in file_ids:
         info = fm.get_file_info(fid)
         if info is None:
             continue
         file_paths[fid] = info.working_path
-        # Derive DuckDB path from working_path convention
+
+        # Derive cache directory from working_path convention
         base_dir = os.path.dirname(os.path.dirname(info.working_path))
-        duckdb_path = os.path.join(base_dir, "cache", f"{fid}.duckdb")
+        cache_dir = os.path.join(base_dir, "cache")
+
+        # DuckDB
+        duckdb_path = os.path.join(cache_dir, f"{fid}.duckdb")
         if os.path.isfile(duckdb_path):
             db_paths[fid] = duckdb_path
-    return file_paths, db_paths
+
+        # Schema
+        schema_path = os.path.join(cache_dir, f"{fid}_schema.json")
+        if os.path.isfile(schema_path):
+            schema_data = PreloadPipeline.get_schema(schema_path)
+            if schema_data:
+                schemas[fid] = schema_data
+                # Extract sample rows from schema column samples
+                sample_data: dict[str, list] = {}
+                for sheet in schema_data.get("sheets", []):
+                    sheet_name = sheet.get("name", "")
+                    cols = sheet.get("columns", [])
+                    sample_rows: dict[int, dict] = {}
+                    for col in cols:
+                        col_name = col.get("name", "")
+                        for i, val in enumerate(col.get("sample", [])[:3]):
+                            sample_rows.setdefault(i, {})[col_name] = val
+                    if sample_rows:
+                        sample_data[sheet_name] = [sample_rows[k] for k in sorted(sample_rows.keys())]
+                if sample_data:
+                    samples[fid] = sample_data
+
+        # Structure analysis
+        struct_path = os.path.join(cache_dir, f"{fid}_structure.json")
+        if os.path.isfile(struct_path):
+            try:
+                with open(struct_path, "r", encoding="utf-8") as f:
+                    struct_data = json.load(f)
+                if struct_data.get("status") == "ok":
+                    structures[fid] = struct_data
+            except (json.JSONDecodeError, OSError):
+                pass
+
+    return file_paths, db_paths, schemas, samples, structures
 
 
 def _serialize_agent_event(event: Any) -> dict:
@@ -313,9 +359,12 @@ def _handle_chat(params: dict, req_id: int | str | None) -> dict:
     state.file_ids = [file_id] if file_id else []
 
     # Resolve file paths
-    file_paths, db_paths = _resolve_file_paths(state.file_ids)
+    file_paths, db_paths, schemas, samples, structures = _resolve_file_paths(state.file_ids)
     state.file_paths = file_paths
     state.db_paths = db_paths
+    state.schemas = schemas
+    state.samples = samples
+    state.structures = structures
 
     # Run agent (blocking)
     result_state = asyncio.run(engine.chat(state, message))
@@ -356,9 +405,12 @@ def _handle_chat_stream(params: dict, req_id: int | str | None) -> dict | None:
     state.file_ids = [file_id] if file_id else []
 
     # Resolve file paths
-    file_paths, db_paths = _resolve_file_paths(state.file_ids)
+    file_paths, db_paths, schemas, samples, structures = _resolve_file_paths(state.file_ids)
     state.file_paths = file_paths
     state.db_paths = db_paths
+    state.schemas = schemas
+    state.samples = samples
+    state.structures = structures
 
     # Streaming callback — write notification events to stdout
     def on_event(event: Any) -> None:

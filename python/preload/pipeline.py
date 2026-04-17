@@ -33,10 +33,11 @@ STAGES = [
     "formulas",   # 6
     "validation", # 7
     "styles",     # 8
-    "done",       # 9
+    "structure",  # 9  — LLM structure analysis
+    "done",       # 10
 ]
 
-_STEP_WEIGHTS = [5, 15, 20, 15, 5, 10, 10, 10, 5, 5]
+_STEP_WEIGHTS = [5, 15, 20, 15, 5, 10, 10, 10, 5, 5, 5]
 
 
 @dataclass
@@ -48,6 +49,7 @@ class PreloadConfig:
     duckdb_path: str
     schema_path: str
     stats_path: str
+    structure_path: str = ""       # path for structure analysis JSON
     sample_rows: int = 20
     max_stats_rows: int = 100_000
     run_validation: bool = False  # Module 05 not yet implemented
@@ -61,7 +63,8 @@ class PreloadResult:
     schema_path: str
     stats_path: str
     duckdb_path: str
-    duration_ms: int
+    structure_path: str = ""
+    duration_ms: int = 0
     error_message: str | None = None
 
 
@@ -124,7 +127,11 @@ class PreloadPipeline:
             self._emit("styles", 90, "Extracting styles...")
             style_index = self._step_styles()
 
-            # Step 10: Write cache
+            # Step 10: Structure analysis (LLM)
+            self._emit("structure", 93, "Analyzing file structure...")
+            self._step_structure(schemas)
+
+            # Step 11: Write cache
             self._emit("done", 95, "Writing cache...")
             self._step_write_cache(schemas, stats, formula_result, style_index)
 
@@ -137,6 +144,7 @@ class PreloadPipeline:
                 schema_path=cfg.schema_path,
                 stats_path=cfg.stats_path,
                 duckdb_path=cfg.duckdb_path,
+                structure_path=cfg.structure_path,
                 duration_ms=elapsed,
             )
         except Exception as e:
@@ -148,6 +156,7 @@ class PreloadPipeline:
                 schema_path=cfg.schema_path,
                 stats_path=cfg.stats_path,
                 duckdb_path=cfg.duckdb_path,
+                structure_path=cfg.structure_path,
                 duration_ms=elapsed,
                 error_message=traceback.format_exc(),
             )
@@ -209,6 +218,51 @@ class PreloadPipeline:
     def _step_styles(self) -> StyleIndex:
         """Extract style index."""
         return StyleExtractor.extract(self._config.working_path)
+
+    def _step_structure(self, schemas: list[SheetSchema]) -> None:
+        """Run structure analysis via LLM and write result to cache."""
+        cfg = self._config
+        if not cfg.structure_path:
+            return
+
+        from .structure_analyzer import StructureAnalyzer
+
+        # Build merged cells map from schemas
+        merged_cells_map: dict[str, list[str]] = {}
+        for s in schemas:
+            if s.merged_cells:
+                merged_cells_map[s.name] = s.merged_cells
+
+        # Build schema summary for LLM context
+        schema_summary: dict[str, dict] = {}
+        for s in schemas:
+            schema_summary[s.name] = {
+                "columns": [
+                    {"name": c.name, "dtype": c.dtype, "col_letter": c.col_letter}
+                    for c in s.columns
+                ],
+                "row_count": s.row_count,
+                "col_count": s.col_count,
+            }
+
+        api_key = os.environ.get("LLM_API_KEY", "")
+        model = os.environ.get("LLM_MODEL", "claude-sonnet-4-20250514")
+        base_url = os.environ.get("LLM_BASE_URL") or None
+
+        result = StructureAnalyzer.analyze(
+            file_id=cfg.file_id,
+            file_path=cfg.working_path,
+            api_key=api_key,
+            model=model,
+            base_url=base_url,
+            merged_cells_map=merged_cells_map,
+            schema_summary=schema_summary,
+        )
+
+        # Write result to cache
+        os.makedirs(os.path.dirname(cfg.structure_path), exist_ok=True)
+        with open(cfg.structure_path, "w", encoding="utf-8") as f:
+            json.dump(result.to_dict(), f, ensure_ascii=False, indent=2)
 
     def _step_write_cache(
         self,

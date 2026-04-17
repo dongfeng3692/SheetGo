@@ -52,19 +52,25 @@ class LLMProvider:
     # ------------------------------------------------------------------ #
 
     @staticmethod
-    def _convert_messages(messages: list[dict]) -> tuple[str, list[dict]]:
+    def _convert_messages(messages: list[dict]) -> tuple[str | list[dict], list[dict]]:
         """将内部消息格式转为 Anthropic API 格式
 
         Returns: (system_prompt, anthropic_messages)
+        system_prompt can be a string or a list of content blocks with cache_control.
         """
-        system = ""
+        system: str | list[dict] = ""
         result: list[dict] = []
 
         for msg in messages:
             role = msg.get("role", "user")
 
             if role == "system":
-                system = msg.get("content", "") or ""
+                content = msg.get("content", "")
+                # Support content blocks (list of dicts with cache_control) or plain string
+                if isinstance(content, list):
+                    system = content
+                else:
+                    system = content or ""
                 continue
 
             if role == "user":

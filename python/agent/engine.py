@@ -90,10 +90,13 @@ class AgentEngine:
         """执行一次完整对话循环"""
         self._cancelled = False
 
-        # 构建 system prompt
+        # 构建 system prompt (content blocks with cache_control)
         ctx = PromptContext(
             file_paths=state.file_paths,
             db_paths=state.db_paths,
+            schemas=state.schemas,
+            samples=state.samples,
+            structures=state.structures,
             workspace_dir=state.workspace_dir,
         )
         system_prompt = self.prompt.build_system_prompt(ctx)

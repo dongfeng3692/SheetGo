@@ -527,13 +527,22 @@ class TestTokenTracking:
 class TestPromptBuilder:
     """测试: Prompt 构建"""
 
+    @staticmethod
+    def _extract_text(prompt) -> str:
+        """Extract text from prompt (string or content blocks list)."""
+        if isinstance(prompt, str):
+            return prompt
+        # Content blocks: [{"type": "text", "text": "..."}, ...]
+        return " ".join(b.get("text", "") for b in prompt if isinstance(b, dict))
+
     def test_system_prompt_contains_intro(self):
         builder = PromptBuilder()
         ctx = PromptContext()
         prompt = builder.build_system_prompt(ctx)
+        text = self._extract_text(prompt)
 
-        assert "Exceler AI" in prompt
-        assert "tool" in prompt.lower()
+        assert "Exceler AI" in text
+        assert "tool" in text.lower()
 
     def test_system_prompt_with_file_paths(self):
         builder = PromptBuilder()
@@ -542,8 +551,9 @@ class TestPromptBuilder:
             db_paths={"f001": "/cache/f001.duckdb"},
         )
         prompt = builder.build_system_prompt(ctx)
-        assert "/data/report.xlsx" in prompt
-        assert "/cache/f001.duckdb" in prompt
+        text = self._extract_text(prompt)
+        assert "/data/report.xlsx" in text
+        assert "/cache/f001.duckdb" in text
 
     def test_system_prompt_with_schema(self):
         builder = PromptBuilder()
@@ -551,7 +561,8 @@ class TestPromptBuilder:
             schemas={"f001": {"sheets": [{"name": "Sheet1", "columns": [{"name": "A", "type": "str"}], "row_count": 100}]}},
         )
         prompt = builder.build_system_prompt(ctx)
-        assert "Sheet1" in prompt
+        text = self._extract_text(prompt)
+        assert "Sheet1" in text
 
     def test_builder_pattern_renders_sections(self):
         prompt = (
