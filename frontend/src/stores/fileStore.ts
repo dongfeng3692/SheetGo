@@ -19,7 +19,28 @@ const [fileState, setFileState] = createStore<FileState>({
   preloadStatus: {},
 });
 
-export const setFiles = (files: FileInfo[]) => setFileState("files", files);
+export const setFiles = (files: FileInfo[]) => {
+  setFileState("files", files);
+
+  const activeFileId = fileState.activeFileId;
+  if (!activeFileId) {
+    if (files.length === 0) {
+      setFileState("activeSheet", "Sheet1");
+    }
+    return;
+  }
+
+  const activeFile = files.find((file) => file.fileId === activeFileId);
+  if (!activeFile) {
+    setFileState("activeFileId", null);
+    setFileState("activeSheet", "Sheet1");
+    return;
+  }
+
+  if (activeFile.sheets.length > 0 && !activeFile.sheets.includes(fileState.activeSheet)) {
+    setFileState("activeSheet", activeFile.sheets[0]);
+  }
+};
 export const setActiveFileId = (id: string | null) =>
   setFileState("activeFileId", id);
 export const setActiveSheet = (sheet: string) =>

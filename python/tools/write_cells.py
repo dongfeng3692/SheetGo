@@ -74,7 +74,7 @@ def _get_merged_non_topleft(file_path: str, sheet_name: str) -> set[str]:
 
 def _parse_range_str(range_str: str, sheet: str) -> Any:
     """将 'A1:D10' 解析为 CellRange。"""
-    from excel.models import CellRange, parse_cell_ref
+    from ..excel.models import CellRange, parse_cell_ref
 
     parts = range_str.split(":")
     start_col, start_row = parse_cell_ref(parts[0])
@@ -137,8 +137,8 @@ class WriteCellsTool(BaseTool):
         values: list[list[Any]],
         **kwargs,
     ) -> Any:
-        from excel.models import CellEdit, col_number, col_letter, parse_cell_ref
-        from excel.writer import ExcelWriter
+        from ..excel.models import CellEdit, col_number, col_letter, parse_cell_ref
+        from ..excel.writer import ExcelWriter
 
         start_col, start_row = parse_cell_ref(range.split(":")[0])
 
@@ -203,7 +203,7 @@ class AddFormulaTool(BaseTool):
         formula: str,
         **kwargs,
     ) -> Any:
-        from excel.writer import ExcelWriter
+        from ..excel.writer import ExcelWriter
 
         writer = ExcelWriter()
         result = writer.add_formula(file_path, sheet, cell, formula)
@@ -251,7 +251,7 @@ class AddColumnTool(BaseTool):
         formula: str | None = None,
         **kwargs,
     ) -> Any:
-        from excel.writer import ExcelWriter
+        from ..excel.writer import ExcelWriter
 
         writer = ExcelWriter()
         result = writer.add_column(
@@ -305,7 +305,7 @@ class InsertRowTool(BaseTool):
         formula: dict[str, str] | None = None,
         **kwargs,
     ) -> Any:
-        from excel.writer import ExcelWriter
+        from ..excel.writer import ExcelWriter
 
         writer = ExcelWriter()
         result = writer.insert_row(file_path, sheet, at_row, values, formula)
@@ -357,8 +357,8 @@ class CreateChartTool(BaseTool):
         title: str | None = None,
         **kwargs,
     ) -> Any:
-        from excel.chart_engine import ChartEngine
-        from excel.models import ChartConfig
+        from ..excel.chart_engine import ChartEngine
+        from ..excel.models import ChartConfig
 
         source_range = _parse_range_str(data_range, sheet)
         config = ChartConfig(
@@ -425,8 +425,8 @@ class ApplyStyleTool(BaseTool):
         style: dict,
         **kwargs,
     ) -> Any:
-        from excel.models import parse_cell_ref
-        from excel.style_engine import StyleEngine
+        from ..excel.models import parse_cell_ref
+        from ..excel.style_engine import StyleEngine
 
         parts = range.split(":")
         start_col, start_row = parse_cell_ref(parts[0])
@@ -548,7 +548,7 @@ class QueryDataTool(BaseTool):
     async def execute(self, file_path: str, sql: str, max_rows: int = 100, **kwargs) -> Any:
         import duckdb
         import pandas as pd
-        from excel.duckdb_query import DuckDBQuery
+        from ..excel.duckdb_query import DuckDBQuery
 
         is_valid, error = DuckDBQuery.validate_sql(sql)
         if not is_valid:
@@ -562,7 +562,7 @@ class QueryDataTool(BaseTool):
             sheet_schemas: dict[str, list[str]] = {}
             for sheet_name in xlsx.sheet_names:
                 df = pd.read_excel(xlsx, sheet_name=sheet_name, header=None)
-                from tools.read_sheet import _col_letter
+                from .read_sheet import _col_letter
                 df.columns = [_col_letter(i) for i in range(len(df.columns))]
 
                 # Auto-cast: try to convert each column to numeric

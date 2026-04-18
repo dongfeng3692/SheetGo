@@ -7,7 +7,8 @@ import os
 import shutil
 import time
 import traceback
-from dataclasses import dataclass, field
+from datetime import date, datetime, time as time_value
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
@@ -174,6 +175,10 @@ class PreloadPipeline:
         """Copy source file to working directory."""
         cfg = self._config
         os.makedirs(os.path.dirname(cfg.working_path), exist_ok=True)
+        source_path = os.path.abspath(cfg.source_path)
+        working_path = os.path.abspath(cfg.working_path)
+        if source_path == working_path:
+            return
         shutil.copy2(cfg.source_path, cfg.working_path)
 
     def _step_read(self) -> dict[str, pd.DataFrame]:
@@ -260,9 +265,7 @@ class PreloadPipeline:
         )
 
         # Write result to cache
-        os.makedirs(os.path.dirname(cfg.structure_path), exist_ok=True)
-        with open(cfg.structure_path, "w", encoding="utf-8") as f:
-            json.dump(result.to_dict(), f, ensure_ascii=False, indent=2)
+        _write_json_file(cfg.structure_path, result.to_dict())
 
     def _step_write_cache(
         self,
@@ -273,19 +276,16 @@ class PreloadPipeline:
     ) -> None:
         """Write schema and stats JSON files."""
         cfg = self._config
-        os.makedirs(os.path.dirname(cfg.schema_path), exist_ok=True)
 
         # Schema JSON
         schema_data = {
             "fileId": cfg.file_id,
             "sheets": [s.to_dict() for s in schemas],
         }
-        with open(cfg.schema_path, "w", encoding="utf-8") as f:
-            json.dump(schema_data, f, ensure_ascii=False, indent=2)
+        _write_json_file(cfg.schema_path, schema_data)
 
         # Stats JSON
-        with open(cfg.stats_path, "w", encoding="utf-8") as f:
-            json.dump(stats.to_dict(), f, ensure_ascii=False, indent=2)
+        _write_json_file(cfg.stats_path, stats.to_dict())
 
     def _attach_formulas(
         self,
@@ -312,13 +312,50 @@ class PreloadPipeline:
         """Read cached schema JSON."""
         if not os.path.isfile(schema_path):
             return None
-        with open(schema_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            with open(schema_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            return None
 
     @staticmethod
     def get_stats(stats_path: str) -> dict | None:
         """Read cached stats JSON."""
         if not os.path.isfile(stats_path):
             return None
-        with open(stats_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            with open(stats_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            return None
+
+
+def _json_default(value: Any) -> Any:
+    """Serialize values that Python's json encoder cannot handle by default."""
+    if isinstance(value, pd.Timestamp):
+        return value.isoformat()
+    if isinstance(value, (datetime, date, time_value)):
+        return value.isoformat()
+    if isinstance(value, Path):
+        return str(value)
+    if hasattr(value, "item"):
+        item = value.item()
+        if item is not value:
+            return _json_default(item)
+    raise TypeError(f"Object of type {type(value).__name__} is not JSON serializable")
+
+
+def _write_json_file(target_path: str, payload: Any) -> None:
+    """Write JSON atomically so failed serialization never leaves a broken cache file."""
+    os.makedirs(os.path.dirname(target_path), exist_ok=True)
+    temp_path = f"{target_path}.tmp"
+    try:
+        with open(temp_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2, default=_json_default)
+        os.replace(temp_path, target_path)
+    finally:
+        if os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except OSError:
+                pass

@@ -5,8 +5,12 @@ export interface ToolCallInfo {
   name: string;
   arguments: Record<string, unknown>;
   status: "pending" | "executing" | "success" | "error" | "confirm";
+  startedAt: number;
+  updatedAt: number;
+  finishedAt?: number;
   result?: string;
   error?: string;
+  progressMessage?: string;
 }
 
 export interface ChatMessage {
@@ -35,6 +39,10 @@ const [chatState, setChatState] = createStore<ChatState>({
 
 export const addMessage = (msg: ChatMessage) => {
   setChatState("messages", (prev) => [...prev, msg]);
+};
+
+export const setMessages = (messages: ChatMessage[]) => {
+  setChatState("messages", messages);
 };
 
 export const updateLastMessageContent = (content: string) => {
@@ -75,11 +83,23 @@ export const updateToolCallStatus = (
   callId: string,
   status: ToolCallInfo["status"],
   result?: string,
-  error?: string
+  error?: string,
+  progressMessage?: string
 ) => {
   setChatState("currentToolCalls", (prev) =>
     prev.map((c) =>
-      c.callId === callId ? { ...c, status, result, error } : c
+      c.callId === callId
+        ? {
+            ...c,
+            status,
+            updatedAt: Date.now(),
+            finishedAt: status === "executing" ? undefined : Date.now(),
+            result: result ?? c.result,
+            error: error ?? c.error,
+            progressMessage:
+              status === "executing" ? (progressMessage ?? c.progressMessage) : undefined,
+          }
+        : c
     )
   );
 };

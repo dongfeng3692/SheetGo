@@ -1,6 +1,14 @@
 import * as XLSX from "xlsx";
 import type { IWorkbookData, ICellData, IWorksheetData } from "@univerjs/presets";
 
+export type WorkbookEditValue = string | number | boolean | null;
+
+export interface WorkbookCellEdit {
+  sheet: string;
+  cell: string;
+  value: WorkbookEditValue;
+}
+
 function base64ToBytes(b64: string): Uint8Array {
   const bin = atob(b64);
   const bytes = new Uint8Array(bin.length);
@@ -103,4 +111,105 @@ export function parseExcelToUniver(b64: string): IWorkbookData {
 /** Extract sheet names from the workbook data */
 export function getSheetNames(data: IWorkbookData): string[] {
   return data.sheetOrder.map((id) => (data.sheets[id] as IWorksheetData).name);
+}
+
+function getSheetsByName(data: IWorkbookData): Map<string, IWorksheetData> {
+  const map = new Map<string, IWorksheetData>();
+  for (const sheetId of data.sheetOrder) {
+    const sheet = data.sheets[sheetId] as IWorksheetData | undefined;
+    if (sheet?.name) {
+      map.set(sheet.name, sheet);
+    }
+  }
+  return map;
+}
+
+function normalizeCellValue(cell: ICellData | null | undefined): WorkbookEditValue {
+  if (!cell) {
+    return null;
+  }
+
+  const formula = typeof cell.f === "string" ? cell.f.trim() : "";
+  if (formula) {
+    return formula.startsWith("=") ? formula : `=${formula}`;
+  }
+
+  if (cell.v === undefined || cell.v === null) {
+    return null;
+  }
+
+  if (
+    typeof cell.v === "string" ||
+    typeof cell.v === "number" ||
+    typeof cell.v === "boolean"
+  ) {
+    return cell.v;
+  }
+
+  return String(cell.v);
+}
+
+function cellValuesEqual(left: WorkbookEditValue, right: WorkbookEditValue): boolean {
+  return left === right;
+}
+
+export function buildWorkbookCellEdits(
+  original: IWorkbookData,
+  current: IWorkbookData
+): WorkbookCellEdit[] {
+  const originalSheets = getSheetsByName(original);
+  const currentSheets = getSheetsByName(current);
+
+  if (originalSheets.size !== currentSheets.size) {
+    throw new Error("暂不支持新增或删除工作表，请只修改现有单元格内容。");
+  }
+
+  for (const sheetName of originalSheets.keys()) {
+    if (!currentSheets.has(sheetName)) {
+      throw new Error("暂不支持重命名工作表，请只修改现有单元格内容。");
+    }
+  }
+
+  const edits: WorkbookCellEdit[] = [];
+
+  for (const [sheetName, originalSheet] of originalSheets.entries()) {
+    const currentSheet = currentSheets.get(sheetName);
+    if (!currentSheet) {
+      continue;
+    }
+
+    const originalRows = (originalSheet.cellData ?? {}) as Record<number, Record<number, ICellData>>;
+    const currentRows = (currentSheet.cellData ?? {}) as Record<number, Record<number, ICellData>>;
+
+    const rowIndexes = new Set<number>([
+      ...Object.keys(originalRows).map((value) => Number(value)),
+      ...Object.keys(currentRows).map((value) => Number(value)),
+    ]);
+
+    for (const rowIndex of [...rowIndexes].sort((left, right) => left - right)) {
+      const originalCols = originalRows[rowIndex] ?? {};
+      const currentCols = currentRows[rowIndex] ?? {};
+      const colIndexes = new Set<number>([
+        ...Object.keys(originalCols).map((value) => Number(value)),
+        ...Object.keys(currentCols).map((value) => Number(value)),
+      ]);
+
+      for (const colIndex of [...colIndexes].sort((left, right) => left - right)) {
+        const previousValue = normalizeCellValue(originalCols[colIndex]);
+        const nextValue = normalizeCellValue(currentCols[colIndex]);
+
+        if (cellValuesEqual(previousValue, nextValue)) {
+          continue;
+        }
+
+        edits.push({
+          sheet: sheetName,
+          cell: XLSX.utils.encode_cell({ r: rowIndex, c: colIndex }),
+          value: nextValue,
+        });
+      }
+    }
+  }
+
+  return edits;
 }

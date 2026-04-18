@@ -73,11 +73,11 @@ class WriteQueryTool(BaseTool):
         clear_old: bool = True,
         **kwargs,
     ) -> Any:
-        from excel.duckdb_query import DuckDBQuery
-        from excel.models import CellEdit, col_number, col_letter, parse_cell_ref
-        from excel.writer import ExcelWriter
-        from tools.read_sheet import _col_letter as _cl
-        from tools.write_cells import _coerce_value
+        from ..excel.duckdb_query import DuckDBQuery
+        from ..excel.models import CellEdit, col_number, col_letter, parse_cell_ref
+        from ..excel.writer import ExcelWriter
+        from .read_sheet import _col_letter as _cl
+        from .write_cells import _coerce_value
 
         # Accept both 'range' and 'cell_range' parameter names
         target_range = range or cell_range or ""

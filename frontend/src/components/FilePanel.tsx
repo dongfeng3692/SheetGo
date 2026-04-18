@@ -18,6 +18,7 @@ import {
   uploadFile,
 } from "../lib/tauri-bridge";
 import { formatPreloadLabel } from "../lib/preload-display";
+import { openParseInspector } from "../stores/inspectorStore";
 
 type NativeFile = File & { path?: string };
 
@@ -30,12 +31,34 @@ const FilePanel: Component<FilePanelProps> = (props) => {
   const [dragOver, setDragOver] = createSignal(false);
   const [errorMsg, setErrorMsg] = createSignal("");
 
-  const hasSupportedExcelExtension = (filePath: string) => /\.(xlsx|xls|xlsm)$/i.test(filePath);
+  const hasSupportedExcelExtension = (filePath: string) => /\.(xlsx|xlsm)$/i.test(filePath);
+  const normalizeUiError = (error: unknown, fallback = "发生未知错误，请稍后重试。") => {
+    const raw =
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+          ? error
+          : error
+            ? String(error)
+            : "";
+
+    const cleaned = raw
+      .replace(/^Error:\s*/i, "")
+      .replace(/^(?:Internal error|RuntimeError|ValueError|TypeError):\s*/i, "")
+      .trim();
+
+    return cleaned || fallback;
+  };
 
   onMount(() => {
     let dispose = () => {};
     void onPreloadProgress((progress) => {
       updatePreloadProgress(progress.fileId, progress);
+      if (progress.stage === "error") {
+        setErrorMsg(`导入失败：${normalizeUiError(progress.message, "文件预处理失败。")}`);
+        setTimeout(() => removePreloadProgress(progress.fileId), 2200);
+        return;
+      }
       if (progress.stage === "done") {
         if (sessionState.activeSessionId) {
           void listFiles(sessionState.activeSessionId).then((files) => setFiles(files));
@@ -64,18 +87,24 @@ const FilePanel: Component<FilePanelProps> = (props) => {
       const files = await listFiles(sessionId);
       setFiles(files);
       selectFile(uploaded.fileId);
+      openParseInspector();
     } catch (error) {
       console.error("Upload failed:", error);
-      setErrorMsg(`导入失败：${String(error)}`);
+      setErrorMsg(`导入失败：${normalizeUiError(error)}`);
     } finally {
       setFileLoading(false);
     }
   };
 
   const handlePickFile = async () => {
-    const filePath = await pickExcelFile();
-    if (filePath) {
-      await doUpload(filePath);
+    try {
+      const filePath = await pickExcelFile();
+      if (filePath) {
+        await doUpload(filePath);
+      }
+    } catch (error) {
+      console.error("Pick file failed:", error);
+      setErrorMsg(`打开文件失败：${normalizeUiError(error)}`);
     }
   };
 
@@ -94,7 +123,7 @@ const FilePanel: Component<FilePanelProps> = (props) => {
     }
 
     if (validPaths.length === 0) {
-      setErrorMsg("仅支持 `.xlsx`、`.xls` 或 `.xlsm` 文件。");
+      setErrorMsg("仅支持 `.xlsx` 或 `.xlsm` 文件。");
       return;
     }
 
@@ -114,7 +143,7 @@ const FilePanel: Component<FilePanelProps> = (props) => {
       removeFileFromStore(fileId);
     } catch (error) {
       console.error("Failed to remove file:", error);
-      setErrorMsg(`删除文件失败：${String(error)}`);
+      setErrorMsg(`删除文件失败：${normalizeUiError(error)}`);
     }
   };
 
@@ -251,7 +280,7 @@ const FilePanel: Component<FilePanelProps> = (props) => {
           >
             <div class="text-sm font-medium text-[var(--text-primary)]">拖入或选择 Excel 文件</div>
             <div class="mt-1 text-xs leading-6 text-[var(--text-secondary)]">
-              支持 `.xlsx` / `.xls`，导入后会自动出现在上方列表。
+              支持 `.xlsx` / `.xlsm`，导入后会自动出现在上方列表。
             </div>
           </div>
         </div>

@@ -1,23 +1,68 @@
 import type { Accessor, Component } from "solid-js";
-import { Show, createEffect, createSignal } from "solid-js";
-import { getConfig, saveConfig } from "../lib/tauri-bridge";
-import type { AppConfig } from "../lib/tauri";
+import { For, Show, createEffect, createSignal } from "solid-js";
+import {
+  getConfig,
+  getDiagnostics,
+  openDesktopLog,
+  openLogsDirectory,
+  readDesktopLog,
+  saveConfig,
+} from "../lib/tauri-bridge";
+import {
+  applyUiTheme,
+  resolveThemeMode,
+  resolveThemePreset,
+  themeModeOptions,
+  themePresets,
+} from "../lib/themes";
+import type { AppConfig, DiagnosticsInfo } from "../lib/tauri";
 
 interface Props {
   open: Accessor<boolean>;
   onClose: () => void;
 }
 
-function applyTheme(theme: AppConfig["ui"]["theme"]) {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const shouldUseDark = theme === "dark" || (theme === "system" && prefersDark);
-  document.documentElement.classList.toggle("dark", shouldUseDark);
-}
-
 const Settings: Component<Props> = (props) => {
   const [config, setConfig] = createSignal<AppConfig | null>(null);
+  const [diagnostics, setDiagnostics] = createSignal<DiagnosticsInfo | null>(null);
+  const [desktopLog, setDesktopLog] = createSignal("");
+  const [diagnosticError, setDiagnosticError] = createSignal<string | null>(null);
+  const [loadingLog, setLoadingLog] = createSignal(false);
   const [saving, setSaving] = createSignal(false);
   const [saveError, setSaveError] = createSignal<string | null>(null);
+
+  const normalizeUiError = (error: unknown, fallback = "操作失败，请稍后重试。") => {
+    const raw =
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+          ? error
+          : error
+            ? String(error)
+            : "";
+
+    const cleaned = raw
+      .replace(/^Error:\s*/i, "")
+      .replace(/^(?:Internal error|RuntimeError|ValueError|TypeError):\s*/i, "")
+      .trim();
+
+    return cleaned || fallback;
+  };
+
+  const refreshDiagnostics = async () => {
+    setLoadingLog(true);
+    setDiagnosticError(null);
+    try {
+      const [info, logText] = await Promise.all([getDiagnostics(), readDesktopLog(120000)]);
+      setDiagnostics(info);
+      setDesktopLog(logText);
+    } catch (error) {
+      console.error("Failed to load diagnostics:", error);
+      setDiagnosticError(normalizeUiError(error, "读取日志失败。"));
+    } finally {
+      setLoadingLog(false);
+    }
+  };
 
   createEffect(() => {
     if (!props.open()) {
@@ -25,6 +70,7 @@ const Settings: Component<Props> = (props) => {
     }
     setSaveError(null);
     void getConfig().then((value) => setConfig(value));
+    void refreshDiagnostics();
   });
 
   const updateLlm = (key: keyof AppConfig["llm"], value: string | number) => {
@@ -60,6 +106,8 @@ const Settings: Component<Props> = (props) => {
       ...value,
       ui: {
         ...value.ui,
+        theme: resolveThemeMode(value.ui.theme),
+        themePreset: resolveThemePreset(value.ui.themePreset),
         language: "zh-CN",
       },
     };
@@ -68,13 +116,33 @@ const Settings: Component<Props> = (props) => {
     setSaveError(null);
     try {
       await saveConfig(normalizedConfig);
-      applyTheme(normalizedConfig.ui.theme);
+      applyUiTheme(normalizedConfig.ui);
       props.onClose();
     } catch (error) {
       console.error("Failed to save config:", error);
       setSaveError(`保存设置失败：${String(error)}`);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleOpenLogFile = async () => {
+    setDiagnosticError(null);
+    try {
+      await openDesktopLog();
+    } catch (error) {
+      console.error("Failed to open desktop log:", error);
+      setDiagnosticError(normalizeUiError(error, "打开日志文件失败。"));
+    }
+  };
+
+  const handleOpenLogsDirectory = async () => {
+    setDiagnosticError(null);
+    try {
+      await openLogsDirectory();
+    } catch (error) {
+      console.error("Failed to open logs directory:", error);
+      setDiagnosticError(normalizeUiError(error, "打开日志目录失败。"));
     }
   };
 
@@ -190,24 +258,68 @@ const Settings: Component<Props> = (props) => {
                 <div>
                   <div class="text-sm font-semibold text-[var(--text-primary)]">外观</div>
                   <div class="mt-1 text-sm text-[var(--text-secondary)]">
-                    界面主题可切换为浅色、深色，或跟随系统。
+                    把配色模式和界面风格拆开，后续新增主题也能继续复用。
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <div class="field-label">配色模式</div>
+                  <div class="theme-mode-grid">
+                    <For each={themeModeOptions}>
+                      {(option) => (
+                        <button
+                          type="button"
+                          class="theme-mode-chip"
+                          classList={{ active: config()!.ui.theme === option.id }}
+                          onClick={() => updateUi("theme", option.id)}
+                        >
+                          <span class="theme-mode-title">{option.label}</span>
+                          <span class="theme-mode-description">{option.description}</span>
+                        </button>
+                      )}
+                    </For>
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <div class="field-label">主题风格</div>
+                  <div class="theme-preset-grid">
+                    <For each={themePresets}>
+                      {(preset) => (
+                        <button
+                          type="button"
+                          class="theme-preset-card"
+                          data-theme-preview={preset.id}
+                          classList={{ active: config()!.ui.themePreset === preset.id }}
+                          onClick={() => updateUi("themePreset", preset.id)}
+                        >
+                          <div class="theme-preset-head">
+                            <div>
+                              <div class="theme-preset-title">{preset.label}</div>
+                              <div class="theme-preset-headline">{preset.headline}</div>
+                            </div>
+                            <Show when={config()!.ui.themePreset === preset.id}>
+                              <span class="subtle-pill accent">当前</span>
+                            </Show>
+                          </div>
+
+                          <div class="theme-preset-swatches" aria-hidden="true">
+                            <For each={preset.swatches}>
+                              {(swatch) => (
+                                <span style={{ "background-color": swatch }} />
+                              )}
+                            </For>
+                          </div>
+
+                          <div class="theme-preset-description">{preset.description}</div>
+                          <div class="theme-preset-mood">{preset.mood}</div>
+                        </button>
+                      )}
+                    </For>
                   </div>
                 </div>
 
                 <div class="grid gap-4 md:grid-cols-2">
-                  <label class="field">
-                    <span class="field-label">主题</span>
-                    <select
-                      class="field-input"
-                      value={config()!.ui.theme}
-                      onChange={(event) => updateUi("theme", event.currentTarget.value)}
-                    >
-                      <option value="light">浅色</option>
-                      <option value="dark">深色</option>
-                      <option value="system">跟随系统</option>
-                    </select>
-                  </label>
-
                   <label class="field">
                     <span class="field-label">预览行数</span>
                     <input
@@ -274,6 +386,56 @@ const Settings: Component<Props> = (props) => {
                   />
                   对高风险操作启用沙箱保护
                 </label>
+              </section>
+
+              <section class="surface-muted space-y-4 px-4 py-4">
+                <div>
+                  <div class="text-sm font-semibold text-[var(--text-primary)]">诊断与日志</div>
+                  <div class="mt-1 text-sm text-[var(--text-secondary)]">
+                    上传、预处理和桌面端异常会记录在本地日志里。
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-4 py-3">
+                  <div class="text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+                    日志文件
+                  </div>
+                  <div class="mt-2 break-all font-mono text-[11px] leading-5 text-[var(--text-secondary)]">
+                    {diagnostics()?.logFilePath ?? "正在读取..."}
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <button class="soft-btn" onClick={() => void refreshDiagnostics()} disabled={loadingLog()}>
+                    {loadingLog() ? "刷新中..." : "刷新日志"}
+                  </button>
+                  <button class="soft-btn" onClick={() => void handleOpenLogFile()}>
+                    打开日志文件
+                  </button>
+                  <button class="soft-btn" onClick={() => void handleOpenLogsDirectory()}>
+                    打开日志目录
+                  </button>
+                </div>
+
+                <Show when={diagnosticError()}>
+                  {(message) => (
+                    <div class="rounded-2xl border border-[var(--border-strong)] bg-[var(--warning-soft)] px-3 py-2 text-xs text-[var(--warning-text)]">
+                      {message()}
+                    </div>
+                  )}
+                </Show>
+
+                <div class="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)]">
+                  <div class="flex items-center justify-between gap-3 border-b border-[var(--border-subtle)] px-4 py-3">
+                    <div class="text-xs uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+                      最近日志
+                    </div>
+                    <span class="subtle-pill">
+                      {loadingLog() ? "刷新中" : desktopLog() ? "已加载" : "暂无记录"}
+                    </span>
+                  </div>
+                  <pre class="max-h-72 overflow-auto whitespace-pre-wrap break-all px-4 py-4 font-mono text-[11px] leading-5 text-[var(--text-secondary)]">{desktopLog() || "当前还没有桌面日志。发生导入或预处理错误后，这里会显示最近记录。"}</pre>
+                </div>
               </section>
             </Show>
           </div>

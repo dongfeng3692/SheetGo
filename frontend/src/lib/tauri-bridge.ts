@@ -7,6 +7,8 @@
 export type {
   UploadResult,
   FileInfo,
+  WorkbookCellEdit,
+  SaveWorkbookResult,
   FileChangeInfo,
   ChatRequest,
   ToolCall,
@@ -14,6 +16,8 @@ export type {
   ChatResponse,
   StreamEvent,
   PreloadProgress,
+  DiagnosticsInfo,
+  ParsedArtifacts,
   Session,
   SnapshotInfo,
   RollbackResult,
@@ -46,6 +50,7 @@ export const listFiles = wrap<typeof import("./tauri").listFiles>("listFiles");
 export const removeFile = wrap<typeof import("./tauri").removeFile>("removeFile");
 export const getFileInfo = wrap<typeof import("./tauri").getFileInfo>("getFileInfo");
 export const getFileBytes = wrap<typeof import("./tauri").getFileBytes>("getFileBytes");
+export const saveWorkbookEdits = wrap<typeof import("./tauri").saveWorkbookEdits>("saveWorkbookEdits");
 export const sendMessage = wrap<typeof import("./tauri").sendMessage>("sendMessage");
 export const sendMessageStream = wrap<typeof import("./tauri").sendMessageStream>("sendMessageStream");
 export const stopGeneration = wrap<typeof import("./tauri").stopGeneration>("stopGeneration");
@@ -56,8 +61,14 @@ export const deleteSession = wrap<typeof import("./tauri").deleteSession>("delet
 export const rollbackSnapshot = wrap<typeof import("./tauri").rollbackSnapshot>("rollbackSnapshot");
 export const getSnapshots = wrap<typeof import("./tauri").getSnapshots>("getSnapshots");
 export const getHistory = wrap<typeof import("./tauri").getHistory>("getHistory");
+export const saveHistory = wrap<typeof import("./tauri").saveHistory>("saveHistory");
 export const getConfig = wrap<typeof import("./tauri").getConfig>("getConfig");
 export const saveConfig = wrap<typeof import("./tauri").saveConfig>("saveConfig");
+export const getDiagnostics = wrap<typeof import("./tauri").getDiagnostics>("getDiagnostics");
+export const readDesktopLog = wrap<typeof import("./tauri").readDesktopLog>("readDesktopLog");
+export const openDesktopLog = wrap<typeof import("./tauri").openDesktopLog>("openDesktopLog");
+export const openLogsDirectory = wrap<typeof import("./tauri").openLogsDirectory>("openLogsDirectory");
+export const getParsedArtifacts = wrap<typeof import("./tauri").getParsedArtifacts>("getParsedArtifacts");
 export const onChatStream = wrap<typeof import("./tauri").onChatStream>("onChatStream");
 export const onPreloadProgress = wrap<typeof import("./tauri").onPreloadProgress>("onPreloadProgress");
 export const onFileChanged = wrap<typeof import("./tauri").onFileChanged>("onFileChanged");

@@ -1,5 +1,5 @@
 import type { Component } from "solid-js";
-import { For, Show, createEffect, onCleanup, onMount } from "solid-js";
+import { For, Show, createEffect, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 import {
   addMessage,
   chatState,
@@ -7,6 +7,7 @@ import {
   setChatError,
   setCurrentToolCalls,
   setLastMessageContent,
+  setMessages,
   setStreaming,
   updateLastMessageContent,
   updateToolCallStatus,
@@ -14,30 +15,21 @@ import {
 } from "../stores/chatStore";
 import { fileState } from "../stores/fileStore";
 import { sessionState } from "../stores/sessionStore";
-import { onChatStream, sendMessageStream, stopGeneration } from "../lib/tauri-bridge";
-
-const suggestions = [
-  {
-    title: "概览工作簿",
-    detail: "先梳理工作表、字段和关键列，再决定下一步怎么改。",
-    prompt: "请先概览这个工作簿的主要工作表、字段和关键列。",
-  },
-  {
-    title: "查找异常",
-    detail: "找出异常行、缺失值和可疑模式，并说明为什么值得关注。",
-    prompt: "请找出这份数据里的异常值、缺失项或可疑行，并解释原因。",
-  },
-  {
-    title: "推荐图表",
-    detail: "根据当前数据结构推荐最合适的图表，并说明理由。",
-    prompt: "请为这份数据推荐最合适的图表，并说明原因。",
-  },
-];
+import {
+  getHistory,
+  onChatStream,
+  saveHistory,
+  sendMessageStream,
+  stopGeneration,
+  type HistoryEntry,
+} from "../lib/tauri-bridge";
 
 const toolStatusLabels: Record<string, string> = {
+  pending: "等待中",
   executing: "执行中",
   success: "已完成",
   error: "失败",
+  confirm: "待确认",
 };
 
 const toolNameLabels: Record<string, string> = {
@@ -50,7 +42,7 @@ const toolNameLabels: Record<string, string> = {
 };
 
 const CodeBlock: Component<{ code: string }> = (props) => (
-  <pre class="overflow-auto rounded-2xl bg-[#111111] px-4 py-3 text-xs text-white/90">
+  <pre class="markdown-code overflow-auto rounded-2xl bg-[#111111] px-4 py-3 text-xs text-white/90">
     <code>{props.code}</code>
   </pre>
 );
@@ -78,13 +70,19 @@ const MarkdownText: Component<{ text: string; compact?: boolean }> = (props) => 
   };
 
   return (
-    <div classList={{ "space-y-2": props.compact, "space-y-3": !props.compact }}>
+    <div
+      class="markdown-text"
+      classList={{ compact: props.compact, "space-y-1.5": props.compact, "space-y-2.5": !props.compact }}
+    >
       <For each={parts()}>
         {(part) =>
           part.type === "code" ? (
             <CodeBlock code={part.content} />
           ) : (
-            <div classList={{ "whitespace-pre-wrap leading-6": props.compact, "whitespace-pre-wrap leading-7": !props.compact }}>
+            <div
+              class="markdown-paragraph whitespace-pre-wrap"
+              classList={{ compact: props.compact, "leading-[1.48]": props.compact, "leading-[1.66]": !props.compact }}
+            >
               {part.content}
             </div>
           )
@@ -97,10 +95,104 @@ const MarkdownText: Component<{ text: string; compact?: boolean }> = (props) => 
 const ChatPanel: Component = () => {
   let inputRef: HTMLTextAreaElement | undefined;
   let messagesEndRef: HTMLDivElement | undefined;
+  const [draft, setDraft] = createSignal("");
+  const [toolHistoryExpanded, setToolHistoryExpanded] = createSignal(false);
+  const [loadingHistorySessionId, setLoadingHistorySessionId] = createSignal<string | null>(null);
+  const historySignatures = new Map<string, string>();
+  let historyLoadVersion = 0;
+  let persistHistoryTimer: number | undefined;
+
+  const normalizeHistoryTimestamp = (value: number) => (value > 1e12 ? value : value * 1000);
+
+  const mapHistoryToMessages = (entries: HistoryEntry[]): ChatMessage[] =>
+    entries.map((entry) => ({
+      messageId: entry.messageId,
+      role: entry.role,
+      content: entry.content,
+      timestamp: normalizeHistoryTimestamp(entry.createdAt),
+    }));
+
+  const mapMessagesToHistory = (messages: ChatMessage[]): HistoryEntry[] =>
+    messages
+      .filter(
+        (message): message is ChatMessage & { role: HistoryEntry["role"] } =>
+          (message.role === "user" || message.role === "assistant" || message.role === "system") &&
+          message.content.trim().length > 0
+      )
+      .map((message) => ({
+        messageId: message.messageId,
+        role: message.role,
+        content: message.content,
+        createdAt: message.timestamp,
+      }));
 
   createEffect(() => {
-    sessionState.activeSessionId;
+    const sessionId = sessionState.activeSessionId;
+    const currentLoadVersion = ++historyLoadVersion;
+
     clearMessages();
+    setToolHistoryExpanded(false);
+
+    if (!sessionId) {
+      setLoadingHistorySessionId(null);
+      return;
+    }
+
+    setLoadingHistorySessionId(sessionId);
+
+    void getHistory(sessionId)
+      .then((entries) => {
+        if (currentLoadVersion !== historyLoadVersion || sessionState.activeSessionId !== sessionId) {
+          return;
+        }
+
+        const normalizedEntries = Array.isArray(entries) ? entries : [];
+        historySignatures.set(sessionId, JSON.stringify(normalizedEntries));
+        setMessages(mapHistoryToMessages(normalizedEntries));
+        setLoadingHistorySessionId((current) => (current === sessionId ? null : current));
+      })
+      .catch((error) => {
+        if (currentLoadVersion !== historyLoadVersion || sessionState.activeSessionId !== sessionId) {
+          return;
+        }
+
+        console.error("Failed to load chat history:", error);
+        historySignatures.set(sessionId, "[]");
+        setLoadingHistorySessionId((current) => (current === sessionId ? null : current));
+      });
+  });
+
+  createEffect(() => {
+    const sessionId = sessionState.activeSessionId;
+    const loadingSessionId = loadingHistorySessionId();
+    const entries = mapMessagesToHistory(chatState.messages);
+    const signature = JSON.stringify(entries);
+
+    if (!sessionId || loadingSessionId === sessionId) {
+      return;
+    }
+
+    if (historySignatures.get(sessionId) === signature) {
+      return;
+    }
+
+    if (persistHistoryTimer) {
+      window.clearTimeout(persistHistoryTimer);
+    }
+
+    persistHistoryTimer = window.setTimeout(() => {
+      if (sessionState.activeSessionId !== sessionId) {
+        return;
+      }
+
+      void saveHistory(sessionId, entries)
+        .then(() => {
+          historySignatures.set(sessionId, signature);
+        })
+        .catch((error) => {
+          console.error("Failed to persist chat history:", error);
+        });
+    }, chatState.isStreaming ? 720 : 220);
   });
 
   createEffect(() => {
@@ -127,20 +219,40 @@ const ChatPanel: Component = () => {
           break;
         case "tool_call_start":
           if (event.id && event.name) {
+            const now = Date.now();
             setCurrentToolCalls([
               ...chatState.currentToolCalls,
-              { callId: event.id, name: event.name, arguments: {}, status: "executing" },
+              {
+                callId: event.id,
+                name: event.name,
+                arguments: {},
+                status: "executing",
+                startedAt: now,
+                updatedAt: now,
+                progressMessage: "准备执行...",
+              },
             ]);
           }
           break;
         case "tool_call_progress":
           if (event.id) {
-            updateToolCallStatus(event.id, "executing");
+            updateToolCallStatus(
+              event.id,
+              "executing",
+              undefined,
+              undefined,
+              event.message || "正在处理..."
+            );
           }
           break;
         case "tool_call_end":
           if (event.id) {
-            updateToolCallStatus(event.id, event.error ? "error" : "success", event.result ?? undefined, event.error);
+            updateToolCallStatus(
+              event.id,
+              event.error ? "error" : "success",
+              event.result ?? undefined,
+              event.error
+            );
           }
           break;
         case "done":
@@ -155,11 +267,18 @@ const ChatPanel: Component = () => {
       dispose = unlisten;
     });
 
-    onCleanup(() => dispose());
+    onCleanup(() => {
+      dispose();
+      if (persistHistoryTimer) {
+        window.clearTimeout(persistHistoryTimer);
+      }
+    });
   });
 
-  const handleSend = async (presetText?: string) => {
-    const content = presetText ?? inputRef?.value.trim() ?? "";
+  const canSend = createMemo(() => draft().trim().length > 0 && !chatState.isStreaming);
+
+  const handleSend = async () => {
+    const content = draft().trim();
     if (!content) {
       return;
     }
@@ -187,10 +306,11 @@ const ChatPanel: Component = () => {
 
     setChatError(null);
     setCurrentToolCalls([]);
+    setToolHistoryExpanded(false);
     setStreaming(true);
 
     if (inputRef) {
-      inputRef.value = "";
+      setDraft("");
       inputRef.style.height = "auto";
     }
 
@@ -212,9 +332,91 @@ const ChatPanel: Component = () => {
 
   const renderToolStatus = (status: string) => toolStatusLabels[status] ?? status;
   const renderToolName = (name: string) => toolNameLabels[name] ?? name;
+  const latestToolCall = createMemo(
+    () => chatState.currentToolCalls[chatState.currentToolCalls.length - 1] ?? null
+  );
+  const collapsedToolCount = createMemo(() => Math.max(chatState.currentToolCalls.length - 1, 0));
+  const activeToolCount = createMemo(
+    () => chatState.currentToolCalls.filter((call) => call.status === "executing").length
+  );
+  const completedToolRun = createMemo(
+    () => chatState.currentToolCalls.length > 0 && activeToolCount() === 0
+  );
+  const visibleToolCall = createMemo(() => (completedToolRun() ? null : latestToolCall()));
+  const toolRunDurationMs = createMemo(() => {
+    if (chatState.currentToolCalls.length === 0) {
+      return 0;
+    }
+
+    const startedAt = Math.min(...chatState.currentToolCalls.map((call) => call.startedAt));
+    const endedAt = Math.max(
+      ...chatState.currentToolCalls.map((call) => call.finishedAt ?? call.updatedAt)
+    );
+
+    return Math.max(endedAt - startedAt, 0);
+  });
+
+  createEffect(() => {
+    if (activeToolCount() > 0 || chatState.currentToolCalls.length === 0) {
+      setToolHistoryExpanded(false);
+    }
+  });
+
+  const truncateInline = (value: string, max = 72) =>
+    value.length > max ? `${value.slice(0, max).trim()}...` : value;
+
+  const formatDuration = (durationMs: number) => {
+    const totalSeconds = Math.max(1, Math.round(durationMs / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    if (minutes <= 0) {
+      return `${totalSeconds}s`;
+    }
+
+    return `${minutes}m ${String(seconds).padStart(2, "0")}s`;
+  };
+
+  const renderToolSummary = () => {
+    const call = latestToolCall();
+    if (!call) {
+      return "";
+    }
+
+    if (call.status === "executing") {
+      return call.progressMessage || "正在处理...";
+    }
+
+    if (call.status === "error") {
+      return call.error ? truncateInline(call.error) : "执行失败，请查看日志或重试。";
+    }
+
+    if (call.result) {
+      return truncateInline(call.result.replace(/\s+/g, " ").trim());
+    }
+
+    if (collapsedToolCount() > 0) {
+      return `保留最近一条，其余 ${collapsedToolCount()} 条已折叠。`;
+    }
+
+    return "本轮工具调用已完成。";
+  };
+
+  const renderToolHistorySummary = (result?: string, error?: string, progressMessage?: string) => {
+    if (error) {
+      return truncateInline(error, 84);
+    }
+    if (result) {
+      return truncateInline(result.replace(/\s+/g, " ").trim(), 84);
+    }
+    if (progressMessage) {
+      return truncateInline(progressMessage, 84);
+    }
+    return "工具状态已更新。";
+  };
 
   return (
-    <section class="surface-card conversation-panel flex min-h-0 flex-1 flex-col overflow-hidden">
+    <section class="surface-card conversation-panel flex h-full min-h-0 flex-1 flex-col overflow-hidden">
       <header class="panel-header border-b border-[var(--border-subtle)] px-5 py-3">
         <div class="panel-kicker">对话</div>
       </header>
@@ -224,26 +426,15 @@ const ChatPanel: Component = () => {
           when={chatState.messages.length > 0}
           fallback={
             <div class="chat-empty-shell">
-              <div class="panel-kicker">快速开始</div>
-
-              <div class="space-y-2.5">
-                <For each={suggestions}>
-                  {(suggestion) => (
-                    <button class="prompt-card prompt-card-rich" onClick={() => void handleSend(suggestion.prompt)}>
-                      <div class="text-left text-sm font-semibold text-[var(--text-primary)]">
-                        {suggestion.title}
-                      </div>
-                      <div class="prompt-card-action text-xs font-medium text-[var(--text-tertiary)]">
-                        开始
-                      </div>
-                    </button>
-                  )}
-                </For>
+              <div class="chat-empty-mark" aria-hidden="true">
+                <span />
               </div>
+              <div class="chat-empty-title">开始对话</div>
+              <div class="chat-empty-note">输入问题或修改要求</div>
             </div>
           }
         >
-          <div class="mx-auto w-full max-w-3xl space-y-3.5">
+          <div class="chat-thread mx-auto w-full max-w-3xl space-y-2">
             <For each={chatState.messages}>
               {(message: ChatMessage) => (
                 <div
@@ -261,11 +452,11 @@ const ChatPanel: Component = () => {
                     }}
                   >
                     <Show when={message.content}>
-                      <div classList={{ "text-[0.88rem] leading-6": message.role === "user" }}>
-                        <MarkdownText text={message.content} compact={message.role === "user"} />
+                      <div class="message-card-body">
+                        <MarkdownText text={message.content} compact />
                       </div>
                     </Show>
-                    <div class="mt-2 text-[10px] text-[var(--text-tertiary)]">
+                    <div class="message-card-time">
                       {renderTimestamp(message.timestamp)}
                     </div>
                   </div>
@@ -273,26 +464,123 @@ const ChatPanel: Component = () => {
               )}
             </For>
 
-            <Show when={chatState.currentToolCalls.length > 0}>
-              <div class="surface-muted space-y-3 px-4 py-3.5">
-                <div class="panel-kicker">
-                  执行轨迹
-                </div>
-                <For each={chatState.currentToolCalls}>
-                  {(call) => (
-                    <div class="tool-call-row">
-                      <div>
-                        <div class="text-sm font-medium text-[var(--text-primary)]">
-                          {renderToolName(call.name)}
-                        </div>
-                        <div class="mt-1 text-xs text-[var(--text-secondary)]">
-                          工具状态会在这里实时刷新
-                        </div>
-                      </div>
-                      <span class="subtle-pill accent">{renderToolStatus(call.status)}</span>
+            <Show when={visibleToolCall()}>
+              {(call) => (
+                <div
+                  class="tool-call-strip"
+                  classList={{
+                    live: call().status === "executing",
+                    error: call().status === "error",
+                    success: call().status === "success",
+                  }}
+                >
+                  <div class="tool-call-strip-head">
+                    <div class="panel-kicker">工具调用</div>
+                    <div class="tool-call-strip-meta">
+                      <Show when={collapsedToolCount() > 0}>
+                        <span class="tool-call-collapse-badge">
+                          折叠 {collapsedToolCount()} 条
+                        </span>
+                      </Show>
+                      <Show when={activeToolCount() > 0}>
+                        <span class="tool-call-live-chip">运行中 {activeToolCount()}</span>
+                      </Show>
                     </div>
-                  )}
-                </For>
+                  </div>
+
+                  <div class="tool-call-inline">
+                    <div
+                      class="tool-call-orb"
+                      classList={{
+                        live: call().status === "executing",
+                        error: call().status === "error",
+                        success: call().status === "success",
+                      }}
+                      aria-hidden="true"
+                    >
+                      <span class="tool-call-orb-core" />
+                    </div>
+
+                    <div class="min-w-0 flex-1">
+                      <div class="tool-call-title-row">
+                        <div class="tool-call-title">{renderToolName(call().name)}</div>
+                        <span
+                          class="tool-call-status-pill"
+                          classList={{
+                            live: call().status === "executing",
+                            error: call().status === "error",
+                          }}
+                        >
+                          {renderToolStatus(call().status)}
+                        </span>
+                      </div>
+                      <div class="tool-call-summary">{renderToolSummary()}</div>
+                    </div>
+                  </div>
+
+                  <Show when={call().status === "executing"}>
+                    <div class="tool-call-beam" aria-hidden="true">
+                      <span />
+                    </div>
+                  </Show>
+                </div>
+              )}
+            </Show>
+
+            <Show when={completedToolRun()}>
+              <div class="tool-history-shell">
+                <button
+                  type="button"
+                  class="tool-history-toggle"
+                  aria-expanded={toolHistoryExpanded()}
+                  onClick={() => setToolHistoryExpanded((value) => !value)}
+                >
+                  <span class="tool-history-toggle-label">
+                    已处理 {formatDuration(toolRunDurationMs())}
+                  </span>
+                  <span
+                    class="tool-history-toggle-icon"
+                    classList={{ expanded: toolHistoryExpanded() }}
+                    aria-hidden="true"
+                  >
+                    ›
+                  </span>
+                </button>
+
+                <Show when={toolHistoryExpanded()}>
+                  <div class="tool-history-panel">
+                    <div class="tool-history-caption">
+                      共 {chatState.currentToolCalls.length} 个工具步骤
+                    </div>
+                    <div class="tool-history-list">
+                      <For each={chatState.currentToolCalls}>
+                        {(call) => (
+                          <div class="tool-history-item">
+                            <div class="tool-history-item-head">
+                              <div class="tool-history-item-title">{renderToolName(call.name)}</div>
+                              <span
+                                class="tool-history-item-status"
+                                classList={{
+                                  error: call.status === "error",
+                                  live: call.status === "executing",
+                                }}
+                              >
+                                {renderToolStatus(call.status)}
+                              </span>
+                            </div>
+                            <div class="tool-history-item-body">
+                              {renderToolHistorySummary(
+                                call.result,
+                                call.error,
+                                call.progressMessage
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </For>
+                    </div>
+                  </div>
+                </Show>
               </div>
             </Show>
 
@@ -314,48 +602,47 @@ const ChatPanel: Component = () => {
         </Show>
       </div>
 
-      <div class="border-t border-[var(--border-subtle)] p-3.5">
+      <div class="composer-panel">
         <div class="composer-shell">
-          <div class="mb-2.5 flex items-center justify-between gap-3">
-            <div class="panel-kicker">
-              直接提问
-            </div>
-            <div class="flex flex-wrap items-center gap-2 text-[11px] text-[var(--text-tertiary)]">
-              <span class="composer-hint">回车发送</span>
-            </div>
+          <div class="composer-topline">
+            <div class="composer-title">输入</div>
+            <span class="composer-shortcut">Enter 发送</span>
           </div>
 
-          <textarea
-            ref={inputRef}
-            rows={1}
-            class="composer-input"
-            aria-label="消息输入框"
-            placeholder="例如：找出销售额异常的行"
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                void handleSend();
-              }
-            }}
-            onInput={(event) => {
-              event.currentTarget.style.height = "auto";
-              event.currentTarget.style.height = `${Math.min(event.currentTarget.scrollHeight, 160)}px`;
-            }}
-          />
+          <div class="composer-surface">
+            <textarea
+              ref={inputRef}
+              rows={1}
+              class="composer-input"
+              aria-label="消息输入框"
+              placeholder="输入问题或修改要求"
+              value={draft()}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  void handleSend();
+                }
+              }}
+              onInput={(event) => {
+                setDraft(event.currentTarget.value);
+                event.currentTarget.style.height = "auto";
+                event.currentTarget.style.height = `${Math.min(event.currentTarget.scrollHeight, 160)}px`;
+              }}
+            />
 
-          <div class="flex items-center justify-between gap-3">
-            <div class="max-w-[18rem] text-xs leading-5 text-[var(--text-secondary)]">
-              例：找出销售额异常的行
-            </div>
-
-            <div class="flex items-center gap-2">
+            <div class="composer-actions">
               <Show when={chatState.isStreaming}>
-                <button class="soft-btn" onClick={() => void stopGeneration()}>
+                <button class="soft-btn composer-stop-btn" onClick={() => void stopGeneration()}>
                   停止
                 </button>
               </Show>
-              <button class="soft-btn-primary" onClick={() => void handleSend()}>
-                发送
+
+              <button
+                class="soft-btn-primary composer-send-btn"
+                disabled={!canSend()}
+                onClick={() => void handleSend()}
+              >
+                <span class="composer-send-label">发送</span>
               </button>
             </div>
           </div>

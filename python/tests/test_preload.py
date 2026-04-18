@@ -1,5 +1,6 @@
 """Tests for the preload pipeline: schema, stats, formulas, styles, full pipeline."""
 
+from datetime import date
 import json
 import os
 
@@ -137,6 +138,16 @@ class TestSchemaExtractor:
         assert cols[0].null_count == 1
         assert cols[1].null_count == 0
 
+    def test_date_samples_are_json_safe(self):
+        data = {
+            "Dates": pd.DataFrame({
+                "Day": [date(2024, 1, 1), date(2024, 1, 2), None],
+            })
+        }
+        schemas = SchemaExtractor.extract(data)
+        sample = schemas[0].to_dict()["columns"][0]["sample"]
+        assert sample == ["2024-01-01", "2024-01-02"]
+
 
 # ===========================================================================
 # FormulaScanner
@@ -273,6 +284,17 @@ class TestPreloadPipeline:
         assert PreloadPipeline.get_schema("/nonexistent.json") is None
         assert PreloadPipeline.get_stats("/nonexistent.json") is None
 
+    def test_cache_read_none_when_json_is_corrupted(self, tmp_dir):
+        bad_schema = os.path.join(tmp_dir, "broken_schema.json")
+        bad_stats = os.path.join(tmp_dir, "broken_stats.json")
+        with open(bad_schema, "w", encoding="utf-8") as f:
+            f.write('{"fileId":"broken","sheets": [')
+        with open(bad_stats, "w", encoding="utf-8") as f:
+            f.write('{"fileId":"broken","totalSheets": ')
+
+        assert PreloadPipeline.get_schema(bad_schema) is None
+        assert PreloadPipeline.get_stats(bad_stats) is None
+
     def test_idempotent_rerun(self, preload_config):
         pipeline = PreloadPipeline(preload_config)
         r1 = pipeline.run()
@@ -347,3 +369,38 @@ class TestPreloadPipeline:
         assert schema is not None
         columns = schema["sheets"][0]["columns"]
         assert [column["name"] for column in columns] == ["Amount", "Amount"]
+
+    def test_pipeline_serializes_python_date_samples(self, tmp_dir):
+        from openpyxl import Workbook
+
+        source = os.path.join(tmp_dir, "dates.xlsx")
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Sheet1"
+        ws["A1"] = "Day"
+        ws["A2"] = date(2024, 1, 1)
+        ws["A3"] = date(2024, 1, 2)
+        wb.save(source)
+        wb.close()
+
+        cache_dir = os.path.join(tmp_dir, "cache_dates")
+        working_dir = os.path.join(tmp_dir, "working_dates")
+        os.makedirs(cache_dir, exist_ok=True)
+        os.makedirs(working_dir, exist_ok=True)
+
+        cfg = PreloadConfig(
+            file_id="dates",
+            source_path=source,
+            working_path=os.path.join(working_dir, "dates.xlsx"),
+            duckdb_path=os.path.join(cache_dir, "dates.duckdb"),
+            schema_path=os.path.join(cache_dir, "dates_schema.json"),
+            stats_path=os.path.join(cache_dir, "dates_stats.json"),
+        )
+
+        result = PreloadPipeline(cfg).run()
+        assert result.status == "ok"
+
+        schema = PreloadPipeline.get_schema(cfg.schema_path)
+        assert schema is not None
+        sample = schema["sheets"][0]["columns"][0]["sample"]
+        assert sample == ["2024-01-01", "2024-01-02"]

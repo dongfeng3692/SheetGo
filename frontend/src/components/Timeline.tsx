@@ -30,7 +30,7 @@ const Timeline: Component = () => {
 
   return (
     <Show when={sessionState.snapshots.length > 0}>
-      <section class="surface-card flex min-h-[184px] flex-col overflow-hidden">
+      <section class="timeline-panel surface-card flex min-h-[184px] flex-col overflow-hidden">
         <header class="panel-header border-b border-[var(--border-subtle)] px-5 py-3.5">
           <div class="flex items-center justify-between gap-3">
             <div class="text-sm font-semibold text-[var(--text-primary)]">最近变更</div>

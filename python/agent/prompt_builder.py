@@ -53,6 +53,8 @@ _SYSTEM = """\
 suspicious or malformed, flag it before continuing.
  - If the same tool with the same arguments is called repeatedly, the agent \
 loop will detect this and halt -- choose different parameters instead.
+ - If a tool result reports a loop guard or cancellation, stop calling tools \
+and provide the best final answer you can from the results already available.
  - The conversation history may be automatically compressed as it grows. \
 When a summary is provided, treat it as an accurate record of earlier work."""
 

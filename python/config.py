@@ -82,6 +82,14 @@ def _env_bool(key: str, default: bool) -> bool:
     return default
 
 
+def _app_home() -> str:
+    return (
+        os.environ.get("SHEETGO_HOME")
+        or os.environ.get("EXCELER_HOME")
+        or os.path.join(os.path.expanduser("~"), ".sheetgo")
+    )
+
+
 # ============================================================================
 # 路径
 # ============================================================================
@@ -89,16 +97,13 @@ def _env_bool(key: str, default: bool) -> bool:
 
 @dataclass(frozen=True)
 class PathsConfig:
-    home: str = os.environ.get(
-        "EXCELER_HOME",
-        os.path.join(os.path.expanduser("~"), ".exceler"),
-    )
+    home: str = _app_home()
     database: str = ""
     benchmark_data: str = ""
 
     def __post_init__(self):
         if not self.database:
-            object.__setattr__(self, "database", os.path.join(self.home, "exceler.db"))
+            object.__setattr__(self, "database", os.path.join(self.home, "sheetgo.db"))
         if not self.benchmark_data:
             object.__setattr__(
                 self, "benchmark_data",

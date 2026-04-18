@@ -9,6 +9,7 @@ Usage: echo '{"jsonrpc":"2.0","id":1,"method":"file.import","params":{...}}' | p
 from __future__ import annotations
 
 import asyncio
+import datetime as _dt
 import json
 import os
 import sys
@@ -16,8 +17,15 @@ import traceback
 from typing import Any
 
 # Fix Windows Chinese encoding: ensure UTF-8 for all std streams
-sys.stdout.reconfigure(encoding="utf-8")
-sys.stderr.reconfigure(encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
+DEBUG_CHAT_EVENTS = os.environ.get("SHEETGO_DEBUG_CHAT_EVENTS", "").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
 
 # Load .env before anything else (config._load_dotenv runs on import)
 from . import config as _config  # noqa: F401
@@ -38,13 +46,19 @@ _file_manager: FileManager | None = None
 _engine: Any | None = None  # AgentEngine
 _conversation_states: dict[str, Any] = {}  # session_id → ConversationState
 
+_DATE_FORMATS = [
+    "%Y-%m-%d",
+    "%Y-%m-%d %H:%M:%S",
+    "%m/%d/%Y",
+    "%d/%m/%Y",
+    "%Y/%m/%d",
+]
+
 
 def _ensure_db(db_path: str | None = None) -> Database:
     global _db
     if _db is None:
-        path = db_path or os.path.join(
-            os.path.expanduser("~"), ".exceler", "exceler.db"
-        )
+        path = db_path or _config.paths.database
         os.makedirs(os.path.dirname(path), exist_ok=True)
         _db = Database(path)
     return _db
@@ -87,6 +101,20 @@ def _notify(method: str, params: dict) -> dict:
 def _write(obj: dict) -> None:
     sys.stdout.write(json.dumps(obj, ensure_ascii=False) + "\n")
     sys.stdout.flush()
+
+
+def _coerce_edit_value(value: Any) -> Any:
+    """Convert date-like strings so Excel stores them using date serials."""
+    if not isinstance(value, str):
+        return value
+
+    for fmt in _DATE_FORMATS:
+        try:
+            return _dt.datetime.strptime(value, fmt)
+        except (TypeError, ValueError):
+            continue
+
+    return value
 
 
 # ---------------------------------------------------------------------------
@@ -146,6 +174,87 @@ def _handle_file_info(params: dict, req_id: int | str | None) -> dict:
     if info is None:
         return _err(-32001, "File not found", req_id)
     return _ok(info.to_dict(), req_id)
+
+
+def _handle_file_apply_edits(params: dict, req_id: int | str | None) -> dict:
+    from .excel.models import CellEdit
+    from .excel.writer import ExcelWriter
+
+    fm = _ensure_fm(params.get("dbPath"))
+    file_id = params.get("fileId")
+    if not isinstance(file_id, str) or not file_id.strip():
+        return _err(-32602, "Invalid params: fileId is required", req_id)
+
+    info = fm.get_file_info(file_id)
+    if info is None:
+        return _err(-32001, "File not found", req_id)
+    if not os.path.isfile(info.working_path):
+        return _err(-32001, f"Working file not found: {info.working_path}", req_id)
+
+    raw_edits = params.get("edits", [])
+    if not isinstance(raw_edits, list):
+        return _err(-32602, "Invalid params: edits must be a list", req_id)
+
+    edits: list[CellEdit] = []
+    for raw in raw_edits:
+        if not isinstance(raw, dict):
+            return _err(-32602, "Invalid params: each edit must be an object", req_id)
+
+        sheet = raw.get("sheet")
+        cell = raw.get("cell")
+        if not isinstance(sheet, str) or not sheet.strip():
+            return _err(-32602, "Invalid params: edit.sheet is required", req_id)
+        if not isinstance(cell, str) or not cell.strip():
+            return _err(-32602, "Invalid params: edit.cell is required", req_id)
+
+        edits.append(
+            CellEdit(
+                sheet=sheet.strip(),
+                cell=cell.strip().upper(),
+                value=_coerce_edit_value(raw.get("value")),
+            )
+        )
+
+    if not edits:
+        return _ok({
+            "saved": False,
+            "cacheRefreshed": True,
+            "editCount": 0,
+            "affectedCells": [],
+            "warnings": [],
+        }, req_id)
+
+    writer = ExcelWriter()
+    write_result = writer.write_cells(info.working_path, edits)
+
+    cache_dir = os.path.join(os.path.dirname(os.path.dirname(info.working_path)), "cache")
+    preload = PreloadPipeline(
+        PreloadConfig(
+            file_id=file_id,
+            source_path=info.working_path,
+            working_path=info.working_path,
+            duckdb_path=os.path.join(cache_dir, f"{file_id}.duckdb"),
+            schema_path=os.path.join(cache_dir, f"{file_id}_schema.json"),
+            stats_path=os.path.join(cache_dir, f"{file_id}_stats.json"),
+            structure_path="",
+        )
+    )
+    preload_result = preload.run()
+
+    preload_status = "ready" if preload_result.status == "ok" else "error"
+    fm.refresh_working_copy_metadata(file_id, preload_status=preload_status)
+
+    warnings = list(write_result.warnings)
+    if preload_result.status != "ok":
+        warnings.append("工作簿已保存，但缓存刷新失败，请重新打开文件或查看日志。")
+
+    return _ok({
+        "saved": write_result.success,
+        "cacheRefreshed": preload_result.status == "ok",
+        "editCount": len(edits),
+        "affectedCells": write_result.affected_cells,
+        "warnings": warnings,
+    }, req_id)
 
 
 def _handle_preload_start(params: dict, req_id: int | str | None) -> dict:
@@ -347,9 +456,7 @@ def _handle_chat(params: dict, req_id: int | str | None) -> dict:
 
     # Get or create conversation state
     if session_id not in _conversation_states:
-        workspace_dir = os.path.join(
-            os.path.expanduser("~"), ".exceler", "workspace", session_id
-        )
+        workspace_dir = os.path.join(_config.paths.home, "workspace", session_id)
         _conversation_states[session_id] = ConversationState(
             session_id=session_id,
             file_ids=[file_id] if file_id else [],
@@ -393,9 +500,7 @@ def _handle_chat_stream(params: dict, req_id: int | str | None) -> dict | None:
 
     # Get or create conversation state
     if session_id not in _conversation_states:
-        workspace_dir = os.path.join(
-            os.path.expanduser("~"), ".exceler", "workspace", session_id
-        )
+        workspace_dir = os.path.join(_config.paths.home, "workspace", session_id)
         _conversation_states[session_id] = ConversationState(
             session_id=session_id,
             file_ids=[file_id] if file_id else [],
@@ -415,8 +520,9 @@ def _handle_chat_stream(params: dict, req_id: int | str | None) -> dict | None:
     # Streaming callback — write notification events to stdout
     def on_event(event: Any) -> None:
         serialized = _serialize_agent_event(event)
-        eprintln_msg = json.dumps(serialized, ensure_ascii=False)
-        print(f"[chat event] {eprintln_msg}", file=sys.stderr, flush=True)
+        if DEBUG_CHAT_EVENTS:
+            eprintln_msg = json.dumps(serialized, ensure_ascii=False)
+            print(f"[chat event] {eprintln_msg}", file=sys.stderr, flush=True)
         _write(_notify("chat.event", serialized))
 
     # Run agent with streaming
@@ -453,6 +559,7 @@ _HANDLERS: dict[str, Any] = {
     "file.remove": _handle_file_remove,
     "file.export": _handle_file_export,
     "file.info": _handle_file_info,
+    "file.applyEdits": _handle_file_apply_edits,
     "preload.start": _handle_preload_start,
     "preload.status": _handle_preload_status,
     "chat": _handle_chat,

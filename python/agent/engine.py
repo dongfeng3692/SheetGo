@@ -37,8 +37,10 @@ from .tool_registry import ToolRegistry
 
 # Doom loop 检测阈值（同工具同参数连续出现次数）
 _DOOM_LOOP_THRESHOLD = 3
-# 读写交替循环检测：连续 N 次 read_sheet → write_cells 模式
-_READ_WRITE_CYCLE_THRESHOLD = 4
+# 读写交替循环检测：连续 N 次 read/write 且目标重复时才触发
+_READ_WRITE_CYCLE_THRESHOLD = 6
+_READ_WRITE_GUARD_READ_TOOLS = frozenset({"read_sheet", "sheet_info"})
+_READ_WRITE_GUARD_WRITE_TOOLS = frozenset(set(WRITE_TOOLS) | {"write_query"})
 
 # 默认最大循环次数
 _DEFAULT_MAX_STEPS = 50
@@ -109,8 +111,8 @@ class AgentEngine:
         )
         state.messages.append(user_msg)
 
-        # Doom loop 检测历史
-        recent_tool_calls: list[tuple[str, str]] = []
+        # 工具调用历史（用于 doom loop / read-write loop 检测）
+        recent_tool_calls: list[dict[str, str]] = []
 
         # 主循环
         for step in range(max_steps):
@@ -192,7 +194,8 @@ class AgentEngine:
                 break
 
             # 5. 遍历 tool_calls
-            for tc in tool_calls:
+            loop_guard_triggered = False
+            for tc_index, tc in enumerate(tool_calls):
                 if self._cancelled:
                     break
 
@@ -203,53 +206,89 @@ class AgentEngine:
                 _emit(on_event, EvToolCallProgress(id=tc.id, message=f"call {tc.name}({args_brief})"))
 
                 # Doom loop 检测
-                tc_sig = (tc.name, json.dumps(tc.arguments, sort_keys=True))
-                recent_tool_calls.append(tc_sig)
+                call_entry = _tool_history_entry(tc)
+                recent_tool_calls.append(call_entry)
                 if len(recent_tool_calls) >= _DOOM_LOOP_THRESHOLD:
                     last_n = recent_tool_calls[-_DOOM_LOOP_THRESHOLD:]
-                    if len(set(last_n)) == 1:
-                        _emit(on_event, EvError(
-                            message=f"检测到 doom loop: {tc.name} 连续调用 {_DOOM_LOOP_THRESHOLD} 次"
-                        ))
-                        # 追加错误 tool_result 保持消息序列完整
-                        tr = ToolResult(call_id=tc.id, name=tc.name, error="doom loop 检测: 操作已中止")
-                        tool_msg = Message(
-                            id=_new_id(),
-                            role="tool",
-                            tool_results=[tr],
-                        )
-                        state.messages.append(tool_msg)
-                        _emit(on_event, EvDone())
-                        return state
+                    if len({(entry["name"], entry["signature"]) for entry in last_n}) == 1:
+                        error_message = f"检测到 doom loop: {tc.name} 连续调用 {_DOOM_LOOP_THRESHOLD} 次，已停止继续调用并要求直接收尾"
+                        tool_error = "doom loop 检测: 已停止进一步工具调用，请基于现有结果直接输出最终结论"
+                        _emit(on_event, EvError(message=error_message))
+                        _emit(on_event, EvToolCallEnd(id=tc.id, name=tc.name, result=None, error=tool_error))
+                        for offset, skipped_tc in enumerate(tool_calls[tc_index:]):
+                            skipped_error = (
+                                tool_error
+                                if offset == 0
+                                else "已因 doom loop 保护取消，勿再继续工具调用，请直接给出最终答复"
+                            )
+                            state.messages.append(
+                                Message(
+                                    id=_new_id(),
+                                    role="tool",
+                                    tool_results=[ToolResult(
+                                        call_id=skipped_tc.id,
+                                        name=skipped_tc.name,
+                                        error=skipped_error,
+                                    )],
+                                )
+                            )
+                        loop_guard_triggered = True
+                        break
 
                 # 读写交替循环检测: read_sheet → write_cells 反复交替
                 if len(recent_tool_calls) >= _READ_WRITE_CYCLE_THRESHOLD:
-                    tail = [c[0] for c in recent_tool_calls[-_READ_WRITE_CYCLE_THRESHOLD:]]
-                    _read_tools = {"read_sheet", "sheet_info"}
-                    _write_tools = {"write_cells", "add_formula", "add_column", "insert_row"}
+                    tail = recent_tool_calls[-_READ_WRITE_CYCLE_THRESHOLD:]
                     is_cycle = True
-                    for i, name in enumerate(tail):
+                    for i, entry in enumerate(tail):
+                        name = entry["name"]
                         if i % 2 == 0:
-                            if name not in _read_tools:
+                            if name not in _READ_WRITE_GUARD_READ_TOOLS:
                                 is_cycle = False
                                 break
                         else:
-                            if name not in _write_tools:
+                            if name not in _READ_WRITE_GUARD_WRITE_TOOLS:
                                 is_cycle = False
                                 break
+
                     if is_cycle:
-                        _emit(on_event, EvError(
-                            message=f"检测到读写交替循环: 连续 {_READ_WRITE_CYCLE_THRESHOLD} 次 read→write 模式，请停止反复确认"
-                        ))
-                        tr = ToolResult(call_id=tc.id, name=tc.name, error="读写交替循环检测: 操作已中止，请直接输出最终结果")
-                        tool_msg = Message(
-                            id=_new_id(),
-                            role="tool",
-                            tool_results=[tr],
+                        file_paths = {entry["file_path"] for entry in tail if entry["file_path"]}
+                        sheets = {entry["sheet"] for entry in tail if entry["sheet"]}
+                        read_signatures = [entry["signature"] for idx, entry in enumerate(tail) if idx % 2 == 0]
+                        write_signatures = [entry["signature"] for idx, entry in enumerate(tail) if idx % 2 == 1]
+                        repeated_targets = (
+                            len(set(read_signatures)) < len(read_signatures)
+                            and len(set(write_signatures)) < len(write_signatures)
                         )
-                        state.messages.append(tool_msg)
-                        _emit(on_event, EvDone())
-                        return state
+                        if len(file_paths) > 1 or len(sheets) > 1 or not repeated_targets:
+                            is_cycle = False
+
+                    if is_cycle:
+                        error_message = (
+                            f"检测到重复 read/write 验证循环: 最近 {_READ_WRITE_CYCLE_THRESHOLD} 次调用都在同一目标间反复确认，"
+                            "已停止继续工具调用并要求直接收尾"
+                        )
+                        tool_error = "读写交替循环检测: 已停止进一步工具调用，请不要继续反复确认，直接基于已有结果输出最终答复"
+                        _emit(on_event, EvError(message=error_message))
+                        _emit(on_event, EvToolCallEnd(id=tc.id, name=tc.name, result=None, error=tool_error))
+                        for offset, skipped_tc in enumerate(tool_calls[tc_index:]):
+                            skipped_error = (
+                                tool_error
+                                if offset == 0
+                                else "已因读写循环保护取消，请直接根据已有工具结果作答"
+                            )
+                            state.messages.append(
+                                Message(
+                                    id=_new_id(),
+                                    role="tool",
+                                    tool_results=[ToolResult(
+                                        call_id=skipped_tc.id,
+                                        name=skipped_tc.name,
+                                        error=skipped_error,
+                                    )],
+                                )
+                            )
+                        loop_guard_triggered = True
+                        break
 
                 # Pre hooks
                 modified_tc = self.hooks.run_before(tc)
@@ -282,6 +321,9 @@ class AgentEngine:
                 )
                 state.messages.append(tool_msg)
 
+            if loop_guard_triggered:
+                continue
+
         _emit(on_event, EvDone())
         return state
 
@@ -297,3 +339,14 @@ def _emit(
 def _new_id() -> str:
     import uuid
     return uuid.uuid4().hex[:16]
+
+
+def _tool_history_entry(call: ToolCall) -> dict[str, str]:
+    """Create a compact signature for loop detection."""
+    arguments = call.arguments if isinstance(call.arguments, dict) else {}
+    return {
+        "name": call.name,
+        "signature": json.dumps(arguments, ensure_ascii=False, sort_keys=True),
+        "file_path": str(arguments.get("file_path", "")),
+        "sheet": str(arguments.get("sheet", "")),
+    }

@@ -6,9 +6,13 @@
 import type {
   UploadResult,
   FileInfo,
+  WorkbookCellEdit,
+  SaveWorkbookResult,
   ChatRequest,
   ChatResponse,
   StreamEvent,
+  DiagnosticsInfo,
+  ParsedArtifacts,
   PreloadProgress,
   Session,
   SnapshotInfo,
@@ -32,7 +36,12 @@ const defaultConfig: AppConfig = {
     temperature: 0.1,
     maxTokens: 4096,
   },
-  ui: { theme: "light", language: "zh-CN", previewRows: 100 },
+  ui: {
+    theme: "light",
+    themePreset: "default",
+    language: "zh-CN",
+    previewRows: 100,
+  },
   advanced: {
     maxFileSize: 104857600,
     preloadSampleRows: 20,
@@ -41,7 +50,8 @@ const defaultConfig: AppConfig = {
   },
 };
 
-let currentConfig = { ...defaultConfig };
+let currentConfig: AppConfig = structuredClone(defaultConfig);
+const mockHistories = new Map<string, HistoryEntry[]>();
 
 const mockFiles: FileInfo[] = [
   {
@@ -156,6 +166,21 @@ export const getFileBytes = async (
   return btoa(binary);
 };
 
+export const saveWorkbookEdits = async (
+  _fileId: string,
+  _sessionId: string,
+  edits: WorkbookCellEdit[]
+): Promise<SaveWorkbookResult> => {
+  await delay(240);
+  return {
+    saved: edits.length > 0,
+    cacheRefreshed: true,
+    editCount: edits.length,
+    affectedCells: edits.map((edit) => `${edit.sheet}!${edit.cell}`),
+    warnings: [],
+  };
+};
+
 export const sendMessage = async (
   req: ChatRequest
 ): Promise<ChatResponse> => {
@@ -220,17 +245,86 @@ export const getSnapshots = async (
 };
 
 export const getHistory = async (
-  _sessionId: string
+  sessionId: string
 ): Promise<HistoryEntry[]> => {
-  return [];
+  return mockHistories.get(sessionId) ?? [];
+};
+
+export const saveHistory = async (
+  sessionId: string,
+  entries: HistoryEntry[]
+): Promise<void> => {
+  mockHistories.set(sessionId, [...entries]);
 };
 
 export const getConfig = async (): Promise<AppConfig> => {
-  return { ...currentConfig };
+  return structuredClone(currentConfig);
 };
 
 export const saveConfig = async (config: AppConfig): Promise<void> => {
-  currentConfig = { ...config };
+  currentConfig = structuredClone(config);
+};
+
+export const getDiagnostics = async (): Promise<DiagnosticsInfo> => {
+  return {
+    logsDir: "C:\\Users\\demo\\.sheetgo\\logs",
+    logFilePath: "C:\\Users\\demo\\.sheetgo\\logs\\desktop.log",
+  };
+};
+
+export const readDesktopLog = async (_limit?: number): Promise<string> => {
+  return `{"ts":"2026-04-17T08:30:12.000Z","level":"info","scope":"desktop.ready","message":"Desktop app initialized"}\n{"ts":"2026-04-17T08:31:04.000Z","level":"error","scope":"upload.preload","message":"Unsupported file format"}\n`;
+};
+
+export const openDesktopLog = async (): Promise<{ opened: boolean; target: string }> => {
+  return { opened: true, target: "C:\\Users\\demo\\.sheetgo\\logs\\desktop.log" };
+};
+
+export const openLogsDirectory = async (): Promise<{ opened: boolean; target: string }> => {
+  return { opened: true, target: "C:\\Users\\demo\\.sheetgo\\logs" };
+};
+
+export const getParsedArtifacts = async (
+  fileId: string,
+  _sessionId: string
+): Promise<ParsedArtifacts> => {
+  return {
+    fileId,
+    paths: {
+      schema: "C:\\Users\\demo\\.sheetgo\\workspace\\mock\\cache\\demo_schema.json",
+      stats: "C:\\Users\\demo\\.sheetgo\\workspace\\mock\\cache\\demo_stats.json",
+      structure: "C:\\Users\\demo\\.sheetgo\\workspace\\mock\\cache\\demo_structure.json",
+    },
+    schema: {
+      fileId,
+      sheets: [
+        {
+          name: "Sheet1",
+          rowCount: 156,
+          colCount: 4,
+          columns: [
+            { name: "姓名", dtype: "object" },
+            { name: "部门", dtype: "object" },
+            { name: "销售额", dtype: "int64" },
+          ],
+        },
+      ],
+    },
+    stats: {
+      totalSheets: 1,
+      totalRows: 156,
+      totalCols: 4,
+      totalFormulas: 3,
+      dataQuality: {
+        nullRate: 0.02,
+        duplicateRows: 0,
+      },
+    },
+    structure: {
+      status: "ok",
+      summary: "销售台账，按部门和季度记录销售额。",
+    },
+  };
 };
 
 // ==================== Event Listeners ====================
@@ -246,10 +340,16 @@ export const onPreloadProgress = (
 ): Promise<() => void> => {
   setTimeout(() => {
     const stages: PreloadProgress["stage"][] = [
+      "copying",
       "reading",
+      "duckdb",
       "schema",
+      "sampling",
       "stats",
-      "formula",
+      "formulas",
+      "validation",
+      "styles",
+      "structure",
       "done",
     ];
     let i = 0;
@@ -257,11 +357,23 @@ export const onPreloadProgress = (
       callback({
         fileId: "demo-file-001",
         stage: stages[Math.min(i, stages.length - 1)],
-        progress: Math.min((i + 1) * 20, 100),
-        message: `${["正在读取文件", "正在解析结构", "正在计算统计信息", "正在扫描公式", "处理完成"][Math.min(i, 4)]}`,
+        progress: Math.min((i + 1) * 10, 100),
+        message: `${[
+          "正在复制文件",
+          "正在读取文件",
+          "正在载入数据引擎",
+          "正在解析结构",
+          "正在提取样本",
+          "正在计算统计信息",
+          "正在扫描公式",
+          "正在校验数据",
+          "正在提取样式",
+          "正在分析表格结构",
+          "处理完成",
+        ][Math.min(i, 10)]}`,
       });
       i++;
-      if (i > 4) clearInterval(iv);
+      if (i > 10) clearInterval(iv);
     }, 600);
   }, 1000);
 

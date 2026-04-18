@@ -18,8 +18,14 @@ pub struct LlmConfig {
 #[serde(rename_all = "camelCase")]
 pub struct UiConfig {
     pub theme: String,
+    #[serde(default = "default_theme_preset")]
+    pub theme_preset: String,
     pub language: String,
     pub preview_rows: u32,
+}
+
+fn default_theme_preset() -> String {
+    "default".to_string()
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -52,6 +58,7 @@ impl Default for AppConfig {
             },
             ui: UiConfig {
                 theme: "light".to_string(),
+                theme_preset: default_theme_preset(),
                 language: "zh-CN".to_string(),
                 preview_rows: 100,
             },

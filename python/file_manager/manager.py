@@ -182,6 +182,26 @@ class FileManager:
         """Update preload status in DB."""
         self.db.update_preload_status(file_id, status)
 
+    def refresh_working_copy_metadata(
+        self,
+        file_id: str,
+        preload_status: str | None = None,
+    ) -> FileUploadResult:
+        """Recompute file metadata after the working copy changes."""
+        record = self.db.get_file_record(file_id)
+        if record is None:
+            raise FileError(f"File not found: {file_id}")
+        if not os.path.isfile(record.working_path):
+            raise FileError(f"Working file missing: {record.working_path}")
+
+        record.file_size = os.path.getsize(record.working_path)
+        record.file_hash = self.compute_hash(record.working_path)
+        if preload_status is not None:
+            record.preload_status = preload_status
+
+        self.db.save_file_record(record)
+        return self._record_to_result(record)
+
     # -- static helpers --------------------------------------------------
 
     @staticmethod

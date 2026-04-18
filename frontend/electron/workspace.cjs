@@ -15,6 +15,7 @@ const DEFAULT_CONFIG = {
   },
   ui: {
     theme: "light",
+    themePreset: "default",
     language: "zh-CN",
     previewRows: 100,
   },
@@ -25,6 +26,18 @@ const DEFAULT_CONFIG = {
     sandboxEnabled: true,
   },
 };
+
+function configPath() {
+  return path.join(baseDir(), "config.json");
+}
+
+function apiKeyPath() {
+  return path.join(baseDir(), "llm-api-key.txt");
+}
+
+function historyPath(sessionDir) {
+  return path.join(sessionDir, "history.json");
+}
 
 function fileMetaPath(cacheDir, fileId) {
   return path.join(cacheDir, `${fileId}_meta.json`);
@@ -150,7 +163,7 @@ async function listFiles(sessionId) {
       continue;
     }
     const ext = path.extname(entry.name).toLowerCase();
-    if (ext !== ".xlsx" && ext !== ".xls") {
+    if (ext !== ".xlsx" && ext !== ".xlsm") {
       continue;
     }
 
@@ -220,13 +233,16 @@ async function exportFile(fileId, sessionId, destPath) {
 
 async function getConfig() {
   await initWorkspace();
-  const configFile = path.join(baseDir(), "config.json");
+  const configFile = configPath();
+  const storedApiKey = await readApiKey();
   try {
     const content = JSON.parse(await fsp.readFile(configFile, "utf8"));
+    const legacyApiKey = typeof content?.llm?.apiKey === "string" ? content.llm.apiKey : "";
     return {
       llm: {
         ...DEFAULT_CONFIG.llm,
         ...(content.llm || {}),
+        apiKey: storedApiKey || legacyApiKey,
       },
       ui: {
         ...DEFAULT_CONFIG.ui,
@@ -238,17 +254,27 @@ async function getConfig() {
       },
     };
   } catch {
-    return structuredClone(DEFAULT_CONFIG);
+    return {
+      ...structuredClone(DEFAULT_CONFIG),
+      llm: {
+        ...structuredClone(DEFAULT_CONFIG).llm,
+        apiKey: storedApiKey,
+      },
+    };
   }
 }
 
 async function saveConfig(config) {
   await initWorkspace();
-  const configFile = path.join(baseDir(), "config.json");
+  const configFile = configPath();
+  const llmInput = config?.llm || {};
+  const nextApiKey = typeof llmInput.apiKey === "string" ? llmInput.apiKey : "";
+  const { apiKey: _apiKey, ...llmWithoutApiKey } = llmInput;
+  const { apiKey: _defaultApiKey, ...defaultLlm } = DEFAULT_CONFIG.llm;
   const normalized = {
     llm: {
-      ...DEFAULT_CONFIG.llm,
-      ...(config?.llm || {}),
+      ...defaultLlm,
+      ...llmWithoutApiKey,
     },
     ui: {
       ...DEFAULT_CONFIG.ui,
@@ -259,7 +285,28 @@ async function saveConfig(config) {
       ...(config?.advanced || {}),
     },
   };
-  await fsp.writeFile(configFile, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
+  await Promise.all([
+    fsp.writeFile(configFile, `${JSON.stringify(normalized, null, 2)}\n`, "utf8"),
+    writeApiKey(nextApiKey),
+  ]);
+}
+
+async function readApiKey() {
+  try {
+    return (await fsp.readFile(apiKeyPath(), "utf8")).trim();
+  } catch {
+    return "";
+  }
+}
+
+async function writeApiKey(apiKey) {
+  const normalized = typeof apiKey === "string" ? apiKey.trim() : "";
+  const target = apiKeyPath();
+  if (!normalized) {
+    await fsp.rm(target, { force: true }).catch(() => {});
+    return;
+  }
+  await fsp.writeFile(target, `${normalized}\n`, "utf8");
 }
 
 async function listSnapshots(sessionId, fileId) {
@@ -296,10 +343,6 @@ async function listSnapshots(sessionId, fileId) {
   return snapshots;
 }
 
-async function getHistory() {
-  return [];
-}
-
 async function rollbackSnapshot(snapshotId) {
   return {
     success: true,
@@ -312,6 +355,101 @@ async function touchSession(sessionId) {
   const meta = await readSessionMeta(sessionId, sessionDir);
   meta.updatedAt = nowSeconds();
   await writeSessionMeta(sessionDir, meta);
+}
+
+function normalizeHistoryCreatedAt(value) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value > 1e12 ? Math.floor(value) : Math.floor(value * 1000);
+  }
+  if (typeof value === "string") {
+    const direct = Number(value);
+    if (Number.isFinite(direct)) {
+      return normalizeHistoryCreatedAt(direct);
+    }
+    const parsed = Date.parse(value);
+    if (!Number.isNaN(parsed)) {
+      return parsed;
+    }
+  }
+  return Date.now();
+}
+
+function normalizeHistoryEntry(entry, fallbackIndex = 0) {
+  if (!entry || typeof entry !== "object") {
+    return null;
+  }
+
+  const role = entry.role;
+  const content = typeof entry.content === "string" ? entry.content : "";
+  if (!content.trim()) {
+    return null;
+  }
+
+  if (role !== "user" && role !== "assistant" && role !== "system") {
+    return null;
+  }
+
+  const messageId =
+    typeof entry.messageId === "string" && entry.messageId.trim()
+      ? entry.messageId.trim()
+      : `history_${normalizeHistoryCreatedAt(entry.createdAt)}_${fallbackIndex}`;
+
+  return {
+    messageId,
+    role,
+    content,
+    createdAt: normalizeHistoryCreatedAt(entry.createdAt),
+  };
+}
+
+async function getHistory(sessionId) {
+  const session = await getSession(sessionId);
+  const filePath = historyPath(session.baseDir);
+
+  try {
+    const content = await fsp.readFile(filePath, "utf8");
+    const raw = JSON.parse(content);
+    const entries = Array.isArray(raw) ? raw : raw?.entries;
+    if (!Array.isArray(entries)) {
+      return [];
+    }
+
+    return entries
+      .map((entry, index) => normalizeHistoryEntry(entry, index))
+      .filter(Boolean)
+      .sort((a, b) => a.createdAt - b.createdAt);
+  } catch (error) {
+    if (
+      error &&
+      typeof error === "object" &&
+      (error.code === "ENOENT" || error.name === "SyntaxError")
+    ) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+async function saveHistory(sessionId, entries) {
+  const session = await getSession(sessionId);
+  const filePath = historyPath(session.baseDir);
+  const normalizedEntries = Array.isArray(entries)
+    ? entries
+        .map((entry, index) => normalizeHistoryEntry(entry, index))
+        .filter(Boolean)
+    : [];
+
+  if (normalizedEntries.length === 0) {
+    await fsp.rm(filePath, { force: true }).catch(() => {});
+    return;
+  }
+
+  await fsp.writeFile(
+    filePath,
+    `${JSON.stringify({ version: 1, entries: normalizedEntries }, null, 2)}\n`,
+    "utf8"
+  );
+  await touchSession(sessionId);
 }
 
 async function readSessionMeta(sessionId, sessionDir = path.join(workspaceRoot(), sessionId)) {
@@ -464,5 +602,6 @@ module.exports = {
   readSchema,
   removeFile,
   rollbackSnapshot,
+  saveHistory,
   saveConfig,
 };

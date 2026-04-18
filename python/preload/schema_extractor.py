@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from datetime import date, datetime, time
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -192,10 +193,15 @@ def _json_safe(val: Any) -> Any:
     """Convert value to JSON-safe type."""
     if val is None:
         return None
-    if hasattr(val, "item"):
-        return val.item()
     if isinstance(val, pd.Timestamp):
         return val.isoformat()
+    if isinstance(val, (datetime, date, time)):
+        return val.isoformat()
+    if hasattr(val, "item"):
+        item = val.item()
+        if item is val:
+            return val
+        return _json_safe(item)
     return val
 
 

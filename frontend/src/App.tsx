@@ -5,26 +5,35 @@ import ExcelPreview from "./components/ExcelPreview";
 import ChatPanel from "./components/ChatPanel";
 import Timeline from "./components/Timeline";
 import Settings from "./components/Settings";
+import ParseInspector from "./components/ParseInspector";
 import PreloadProgress from "./components/PreloadProgress";
 import WorkspaceDrawer from "./components/WorkspaceDrawer";
+import LaunchScreen from "./components/LaunchScreen";
 import { createSession, getConfig, getSnapshots, listFiles, listSessions } from "./lib/tauri-bridge";
+import { applyUiTheme } from "./lib/themes";
 import { fileState, selectFile, setFiles } from "./stores/fileStore";
+import { closeParseInspector, inspectorState, openParseInspector } from "./stores/inspectorStore";
 import { sessionState, setActiveSessionId, setSessions, setSnapshots } from "./stores/sessionStore";
-
-function applyTheme(theme: "light" | "dark" | "system") {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const shouldUseDark = theme === "dark" || (theme === "system" && prefersDark);
-  document.documentElement.classList.toggle("dark", shouldUseDark);
-}
 
 const App: Component = () => {
   const [settingsOpen, setSettingsOpen] = createSignal(false);
   const [workspaceDrawerOpen, setWorkspaceDrawerOpen] = createSignal(false);
+  const [bootVisible, setBootVisible] = createSignal(true);
+  const [bootClosing, setBootClosing] = createSignal(false);
+
+  const wait = (ms: number) =>
+    new Promise<void>((resolve) => {
+      window.setTimeout(resolve, ms);
+    });
 
   onMount(async () => {
+    const bootStartedAt = performance.now();
+    const bootTotalDuration = 3500;
+    const bootExitDuration = 620;
+
     try {
       const config = await getConfig();
-      applyTheme(config.ui.theme);
+      applyUiTheme(config.ui);
     } catch (error) {
       console.error("Failed to load config:", error);
     }
@@ -42,14 +51,23 @@ const App: Component = () => {
       if (!initialSession) {
         setFiles([]);
         selectFile(null);
-        return;
+      } else {
+        const files = await listFiles(initialSession.sessionId);
+        setFiles(files);
+        selectFile(files[0]?.fileId ?? null);
       }
-
-      const files = await listFiles(initialSession.sessionId);
-      setFiles(files);
-      selectFile(files[0]?.fileId ?? null);
     } catch (error) {
       console.error("App init failed:", error);
+    } finally {
+      const elapsed = performance.now() - bootStartedAt;
+      const remainingShowTime = bootTotalDuration - bootExitDuration - elapsed;
+      if (remainingShowTime > 0) {
+        await wait(remainingShowTime);
+      }
+
+      setBootClosing(true);
+      await wait(bootExitDuration);
+      setBootVisible(false);
     }
   });
 
@@ -85,71 +103,115 @@ const App: Component = () => {
   );
 
   return (
-    <div class="app-shell">
-      <a class="skip-link" href="#workspace-main">
-        跳到主工作区
-      </a>
-      <div class="app-backdrop" />
+    <>
+      <div class="app-shell" classList={{ booting: bootVisible() }}>
+        <a class="skip-link" href="#workspace-main">
+          跳到主工作区
+        </a>
+        <div class="window-drag-strip" aria-hidden="true" />
+        <div class="app-backdrop" />
 
-      <aside class="sidebar-shell app-entrance stage-2" aria-label="文件导航">
-        <FilePanel
-          workspaceDrawerOpen={workspaceDrawerOpen()}
-          onToggleWorkspaceDrawer={() => setWorkspaceDrawerOpen((open) => !open)}
-        />
-      </aside>
-
-      <WorkspaceDrawer
-        open={workspaceDrawerOpen()}
-        onClose={() => setWorkspaceDrawerOpen(false)}
-      />
-
-      <main class="workspace-shell" id="workspace-main" tabIndex={-1}>
-        <header class="topbar-shell app-entrance stage-3">
-          <Show when={activePreload()}>
-            {(progress) => (
-              <div class="topbar-meta">
-                <span class="subtle-pill accent">导入中 {Math.round(progress().progress)}%</span>
-              </div>
-            )}
-          </Show>
-
-          <div class="topbar-utilities" classList={{ "ml-auto": !activePreload() }}>
-            <Show when={activeFile()}>
-              <span class="subtle-pill">
-                {activeFile()!.sheets.length || 1} 张表 · {activeFile()!.totalRows.toLocaleString()} 行
-              </span>
-            </Show>
-            <button class="soft-btn" onClick={() => setSettingsOpen(true)}>
-              偏好设置
-            </button>
-          </div>
-        </header>
-
-        <div class="workspace-grid app-entrance stage-4">
-          <section class="min-h-0">
-            <ExcelPreview />
-          </section>
-
-          <aside class="assistant-column" aria-label="助手与变更记录">
-            <ChatPanel />
-            <Timeline />
-          </aside>
-        </div>
-      </main>
-
-      <Settings open={settingsOpen} onClose={() => setSettingsOpen(false)} />
-
-      <Show when={activePreload()}>
-        {(progress) => (
-          <PreloadProgress
-            fileName={preloadFile()?.fileName}
-            progress={progress().progress}
-            stage={progress().stage}
-            message={progress().message}
+        <aside class="sidebar-shell app-entrance stage-2" aria-label="文件导航">
+          <FilePanel
+            workspaceDrawerOpen={workspaceDrawerOpen()}
+            onToggleWorkspaceDrawer={() => setWorkspaceDrawerOpen((open) => !open)}
           />
-        )}
+        </aside>
+
+        <WorkspaceDrawer
+          open={workspaceDrawerOpen()}
+          onClose={() => setWorkspaceDrawerOpen(false)}
+        />
+
+        <main class="workspace-shell" id="workspace-main" tabIndex={-1}>
+          <header class="topbar-shell app-entrance stage-3">
+            <div class="min-w-0 flex flex-1 flex-col gap-2">
+              <div class="topbar-copy">
+                <div class="panel-kicker">当前文件</div>
+                <h1 class="topbar-title">
+                  {activeFile()?.fileName ?? "Excel 工作台"}
+                </h1>
+                <div class="topbar-note">
+                  <Show
+                    when={activeFile()}
+                    fallback={"导入一个工作簿后，就能在预览、对话和回滚之间直接联动处理。"}
+                  >
+                    {(file) =>
+                      `${Math.max(file().sheets.length, 1)} 张表 · ${file().totalRows.toLocaleString()} 行 · 右侧可直接提要求修改`
+                    }
+                  </Show>
+                </div>
+              </div>
+
+              <Show when={activePreload()}>
+                {(progress) => (
+                  <div class="topbar-meta">
+                    <span class="subtle-pill accent">导入中 {Math.round(progress().progress)}%</span>
+                  </div>
+                )}
+              </Show>
+            </div>
+
+            <div class="topbar-utilities">
+              <Show when={activeFile()}>
+                <span class="subtle-pill">
+                  {activeFile()!.sheets.length || 1} 张表 · {activeFile()!.totalRows.toLocaleString()} 行
+                </span>
+              </Show>
+              <Show when={activeFile()}>
+                <button
+                  class="soft-btn"
+                  onClick={() => {
+                    setSettingsOpen(false);
+                    openParseInspector();
+                  }}
+                >
+                  解析结果
+                </button>
+              </Show>
+              <button
+                class="soft-btn"
+                onClick={() => {
+                  closeParseInspector();
+                  setSettingsOpen(true);
+                }}
+              >
+                偏好设置
+              </button>
+            </div>
+          </header>
+
+          <div class="workspace-grid app-entrance stage-4">
+            <section class="min-h-0">
+              <ExcelPreview />
+            </section>
+
+            <aside class="assistant-column" aria-label="助手与变更记录">
+              <ChatPanel />
+              <Timeline />
+            </aside>
+          </div>
+        </main>
+
+        <Settings open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+        <ParseInspector open={() => inspectorState.parseInspectorOpen} onClose={closeParseInspector} />
+
+        <Show when={activePreload()}>
+          {(progress) => (
+            <PreloadProgress
+              fileName={preloadFile()?.fileName}
+              progress={progress().progress}
+              stage={progress().stage}
+              message={progress().message}
+            />
+          )}
+        </Show>
+      </div>
+
+      <Show when={bootVisible()}>
+        <LaunchScreen closing={bootClosing()} />
       </Show>
-    </div>
+    </>
   );
 };
 

@@ -150,6 +150,59 @@ class WriteTool(BaseTool):
         return {"written": data}
 
 
+class ReadSheetLikeTool(BaseTool):
+    @property
+    def name(self) -> str:
+        return "read_sheet"
+
+    @property
+    def description(self) -> str:
+        return "Mock read_sheet"
+
+    @property
+    def parameters_schema(self) -> dict:
+        return {
+            "type": "object",
+            "properties": {
+                "file_path": {"type": "string"},
+                "sheet": {"type": "string"},
+            },
+            "required": ["file_path", "sheet"],
+        }
+
+    async def execute(self, file_path: str = "", sheet: str = "", **kwargs):
+        return {"file_path": file_path, "sheet": sheet, "rows": []}
+
+
+class WriteCellsLikeTool(BaseTool):
+    @property
+    def name(self) -> str:
+        return "write_cells"
+
+    @property
+    def description(self) -> str:
+        return "Mock write_cells"
+
+    @property
+    def parameters_schema(self) -> dict:
+        return {
+            "type": "object",
+            "properties": {
+                "file_path": {"type": "string"},
+                "sheet": {"type": "string"},
+                "range": {"type": "string"},
+            },
+            "required": ["file_path", "sheet", "range"],
+        }
+
+    @property
+    def safe_level(self) -> str:
+        return "write"
+
+    async def execute(self, file_path: str = "", sheet: str = "", range: str = "", **kwargs):
+        return {"file_path": file_path, "sheet": sheet, "range": range}
+
+
 # ============================================================================
 # Helper: 创建标准 engine
 # ============================================================================
@@ -160,6 +213,22 @@ def _make_engine(llm=None):
     registry.register(EchoTool())
     registry.register(FailTool())
     registry.register(WriteTool())
+
+    hooks = HookManager()
+    prompt = PromptBuilder()
+
+    return AgentEngine(
+        llm=llm or MockLLMProvider(),
+        tools=registry,
+        prompt=prompt,
+        hooks=hooks,
+    )
+
+
+def _make_cycle_engine(llm=None):
+    registry = ToolRegistry()
+    registry.register(ReadSheetLikeTool())
+    registry.register(WriteCellsLikeTool())
 
     hooks = HookManager()
     prompt = PromptBuilder()
@@ -468,6 +537,72 @@ class TestDoomLoop:
         errors = [e for e in events_list if isinstance(e, EvError)]
         assert len(errors) >= 1
         assert "doom loop" in errors[0].message.lower()
+        assert result.messages[-1].role == "assistant"
+        assert result.messages[-1].content
+
+
+class TestReadWriteLoopGuard:
+    """测试: 读写交替循环保护"""
+
+    @pytest.mark.asyncio
+    async def test_repeated_read_write_cycle_still_finishes_with_text(self):
+        events_list = []
+
+        def on_event(ev):
+            events_list.append(ev)
+
+        read_args = '{"file_path":"demo.xlsx","sheet":"Sheet1"}'
+        write_args = '{"file_path":"demo.xlsx","sheet":"Sheet1","range":"A1:B3"}'
+
+        llm = MockLLMProvider([
+            [
+                ToolCallStart(id="tc_r1", name="read_sheet"),
+                ToolCallEnd(id="tc_r1", name="read_sheet", arguments=read_args),
+                Finish(reason="tool_use"),
+            ],
+            [
+                ToolCallStart(id="tc_w1", name="write_cells"),
+                ToolCallEnd(id="tc_w1", name="write_cells", arguments=write_args),
+                Finish(reason="tool_use"),
+            ],
+            [
+                ToolCallStart(id="tc_r2", name="read_sheet"),
+                ToolCallEnd(id="tc_r2", name="read_sheet", arguments=read_args),
+                Finish(reason="tool_use"),
+            ],
+            [
+                ToolCallStart(id="tc_w2", name="write_cells"),
+                ToolCallEnd(id="tc_w2", name="write_cells", arguments=write_args),
+                Finish(reason="tool_use"),
+            ],
+            [
+                ToolCallStart(id="tc_r3", name="read_sheet"),
+                ToolCallEnd(id="tc_r3", name="read_sheet", arguments=read_args),
+                Finish(reason="tool_use"),
+            ],
+            [
+                ToolCallStart(id="tc_w3", name="write_cells"),
+                ToolCallEnd(id="tc_w3", name="write_cells", arguments=write_args),
+                Finish(reason="tool_use"),
+            ],
+            [
+                TextDelta(text="我已经停止重复验证，下面直接总结当前结果。"),
+                Finish(reason="stop"),
+            ],
+        ])
+
+        engine = _make_cycle_engine(llm)
+        state = ConversationState(session_id="test")
+
+        result = await engine.chat(state, "请处理表格", on_event)
+
+        errors = [e for e in events_list if isinstance(e, EvError)]
+        tool_ends = [e for e in events_list if isinstance(e, EvToolCallEnd)]
+
+        assert any("循环" in e.message or "read/write" in e.message for e in errors)
+        assert any(e.name == "write_cells" and e.error for e in tool_ends)
+        assert result.messages[-1].role == "assistant"
+        assert "直接总结" in result.messages[-1].content
 
 
 class TestCancellation:

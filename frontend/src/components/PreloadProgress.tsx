@@ -18,10 +18,10 @@ const PreloadProgress: Component<Props> = (props) => {
         <div class="flex items-start justify-between gap-3">
           <div>
             <div class="text-xs uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
-              正在预加载工作簿
+              文件导入中
             </div>
             <div class="mt-2 text-sm font-medium text-[var(--text-primary)]">
-              {props.fileName ?? "正在准备工作簿"}
+              {props.fileName ?? "正在处理 Excel 文件"}
             </div>
           </div>
           <div class="subtle-pill accent">{Math.round(progress())}%</div>

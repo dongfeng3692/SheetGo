@@ -117,10 +117,16 @@ class ExcelWriter:
                 warnings.append(f"No sheetData in {sheet}")
                 continue
 
+            max_written_col: str | None = None
+            max_written_row = 0
+
             for edit in sheet_edits:
                 col_letters, row_num = parse_cell_ref(edit.cell)
                 r_str = str(row_num)
                 cell_ref = f"{col_letters}{row_num}"
+                max_written_row = max(max_written_row, row_num)
+                if max_written_col is None or col_number(col_letters) > col_number(max_written_col):
+                    max_written_col = col_letters
 
                 # Find or create row
                 row_el = None
@@ -204,6 +210,10 @@ class ExcelWriter:
                         cur_style = int(cell_el.get("s", "0"))
                         date_style = self._ensure_numfmt_style(work_dir, cur_style, _DATE_NUMFMT)
                         cell_el.set("s", str(date_style))
+                    elif isinstance(value, bool):
+                        cell_el.set("t", "b")
+                        v_el = ET.SubElement(cell_el, _tag("v"))
+                        v_el.text = "1" if value else "0"
                     elif isinstance(value, (int, float)):
                         cell_el.attrib.pop("t", None)
                         v_el = ET.SubElement(cell_el, _tag("v"))
@@ -223,6 +233,9 @@ class ExcelWriter:
                     cell_el.set("s", str(edit.style["s"]))
 
                 affected.append(f"{sheet}!{cell_ref}")
+
+            if max_written_col is not None and max_written_row > 0:
+                self._update_dimension(root, max_written_col, max_written_row)
 
             _write_tree(tree, ws_path)
 
@@ -350,7 +363,12 @@ class ExcelWriter:
                 changes += 1
 
         # Update dimension
-        self._update_dimension(root, col)
+        max_row = 1
+        if formula_rows:
+            max_row = max(max_row, formula_rows[1])
+        if data:
+            max_row = max(max_row, len(data) + 1)
+        self._update_dimension(root, col, max_row)
 
         # Extend <cols> if needed
         self._extend_cols(root, col, prev_col)
@@ -763,16 +781,35 @@ class ExcelWriter:
         return result
 
     @staticmethod
-    def _update_dimension(root: ET.Element, new_col: str) -> None:
-        """Expand <dimension ref="..."> if new_col exceeds current bounds."""
+    def _update_dimension(root: ET.Element, new_col: str, new_row: int) -> None:
+        """Expand <dimension ref="..."> if the written cell exceeds current bounds."""
         for dim in root.iter(_tag("dimension")):
             old_ref = dim.get("ref", "")
+            if not old_ref:
+                dim.set("ref", f"A1:{new_col}{new_row}")
+                return
+
             if ":" in old_ref:
                 start_ref, end_ref = old_ref.split(":", 1)
-                m = re.match(r"([A-Z]+)", end_ref)
-                if m and col_number(new_col) > col_number(m.group(1)):
-                    end_row = re.search(r"(\d+)", end_ref).group(1)
-                    dim.set("ref", f"{start_ref}:{new_col}{end_row}")
+            else:
+                start_ref = old_ref
+                end_ref = old_ref
+
+            end_col_match = re.match(r"([A-Z]+)", end_ref)
+            end_row_match = re.search(r"(\d+)", end_ref)
+            end_col = end_col_match.group(1) if end_col_match else new_col
+            end_row = int(end_row_match.group(1)) if end_row_match else new_row
+
+            final_col = end_col
+            if col_number(new_col) > col_number(end_col):
+                final_col = new_col
+
+            final_row = max(end_row, new_row)
+            dim.set("ref", f"{start_ref}:{final_col}{final_row}")
+            return
+
+        dim = ET.SubElement(root, _tag("dimension"))
+        dim.set("ref", f"A1:{new_col}{new_row}")
 
     @staticmethod
     def _extend_cols(

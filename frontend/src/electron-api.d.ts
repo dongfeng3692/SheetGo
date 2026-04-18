@@ -4,7 +4,11 @@ import type {
   ChatResponse,
   FileChangeInfo,
   FileInfo,
+  WorkbookCellEdit,
+  SaveWorkbookResult,
   HistoryEntry,
+  DiagnosticsInfo,
+  ParsedArtifacts,
   PreloadProgress,
   RollbackResult,
   Session,
@@ -20,6 +24,11 @@ interface SheetGoDesktopApi {
   removeFile: (fileId: string, sessionId: string) => Promise<void>;
   getFileInfo: (fileId: string, sessionId: string) => Promise<FileInfo>;
   getFileBytes: (fileId: string, sessionId: string) => Promise<string>;
+  saveWorkbookEdits: (
+    fileId: string,
+    sessionId: string,
+    edits: WorkbookCellEdit[]
+  ) => Promise<SaveWorkbookResult>;
   sendMessage: (req: ChatRequest) => Promise<ChatResponse>;
   sendMessageStream: (req: ChatRequest) => Promise<string>;
   stopGeneration: () => Promise<void>;
@@ -30,8 +39,14 @@ interface SheetGoDesktopApi {
   rollbackSnapshot: (snapshotId: string) => Promise<RollbackResult>;
   getSnapshots: (sessionId: string, fileId: string) => Promise<SnapshotInfo[]>;
   getHistory: (sessionId: string) => Promise<HistoryEntry[]>;
+  saveHistory: (sessionId: string, entries: HistoryEntry[]) => Promise<void>;
   getConfig: () => Promise<AppConfig>;
   saveConfig: (config: AppConfig) => Promise<void>;
+  getDiagnostics: () => Promise<DiagnosticsInfo>;
+  readDesktopLog: (limit?: number) => Promise<string>;
+  openDesktopLog: () => Promise<{ opened: boolean; target: string }>;
+  openLogsDirectory: () => Promise<{ opened: boolean; target: string }>;
+  getParsedArtifacts: (fileId: string, sessionId: string) => Promise<ParsedArtifacts>;
   onChatStream: (callback: (event: StreamEvent) => void) => () => void;
   onPreloadProgress: (callback: (progress: PreloadProgress) => void) => () => void;
   onFileChanged: (callback: (info: FileChangeInfo) => void) => () => void;

@@ -178,7 +178,10 @@ class Message:
             # 单个 tool result
             tr = self.tool_results[0]
             msg["tool_call_id"] = tr.call_id
-            msg["content"] = tr.error if tr.error else str(tr.result)
+            if tr.error:
+                msg["content"] = json.dumps({"error": tr.error}, ensure_ascii=False)
+            else:
+                msg["content"] = str(tr.result)
         else:
             msg["content"] = self.content
 

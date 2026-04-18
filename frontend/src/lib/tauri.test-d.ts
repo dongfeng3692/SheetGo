@@ -19,6 +19,7 @@ import {
   rollbackSnapshot,
   getSnapshots,
   getHistory,
+  saveHistory,
   getConfig,
   saveConfig,
   onChatStream,
@@ -73,6 +74,7 @@ expectType<TypeEqual<HistoryEntry["role"], "user" | "assistant" | "system">>(tru
 // AppConfig nested shape
 expectType<TypeEqual<AppConfig["llm"]["provider"], string>>(true);
 expectType<TypeEqual<AppConfig["ui"]["theme"], "light" | "dark" | "system">>(true);
+expectType<TypeEqual<AppConfig["ui"]["themePreset"], "default" | "graphite" | "spruce" | "oled">>(true);
 
 // Event types
 expectType<TypeEqual<StreamEvent["type"], "text_delta" | "text_start" | "text_end" | "tool_call_start" | "tool_call_progress" | "tool_call_end" | "done" | "error">>(true);
@@ -95,6 +97,7 @@ export const _deleteSession: typeof deleteSession = deleteSession;
 export const _rollback: typeof rollbackSnapshot = rollbackSnapshot;
 export const _snapshots: typeof getSnapshots = getSnapshots;
 export const _history: typeof getHistory = getHistory;
+export const _saveHistory: typeof saveHistory = saveHistory;
 export const _getConfig: typeof getConfig = getConfig;
 export const _saveConfig: typeof saveConfig = saveConfig;
 export const _onChat: typeof onChatStream = onChatStream;

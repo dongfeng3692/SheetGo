@@ -1,6 +1,7 @@
 const { EventEmitter } = require("events");
 const { spawn, spawnSync } = require("child_process");
 const readline = require("readline");
+const { StringDecoder } = require("string_decoder");
 
 class PythonSidecar extends EventEmitter {
   constructor(projectRoot) {
@@ -42,6 +43,7 @@ class PythonSidecar extends EventEmitter {
             ...process.env,
             ...this.envOverrides,
             PYTHONUTF8: "1",
+            PYTHONIOENCODING: "utf-8",
             PYTHONUNBUFFERED: "1",
           },
           stdio: ["pipe", "pipe", "pipe"],
@@ -52,12 +54,26 @@ class PythonSidecar extends EventEmitter {
 
       child.once("spawn", () => {
         this.process = child;
+        child.stdout.setEncoding("utf8");
+        child.stderr.setEncoding("utf8");
         this.readline = readline.createInterface({ input: child.stdout });
         this.readline.on("line", (line) => this.#handleLine(line));
+        const stderrDecoder = new StringDecoder("utf8");
         child.stderr.on("data", (chunk) => {
-          this.emit("stderr", chunk.toString());
+          if (typeof chunk === "string") {
+            this.emit("stderr", chunk);
+            return;
+          }
+          const decoded = stderrDecoder.write(chunk);
+          if (decoded) {
+            this.emit("stderr", decoded);
+          }
         });
         child.once("exit", (code) => {
+          const remainingStderr = stderrDecoder.end();
+          if (remainingStderr) {
+            this.emit("stderr", remainingStderr);
+          }
           const err = new Error(`Python sidecar exited with code ${code ?? "unknown"}`);
           for (const pending of this.pending.values()) {
             pending.reject(err);

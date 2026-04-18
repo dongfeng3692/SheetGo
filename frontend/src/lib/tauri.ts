@@ -14,6 +14,20 @@ export interface FileInfo {
   totalRows: number;
 }
 
+export interface WorkbookCellEdit {
+  sheet: string;
+  cell: string;
+  value: string | number | boolean | null;
+}
+
+export interface SaveWorkbookResult {
+  saved: boolean;
+  cacheRefreshed: boolean;
+  editCount: number;
+  affectedCells: string[];
+  warnings: string[];
+}
+
 export interface FileChangeInfo {
   fileId: string;
   changeType: "modified" | "created" | "deleted";
@@ -62,9 +76,39 @@ export interface StreamEvent {
   result?: string | null;
 }
 
+export interface DiagnosticsInfo {
+  logsDir: string;
+  logFilePath: string;
+}
+
+export interface ParsedArtifacts {
+  fileId: string;
+  paths: {
+    schema: string;
+    stats: string;
+    structure: string;
+  };
+  schema: unknown | null;
+  stats: unknown | null;
+  structure: unknown | null;
+}
+
 export interface PreloadProgress {
   fileId: string;
-  stage: "reading" | "schema" | "stats" | "formula" | "done";
+  stage:
+    | "copying"
+    | "reading"
+    | "duckdb"
+    | "schema"
+    | "sampling"
+    | "stats"
+    | "formula"
+    | "formulas"
+    | "validation"
+    | "styles"
+    | "structure"
+    | "error"
+    | "done";
   progress: number;
   message?: string;
 }
@@ -73,6 +117,7 @@ export interface Session {
   sessionId: string;
   name: string;
   createdAt: number;
+  updatedAt?: number;
 }
 
 export interface SnapshotInfo {
@@ -106,6 +151,7 @@ export interface AppConfig {
   };
   ui: {
     theme: "light" | "dark" | "system";
+    themePreset: "default" | "graphite" | "spruce" | "oled";
     language: string;
     previewRows: number;
   };
@@ -145,6 +191,12 @@ export const getFileInfo = (fileId: string, sessionId: string) =>
 
 export const getFileBytes = (fileId: string, sessionId: string) =>
   getDesktopApi().getFileBytes(fileId, sessionId);
+
+export const saveWorkbookEdits = (
+  fileId: string,
+  sessionId: string,
+  edits: WorkbookCellEdit[]
+) => getDesktopApi().saveWorkbookEdits(fileId, sessionId, edits);
 
 // ==================== Agent Chat ====================
 
@@ -190,8 +242,22 @@ export const getSnapshots = (sessionId: string, fileId: string) =>
 
 export const getHistory = (sessionId: string) => getDesktopApi().getHistory(sessionId);
 
+export const saveHistory = (sessionId: string, entries: HistoryEntry[]) =>
+  getDesktopApi().saveHistory(sessionId, entries);
+
 // ==================== Config ====================
 
 export const getConfig = () => getDesktopApi().getConfig();
 
 export const saveConfig = (config: AppConfig) => getDesktopApi().saveConfig(config);
+
+export const getDiagnostics = () => getDesktopApi().getDiagnostics();
+
+export const readDesktopLog = (limit?: number) => getDesktopApi().readDesktopLog(limit);
+
+export const openDesktopLog = () => getDesktopApi().openDesktopLog();
+
+export const openLogsDirectory = () => getDesktopApi().openLogsDirectory();
+
+export const getParsedArtifacts = (fileId: string, sessionId: string) =>
+  getDesktopApi().getParsedArtifacts(fileId, sessionId);
