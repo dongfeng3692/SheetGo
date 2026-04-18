@@ -151,7 +151,7 @@ export interface AppConfig {
   };
   ui: {
     theme: "light" | "dark" | "system";
-    themePreset: "default" | "graphite" | "spruce" | "oled";
+    themePreset: "default" | "graphite" | "spruce" | "oled" | "rosewood" | "inkstone" | "dusk" | "verdigris" | "hoarfrost" | "cinnabar" | "abyss";
     language: string;
     previewRows: number;
   };

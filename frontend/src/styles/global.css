@@ -389,55 +389,55 @@
   --text-primary: #020617;
   --text-secondary: #5f6b7a;
   --text-tertiary: #8b97a7;
-  --accent-strong: #ca8a04;
-  --accent-deep: #9a6804;
-  --accent-soft: #f3e4bd;
-  --accent-soft-strong: #734c03;
-  --accent-contrast: #1b1408;
+  --accent-strong: #4a7ab5;
+  --accent-deep: #38618e;
+  --accent-soft: #d8e4f0;
+  --accent-soft-strong: #2a4868;
+  --accent-contrast: #f0f4fa;
   --warning-soft: #fff0e8;
   --warning-text: #a55e33;
   --sidebar-surface: linear-gradient(180deg, #0f172a 0%, #172132 46%, #1d2a40 100%);
   --sidebar-text: #eef3fb;
   --sidebar-secondary: rgba(238, 243, 251, 0.72);
   --sidebar-tertiary: rgba(238, 243, 251, 0.46);
-  --sidebar-border: rgba(202, 138, 4, 0.14);
-  --sidebar-border-strong: rgba(202, 138, 4, 0.28);
+  --sidebar-border: rgba(74, 122, 181, 0.14);
+  --sidebar-border-strong: rgba(74, 122, 181, 0.28);
   --shadow-soft: 0 22px 52px rgba(15, 23, 42, 0.07);
   --shadow-strong: 0 28px 72px rgba(15, 23, 42, 0.24);
-  --body-glow-a: rgba(202, 138, 4, 0.06);
+  --body-glow-a: rgba(74, 122, 181, 0.06);
   --body-glow-b: rgba(15, 23, 42, 0.08);
-  --app-backdrop-a: rgba(202, 138, 4, 0.05);
+  --app-backdrop-a: rgba(74, 122, 181, 0.05);
   --app-backdrop-b: rgba(15, 23, 42, 0.08);
   --subtle-pill-bg: rgba(248, 251, 255, 0.72);
   --soft-btn-bg: rgba(249, 251, 255, 0.78);
   --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
-  --brand-orb-gradient: linear-gradient(145deg, #17253c 0%, #ca8a04 58%, #f1dfb5 100%);
-  --brand-orb-text: #fbf5e8;
+  --brand-orb-gradient: linear-gradient(145deg, #17253c 0%, #4a7ab5 58%, #b8d4f0 100%);
+  --brand-orb-text: #f0f5fb;
   --brand-orb-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
     0 10px 22px rgba(15, 23, 42, 0.24);
   --brand-orb-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 0 0 3px rgba(202, 138, 4, 0.14),
+    0 0 0 3px rgba(74, 122, 181, 0.14),
     0 14px 28px rgba(15, 23, 42, 0.26);
   --sidebar-panel-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
   --sidebar-section-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
-  --sidebar-item-active-bg: linear-gradient(180deg, rgba(202, 138, 4, 0.18), rgba(202, 138, 4, 0.06));
-  --sidebar-item-active-border: rgba(202, 138, 4, 0.3);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(74, 122, 181, 0.18), rgba(74, 122, 181, 0.06));
+  --sidebar-item-active-border: rgba(74, 122, 181, 0.3);
   --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
-  --sidebar-dropzone-hover-bg: rgba(202, 138, 4, 0.08);
-  --sidebar-dropzone-hover-border: rgba(202, 138, 4, 0.32);
-  --sidebar-dropzone-ring: rgba(202, 138, 4, 0.1);
+  --sidebar-dropzone-hover-bg: rgba(74, 122, 181, 0.08);
+  --sidebar-dropzone-hover-border: rgba(74, 122, 181, 0.32);
+  --sidebar-dropzone-ring: rgba(74, 122, 181, 0.1);
   --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
-  --sidebar-file-active-bg: linear-gradient(180deg, rgba(202, 138, 4, 0.18), rgba(202, 138, 4, 0.07));
-  --sidebar-file-active-border: rgba(202, 138, 4, 0.3);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(74, 122, 181, 0.18), rgba(74, 122, 181, 0.07));
+  --sidebar-file-active-border: rgba(74, 122, 181, 0.3);
   --sidebar-file-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 14px 30px rgba(15, 23, 42, 0.16);
   --conversation-panel-bg:
-    radial-gradient(circle at top right, rgba(202, 138, 4, 0.12), rgba(202, 138, 4, 0) 42%),
+    radial-gradient(circle at top right, rgba(74, 122, 181, 0.12), rgba(74, 122, 181, 0) 42%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 249, 252, 0.8)),
     #f7f8fb;
   --conversation-panel-border: rgba(15, 23, 42, 0.08);
@@ -459,11 +459,11 @@
   --composer-bg: rgba(255, 255, 255, 0.94);
   --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
   --timeline-card-bg: rgba(255, 255, 255, 0.78);
-  --user-message-bg: linear-gradient(145deg, #f3e8cb 0%, #e7d7b1 56%, #cfa34b 100%);
-  --user-message-border: rgba(154, 104, 4, 0.18);
-  --user-message-text: #16110a;
-  --user-message-meta: rgba(22, 17, 10, 0.5);
-  --user-message-shadow: 0 14px 30px rgba(154, 104, 4, 0.14);
+  --user-message-bg: linear-gradient(145deg, #d0e0f0 0%, #b4cee4 56%, #5a8fbf 100%);
+  --user-message-border: rgba(56, 97, 142, 0.18);
+  --user-message-text: #0a1420;
+  --user-message-meta: rgba(10, 20, 32, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(56, 97, 142, 0.14);
 }
 
 :root.dark[data-theme-preset="graphite"] {
@@ -481,55 +481,55 @@
   --text-primary: #eef4ff;
   --text-secondary: #b1bdd2;
   --text-tertiary: #8090ac;
-  --accent-strong: #d1a03a;
-  --accent-deep: #ae7a18;
-  --accent-soft: rgba(209, 160, 58, 0.2);
-  --accent-soft-strong: #efd7a2;
-  --accent-contrast: #140f08;
+  --accent-strong: #6a9fd4;
+  --accent-deep: #4a7ab5;
+  --accent-soft: rgba(106, 159, 212, 0.2);
+  --accent-soft-strong: #b8d4f0;
+  --accent-contrast: #f0f4fa;
   --warning-soft: rgba(122, 82, 42, 0.22);
   --warning-text: #f0c7a0;
   --sidebar-surface: linear-gradient(180deg, #050b15 0%, #0b1322 48%, #111d33 100%);
   --sidebar-text: #edf3ff;
   --sidebar-secondary: rgba(237, 243, 255, 0.74);
   --sidebar-tertiary: rgba(237, 243, 255, 0.44);
-  --sidebar-border: rgba(209, 160, 58, 0.1);
-  --sidebar-border-strong: rgba(209, 160, 58, 0.18);
+  --sidebar-border: rgba(106, 159, 212, 0.1);
+  --sidebar-border-strong: rgba(106, 159, 212, 0.18);
   --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.34);
   --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.4);
-  --body-glow-a: rgba(209, 160, 58, 0.08);
+  --body-glow-a: rgba(106, 159, 212, 0.08);
   --body-glow-b: rgba(42, 82, 148, 0.12);
-  --app-backdrop-a: rgba(209, 160, 58, 0.08);
+  --app-backdrop-a: rgba(106, 159, 212, 0.08);
   --app-backdrop-b: rgba(42, 82, 148, 0.1);
   --subtle-pill-bg: rgba(236, 243, 255, 0.06);
   --soft-btn-bg: rgba(236, 243, 255, 0.05);
   --soft-btn-hover-bg: rgba(236, 243, 255, 0.09);
-  --brand-orb-gradient: linear-gradient(145deg, #162443 0%, #d1a03a 56%, #f0ddb2 100%);
-  --brand-orb-text: #fbf5e8;
+  --brand-orb-gradient: linear-gradient(145deg, #162443 0%, #6a9fd4 56%, #b8d4f0 100%);
+  --brand-orb-text: #f0f5fb;
   --brand-orb-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     0 14px 26px rgba(0, 0, 0, 0.28);
   --brand-orb-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 0 0 3px rgba(209, 160, 58, 0.18),
+    0 0 0 3px rgba(106, 159, 212, 0.18),
     0 18px 30px rgba(0, 0, 0, 0.32);
   --sidebar-panel-overlay: linear-gradient(180deg, rgba(207, 221, 255, 0.07), rgba(207, 221, 255, 0));
   --sidebar-section-bg: linear-gradient(180deg, rgba(207, 221, 255, 0.07), rgba(207, 221, 255, 0.018));
   --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
-  --sidebar-item-active-bg: linear-gradient(180deg, rgba(209, 160, 58, 0.18), rgba(209, 160, 58, 0.06));
-  --sidebar-item-active-border: rgba(209, 160, 58, 0.28);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(106, 159, 212, 0.18), rgba(106, 159, 212, 0.06));
+  --sidebar-item-active-border: rgba(106, 159, 212, 0.28);
   --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
-  --sidebar-dropzone-hover-bg: rgba(209, 160, 58, 0.08);
-  --sidebar-dropzone-hover-border: rgba(209, 160, 58, 0.3);
-  --sidebar-dropzone-ring: rgba(209, 160, 58, 0.1);
+  --sidebar-dropzone-hover-bg: rgba(106, 159, 212, 0.08);
+  --sidebar-dropzone-hover-border: rgba(106, 159, 212, 0.3);
+  --sidebar-dropzone-ring: rgba(106, 159, 212, 0.1);
   --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
-  --sidebar-file-active-bg: linear-gradient(180deg, rgba(209, 160, 58, 0.18), rgba(209, 160, 58, 0.07));
-  --sidebar-file-active-border: rgba(209, 160, 58, 0.3);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(106, 159, 212, 0.18), rgba(106, 159, 212, 0.07));
+  --sidebar-file-active-border: rgba(106, 159, 212, 0.3);
   --sidebar-file-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 14px 30px rgba(0, 0, 0, 0.18);
   --conversation-panel-bg:
-    radial-gradient(circle at top right, rgba(209, 160, 58, 0.1), rgba(209, 160, 58, 0) 46%),
+    radial-gradient(circle at top right, rgba(106, 159, 212, 0.1), rgba(106, 159, 212, 0) 46%),
     linear-gradient(180deg, rgba(24, 31, 42, 0.94), rgba(18, 24, 34, 0.84)),
     #161d28;
   --conversation-panel-border: rgba(238, 243, 251, 0.08);
@@ -554,14 +554,14 @@
   --user-message-bg:
     linear-gradient(
       145deg,
-      rgba(244, 231, 197, 0.16) 0%,
-      rgba(209, 160, 58, 0.28) 60%,
-      rgba(132, 94, 28, 0.36) 100%
+      rgba(184, 212, 240, 0.16) 0%,
+      rgba(106, 159, 212, 0.28) 60%,
+      rgba(56, 97, 142, 0.36) 100%
     );
-  --user-message-border: rgba(209, 160, 58, 0.22);
-  --user-message-text: #f5f8ff;
-  --user-message-meta: rgba(255, 241, 222, 0.54);
-  --user-message-shadow: 0 16px 32px rgba(114, 82, 24, 0.22);
+  --user-message-border: rgba(106, 159, 212, 0.22);
+  --user-message-text: #f0f5fb;
+  --user-message-meta: rgba(240, 245, 251, 0.54);
+  --user-message-shadow: 0 16px 32px rgba(56, 97, 142, 0.22);
 }
 
 :root[data-theme-preset="spruce"] {
@@ -769,55 +769,55 @@
   --text-primary: #02060d;
   --text-secondary: #5f6b7a;
   --text-tertiary: #8591a4;
-  --accent-strong: #d4a24a;
-  --accent-deep: #a36f1d;
-  --accent-soft: #f1e1c0;
-  --accent-soft-strong: #6f4a14;
-  --accent-contrast: #160f06;
+  --accent-strong: #527fff;
+  --accent-deep: #3d60d9;
+  --accent-soft: #d4e0ff;
+  --accent-soft-strong: #2a3f80;
+  --accent-contrast: #f0f4ff;
   --warning-soft: #fff0e4;
   --warning-text: #9a6134;
   --sidebar-surface: linear-gradient(180deg, #05070b 0%, #08101a 46%, #0d1625 100%);
   --sidebar-text: #eef4ff;
   --sidebar-secondary: rgba(238, 244, 255, 0.74);
   --sidebar-tertiary: rgba(238, 244, 255, 0.46);
-  --sidebar-border: rgba(212, 162, 74, 0.14);
-  --sidebar-border-strong: rgba(212, 162, 74, 0.26);
+  --sidebar-border: rgba(82, 127, 255, 0.14);
+  --sidebar-border-strong: rgba(82, 127, 255, 0.26);
   --shadow-soft: 0 22px 56px rgba(3, 8, 17, 0.08);
   --shadow-strong: 0 28px 72px rgba(3, 8, 17, 0.24);
-  --body-glow-a: rgba(212, 162, 74, 0.06);
+  --body-glow-a: rgba(82, 127, 255, 0.06);
   --body-glow-b: rgba(66, 113, 205, 0.12);
-  --app-backdrop-a: rgba(212, 162, 74, 0.05);
+  --app-backdrop-a: rgba(82, 127, 255, 0.05);
   --app-backdrop-b: rgba(66, 113, 205, 0.08);
   --subtle-pill-bg: rgba(248, 251, 255, 0.72);
   --soft-btn-bg: rgba(248, 251, 255, 0.78);
   --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
-  --brand-orb-gradient: linear-gradient(145deg, #0f172b 0%, #d4a24a 56%, #f2dec0 100%);
-  --brand-orb-text: #fbf5e8;
+  --brand-orb-gradient: linear-gradient(145deg, #0f172b 0%, #527fff 56%, #b8ccff 100%);
+  --brand-orb-text: #f0f4ff;
   --brand-orb-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 10px 22px rgba(4, 10, 20, 0.24);
   --brand-orb-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 3px rgba(212, 162, 74, 0.14),
+    0 0 0 3px rgba(82, 127, 255, 0.14),
     0 14px 30px rgba(4, 10, 20, 0.28);
   --sidebar-panel-overlay: linear-gradient(180deg, rgba(207, 221, 255, 0.06), rgba(207, 221, 255, 0));
   --sidebar-section-bg: linear-gradient(180deg, rgba(207, 221, 255, 0.06), rgba(207, 221, 255, 0.018));
   --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
-  --sidebar-item-active-bg: linear-gradient(180deg, rgba(212, 162, 74, 0.18), rgba(212, 162, 74, 0.06));
-  --sidebar-item-active-border: rgba(212, 162, 74, 0.3);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(82, 127, 255, 0.18), rgba(82, 127, 255, 0.06));
+  --sidebar-item-active-border: rgba(82, 127, 255, 0.3);
   --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
-  --sidebar-dropzone-hover-bg: rgba(212, 162, 74, 0.08);
-  --sidebar-dropzone-hover-border: rgba(212, 162, 74, 0.32);
-  --sidebar-dropzone-ring: rgba(212, 162, 74, 0.1);
+  --sidebar-dropzone-hover-bg: rgba(82, 127, 255, 0.08);
+  --sidebar-dropzone-hover-border: rgba(82, 127, 255, 0.32);
+  --sidebar-dropzone-ring: rgba(82, 127, 255, 0.1);
   --sidebar-file-hover-bg: rgba(255, 255, 255, 0.044);
-  --sidebar-file-active-bg: linear-gradient(180deg, rgba(212, 162, 74, 0.18), rgba(212, 162, 74, 0.07));
-  --sidebar-file-active-border: rgba(212, 162, 74, 0.3);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(82, 127, 255, 0.18), rgba(82, 127, 255, 0.07));
+  --sidebar-file-active-border: rgba(82, 127, 255, 0.3);
   --sidebar-file-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 14px 30px rgba(4, 10, 20, 0.18);
   --conversation-panel-bg:
-    radial-gradient(circle at top right, rgba(212, 162, 74, 0.12), rgba(212, 162, 74, 0) 40%),
+    radial-gradient(circle at top right, rgba(82, 127, 255, 0.12), rgba(82, 127, 255, 0) 40%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 248, 253, 0.82)),
     #f4f7fb;
   --conversation-panel-border: rgba(2, 6, 23, 0.08);
@@ -839,11 +839,11 @@
   --composer-bg: rgba(255, 255, 255, 0.95);
   --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
   --timeline-card-bg: rgba(255, 255, 255, 0.8);
-  --user-message-bg: linear-gradient(145deg, #f3e7cf 0%, #e9d5ae 56%, #c6933a 100%);
-  --user-message-border: rgba(163, 111, 29, 0.18);
-  --user-message-text: #161008;
-  --user-message-meta: rgba(22, 16, 8, 0.5);
-  --user-message-shadow: 0 14px 28px rgba(163, 111, 29, 0.14);
+  --user-message-bg: linear-gradient(145deg, #ccdaff 0%, #a8bfff 56%, #527fff 100%);
+  --user-message-border: rgba(61, 96, 217, 0.18);
+  --user-message-text: #0a0e20;
+  --user-message-meta: rgba(10, 14, 32, 0.5);
+  --user-message-shadow: 0 14px 28px rgba(61, 96, 217, 0.14);
 }
 
 :root.dark[data-theme-preset="oled"] {
@@ -861,55 +861,55 @@
   --text-primary: #eef5ff;
   --text-secondary: #aebace;
   --text-tertiary: #7c889d;
-  --accent-strong: #d4a24a;
-  --accent-deep: #b27a21;
-  --accent-soft: rgba(212, 162, 74, 0.18);
-  --accent-soft-strong: #f1dfbf;
-  --accent-contrast: #160f06;
+  --accent-strong: #6a94ff;
+  --accent-deep: #527fff;
+  --accent-soft: rgba(106, 148, 255, 0.18);
+  --accent-soft-strong: #b8ccff;
+  --accent-contrast: #f0f4ff;
   --warning-soft: rgba(108, 76, 43, 0.22);
   --warning-text: #f0cca0;
   --sidebar-surface: linear-gradient(180deg, #010204 0%, #050912 46%, #0a1220 100%);
   --sidebar-text: #eef5ff;
   --sidebar-secondary: rgba(238, 245, 255, 0.74);
   --sidebar-tertiary: rgba(238, 245, 255, 0.44);
-  --sidebar-border: rgba(212, 162, 74, 0.1);
-  --sidebar-border-strong: rgba(212, 162, 74, 0.18);
+  --sidebar-border: rgba(106, 148, 255, 0.1);
+  --sidebar-border-strong: rgba(106, 148, 255, 0.18);
   --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.38);
   --shadow-strong: 0 24px 60px rgba(0, 0, 0, 0.44);
-  --body-glow-a: rgba(212, 162, 74, 0.08);
+  --body-glow-a: rgba(106, 148, 255, 0.08);
   --body-glow-b: rgba(74, 130, 255, 0.16);
-  --app-backdrop-a: rgba(212, 162, 74, 0.08);
+  --app-backdrop-a: rgba(106, 148, 255, 0.08);
   --app-backdrop-b: rgba(74, 130, 255, 0.12);
   --subtle-pill-bg: rgba(238, 245, 255, 0.05);
   --soft-btn-bg: rgba(238, 245, 255, 0.045);
   --soft-btn-hover-bg: rgba(238, 245, 255, 0.08);
-  --brand-orb-gradient: linear-gradient(145deg, #0e1730 0%, #d4a24a 56%, #f2dec0 100%);
-  --brand-orb-text: #fbf5e8;
+  --brand-orb-gradient: linear-gradient(145deg, #0e1730 0%, #6a94ff 56%, #b8ccff 100%);
+  --brand-orb-text: #f0f4ff;
   --brand-orb-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     0 14px 28px rgba(0, 0, 0, 0.3);
   --brand-orb-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 0 0 3px rgba(212, 162, 74, 0.18),
+    0 0 0 3px rgba(106, 148, 255, 0.18),
     0 18px 32px rgba(0, 0, 0, 0.34);
   --sidebar-panel-overlay: linear-gradient(180deg, rgba(210, 225, 255, 0.06), rgba(210, 225, 255, 0));
   --sidebar-section-bg: linear-gradient(180deg, rgba(210, 225, 255, 0.06), rgba(210, 225, 255, 0.016));
   --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
-  --sidebar-item-active-bg: linear-gradient(180deg, rgba(212, 162, 74, 0.18), rgba(212, 162, 74, 0.06));
-  --sidebar-item-active-border: rgba(212, 162, 74, 0.28);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(106, 148, 255, 0.18), rgba(106, 148, 255, 0.06));
+  --sidebar-item-active-border: rgba(106, 148, 255, 0.28);
   --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --sidebar-dropzone-bg: rgba(255, 255, 255, 0.022);
-  --sidebar-dropzone-hover-bg: rgba(212, 162, 74, 0.08);
-  --sidebar-dropzone-hover-border: rgba(212, 162, 74, 0.3);
-  --sidebar-dropzone-ring: rgba(212, 162, 74, 0.1);
+  --sidebar-dropzone-hover-bg: rgba(106, 148, 255, 0.08);
+  --sidebar-dropzone-hover-border: rgba(106, 148, 255, 0.3);
+  --sidebar-dropzone-ring: rgba(106, 148, 255, 0.1);
   --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
-  --sidebar-file-active-bg: linear-gradient(180deg, rgba(212, 162, 74, 0.18), rgba(212, 162, 74, 0.07));
-  --sidebar-file-active-border: rgba(212, 162, 74, 0.3);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(106, 148, 255, 0.18), rgba(106, 148, 255, 0.07));
+  --sidebar-file-active-border: rgba(106, 148, 255, 0.3);
   --sidebar-file-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 14px 30px rgba(0, 0, 0, 0.2);
   --conversation-panel-bg:
-    radial-gradient(circle at top right, rgba(212, 162, 74, 0.12), rgba(212, 162, 74, 0) 42%),
+    radial-gradient(circle at top right, rgba(106, 148, 255, 0.12), rgba(106, 148, 255, 0) 42%),
     linear-gradient(180deg, rgba(13, 18, 28, 0.94), rgba(8, 12, 19, 0.86)),
     #0b1018;
   --conversation-panel-border: rgba(238, 245, 255, 0.08);
@@ -934,14 +934,1348 @@
   --user-message-bg:
     linear-gradient(
       145deg,
-      rgba(243, 231, 200, 0.14) 0%,
-      rgba(212, 162, 74, 0.26) 58%,
-      rgba(122, 82, 24, 0.36) 100%
+      rgba(184, 204, 255, 0.14) 0%,
+      rgba(106, 148, 255, 0.26) 58%,
+      rgba(61, 96, 217, 0.36) 100%
     );
-  --user-message-border: rgba(212, 162, 74, 0.22);
-  --user-message-text: #f7f9fd;
-  --user-message-meta: rgba(247, 249, 253, 0.54);
-  --user-message-shadow: 0 16px 30px rgba(117, 80, 23, 0.22);
+  --user-message-border: rgba(106, 148, 255, 0.22);
+  --user-message-text: #f0f4ff;
+  --user-message-meta: rgba(240, 244, 255, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(61, 96, 217, 0.22);
+}
+
+:root[data-theme-preset="rosewood"] {
+  --bg-app: #f4f1ef;
+  --bg-overlay: rgba(244, 241, 239, 0.94);
+  --bg-panel: #faf8f6;
+  --bg-panel-soft: #f3f0ed;
+  --bg-panel-muted: #e8e2dd;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(26, 16, 16, 0.05);
+  --bg-canvas: #fcfafa;
+  --bg-canvas-soft: #efebeb;
+  --border-subtle: rgba(40, 24, 24, 0.09);
+  --border-strong: rgba(40, 24, 24, 0.16);
+  --text-primary: #1a1210;
+  --text-secondary: #7a6e68;
+  --text-tertiary: #a09490;
+  --accent-strong: #a05050;
+  --accent-deep: #7d3c3c;
+  --accent-soft: #f0dada;
+  --accent-soft-strong: #6b2828;
+  --accent-contrast: #faf0f0;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #12080a 0%, #1a0f11 46%, #26181a 100%);
+  --sidebar-text: #f4eeed;
+  --sidebar-secondary: rgba(244, 238, 237, 0.72);
+  --sidebar-tertiary: rgba(244, 238, 237, 0.46);
+  --sidebar-border: rgba(160, 80, 80, 0.14);
+  --sidebar-border-strong: rgba(160, 80, 80, 0.26);
+  --shadow-soft: 0 22px 52px rgba(26, 16, 16, 0.08);
+  --shadow-strong: 0 28px 72px rgba(16, 8, 8, 0.22);
+  --body-glow-a: rgba(160, 80, 80, 0.06);
+  --body-glow-b: rgba(60, 36, 36, 0.08);
+  --app-backdrop-a: rgba(160, 80, 80, 0.05);
+  --app-backdrop-b: rgba(60, 36, 36, 0.07);
+  --subtle-pill-bg: rgba(252, 248, 247, 0.72);
+  --soft-btn-bg: rgba(253, 250, 249, 0.78);
+  --soft-btn-hover-bg: rgba(255, 253, 252, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #261218 0%, #a05050 58%, #e8baba 100%);
+  --brand-orb-text: #faf0f0;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(26, 16, 16, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(160, 80, 80, 0.14),
+    0 14px 28px rgba(26, 16, 16, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(244, 218, 218, 0.06), rgba(244, 218, 218, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(244, 218, 218, 0.06), rgba(244, 218, 218, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(160, 80, 80, 0.18), rgba(160, 80, 80, 0.06));
+  --sidebar-item-active-border: rgba(160, 80, 80, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(160, 80, 80, 0.08);
+  --sidebar-dropzone-hover-border: rgba(160, 80, 80, 0.32);
+  --sidebar-dropzone-ring: rgba(160, 80, 80, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(160, 80, 80, 0.18), rgba(160, 80, 80, 0.07));
+  --sidebar-file-active-border: rgba(160, 80, 80, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(16, 8, 8, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(160, 80, 80, 0.12), rgba(160, 80, 80, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 246, 244, 0.8)),
+    #f8f4f2;
+  --conversation-panel-border: rgba(40, 24, 24, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(26, 16, 16, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(26, 16, 16, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 246, 244, 0.93));
+  --assistant-message-border: rgba(40, 24, 24, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(26, 16, 16, 0.05);
+  --assistant-message-meta: rgba(122, 110, 104, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #f4f0ee;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(253, 250, 249, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #f0dada 0%, #e4c2c2 56%, #a05050 100%);
+  --user-message-border: rgba(125, 60, 60, 0.18);
+  --user-message-text: #1a0e0e;
+  --user-message-meta: rgba(26, 14, 14, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(125, 60, 60, 0.14);
+}
+
+:root.dark[data-theme-preset="rosewood"] {
+  --bg-app: #100a0a;
+  --bg-overlay: rgba(16, 10, 10, 0.92);
+  --bg-panel: #1a1010;
+  --bg-panel-soft: #221616;
+  --bg-panel-muted: #2c1c1c;
+  --bg-elevated: #2a1a1a;
+  --bg-muted: rgba(244, 238, 237, 0.05);
+  --bg-canvas: #140e0e;
+  --bg-canvas-soft: #201414;
+  --border-subtle: rgba(200, 160, 160, 0.1);
+  --border-strong: rgba(200, 160, 160, 0.18);
+  --text-primary: #f4eeed;
+  --text-secondary: #c0aaa8;
+  --text-tertiary: #8e7876;
+  --accent-strong: #c06a6a;
+  --accent-deep: #a05050;
+  --accent-soft: rgba(192, 106, 106, 0.2);
+  --accent-soft-strong: #e8baba;
+  --accent-contrast: #faf0f0;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #0a0506 0%, #120a0c 48%, #1c1012 100%);
+  --sidebar-text: #f4eeed;
+  --sidebar-secondary: rgba(244, 238, 237, 0.74);
+  --sidebar-tertiary: rgba(244, 238, 237, 0.44);
+  --sidebar-border: rgba(192, 106, 106, 0.1);
+  --sidebar-border-strong: rgba(192, 106, 106, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.4);
+  --body-glow-a: rgba(192, 106, 106, 0.08);
+  --body-glow-b: rgba(80, 40, 40, 0.14);
+  --app-backdrop-a: rgba(192, 106, 106, 0.08);
+  --app-backdrop-b: rgba(80, 40, 40, 0.1);
+  --subtle-pill-bg: rgba(244, 238, 237, 0.06);
+  --soft-btn-bg: rgba(244, 238, 237, 0.05);
+  --soft-btn-hover-bg: rgba(244, 238, 237, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #2a1418 0%, #c06a6a 56%, #e8baba 100%);
+  --brand-orb-text: #faf0f0;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.28);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(192, 106, 106, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.32);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(244, 218, 218, 0.07), rgba(244, 218, 218, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(244, 218, 218, 0.07), rgba(244, 218, 218, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(192, 106, 106, 0.18), rgba(192, 106, 106, 0.06));
+  --sidebar-item-active-border: rgba(192, 106, 106, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(192, 106, 106, 0.08);
+  --sidebar-dropzone-hover-border: rgba(192, 106, 106, 0.3);
+  --sidebar-dropzone-ring: rgba(192, 106, 106, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(192, 106, 106, 0.18), rgba(192, 106, 106, 0.07));
+  --sidebar-file-active-border: rgba(192, 106, 106, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(192, 106, 106, 0.1), rgba(192, 106, 106, 0) 46%),
+    linear-gradient(180deg, rgba(28, 18, 18, 0.94), rgba(22, 14, 14, 0.84)),
+    #1c1212;
+  --conversation-panel-border: rgba(244, 238, 237, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(244, 238, 237, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(244, 238, 237, 0.058), rgba(244, 238, 237, 0.032));
+  --assistant-message-border: rgba(244, 238, 237, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  --assistant-message-meta: rgba(244, 238, 237, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #1e1414;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(244, 238, 237, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(232, 186, 186, 0.14) 0%,
+      rgba(192, 106, 106, 0.24) 58%,
+      rgba(125, 60, 60, 0.36) 100%
+    );
+  --user-message-border: rgba(192, 106, 106, 0.22);
+  --user-message-text: #faf0f0;
+  --user-message-meta: rgba(250, 240, 240, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(125, 60, 60, 0.22);
+}
+
+:root[data-theme-preset="inkstone"] {
+  --bg-app: #f1f2f6;
+  --bg-overlay: rgba(241, 242, 246, 0.94);
+  --bg-panel: #f9f9fc;
+  --bg-panel-soft: #f0f1f6;
+  --bg-panel-muted: #e3e4ee;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(14, 14, 24, 0.05);
+  --bg-canvas: #fbfbfe;
+  --bg-canvas-soft: #eaecf4;
+  --border-subtle: rgba(14, 14, 24, 0.09);
+  --border-strong: rgba(14, 14, 24, 0.16);
+  --text-primary: #0e0e18;
+  --text-secondary: #6a6a82;
+  --text-tertiary: #9696ae;
+  --accent-strong: #5c5ea0;
+  --accent-deep: #464880;
+  --accent-soft: #e0e0f0;
+  --accent-soft-strong: #36366a;
+  --accent-contrast: #f2f2fa;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #0a0a14 0%, #10101e 46%, #18182e 100%);
+  --sidebar-text: #eeeef8;
+  --sidebar-secondary: rgba(238, 238, 248, 0.72);
+  --sidebar-tertiary: rgba(238, 238, 248, 0.46);
+  --sidebar-border: rgba(92, 94, 160, 0.14);
+  --sidebar-border-strong: rgba(92, 94, 160, 0.26);
+  --shadow-soft: 0 22px 52px rgba(14, 14, 24, 0.08);
+  --shadow-strong: 0 28px 72px rgba(8, 8, 18, 0.22);
+  --body-glow-a: rgba(92, 94, 160, 0.06);
+  --body-glow-b: rgba(40, 40, 72, 0.08);
+  --app-backdrop-a: rgba(92, 94, 160, 0.05);
+  --app-backdrop-b: rgba(40, 40, 72, 0.07);
+  --subtle-pill-bg: rgba(248, 248, 255, 0.72);
+  --soft-btn-bg: rgba(250, 250, 255, 0.78);
+  --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #1a1a30 0%, #5c5ea0 58%, #c0c0e8 100%);
+  --brand-orb-text: #f2f2fa;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(14, 14, 24, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(92, 94, 160, 0.14),
+    0 14px 28px rgba(14, 14, 24, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(200, 200, 240, 0.06), rgba(200, 200, 240, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(200, 200, 240, 0.06), rgba(200, 200, 240, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(92, 94, 160, 0.18), rgba(92, 94, 160, 0.06));
+  --sidebar-item-active-border: rgba(92, 94, 160, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(92, 94, 160, 0.08);
+  --sidebar-dropzone-hover-border: rgba(92, 94, 160, 0.32);
+  --sidebar-dropzone-ring: rgba(92, 94, 160, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(92, 94, 160, 0.18), rgba(92, 94, 160, 0.07));
+  --sidebar-file-active-border: rgba(92, 94, 160, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(8, 8, 18, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(92, 94, 160, 0.12), rgba(92, 94, 160, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 248, 254, 0.8)),
+    #f6f6fc;
+  --conversation-panel-border: rgba(14, 14, 24, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(14, 14, 24, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(14, 14, 24, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 248, 254, 0.93));
+  --assistant-message-border: rgba(14, 14, 24, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(14, 14, 24, 0.05);
+  --assistant-message-meta: rgba(106, 106, 130, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #f0f0f8;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(250, 250, 255, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #d8d8f0 0%, #c0c0e4 56%, #6a6ab0 100%);
+  --user-message-border: rgba(70, 72, 128, 0.18);
+  --user-message-text: #0c0c1a;
+  --user-message-meta: rgba(12, 12, 26, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(70, 72, 128, 0.14);
+}
+
+:root.dark[data-theme-preset="inkstone"] {
+  --bg-app: #0a0a14;
+  --bg-overlay: rgba(10, 10, 20, 0.92);
+  --bg-panel: #101018;
+  --bg-panel-soft: #16161f;
+  --bg-panel-muted: #1c1c2a;
+  --bg-elevated: #1a1a28;
+  --bg-muted: rgba(238, 238, 248, 0.05);
+  --bg-canvas: #0e0e18;
+  --bg-canvas-soft: #161622;
+  --border-subtle: rgba(160, 160, 220, 0.1);
+  --border-strong: rgba(160, 160, 220, 0.18);
+  --text-primary: #eeeef8;
+  --text-secondary: #b0b0cc;
+  --text-tertiary: #8080a4;
+  --accent-strong: #8082c0;
+  --accent-deep: #5c5ea0;
+  --accent-soft: rgba(128, 130, 192, 0.2);
+  --accent-soft-strong: #c0c0e8;
+  --accent-contrast: #f2f2fa;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #06060c 0%, #0c0c16 48%, #12121e 100%);
+  --sidebar-text: #eeeef8;
+  --sidebar-secondary: rgba(238, 238, 248, 0.74);
+  --sidebar-tertiary: rgba(238, 238, 248, 0.44);
+  --sidebar-border: rgba(128, 130, 192, 0.1);
+  --sidebar-border-strong: rgba(128, 130, 192, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.4);
+  --body-glow-a: rgba(128, 130, 192, 0.08);
+  --body-glow-b: rgba(60, 60, 100, 0.14);
+  --app-backdrop-a: rgba(128, 130, 192, 0.08);
+  --app-backdrop-b: rgba(60, 60, 100, 0.1);
+  --subtle-pill-bg: rgba(238, 238, 248, 0.06);
+  --soft-btn-bg: rgba(238, 238, 248, 0.05);
+  --soft-btn-hover-bg: rgba(238, 238, 248, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #1c1c36 0%, #8082c0 56%, #c0c0e8 100%);
+  --brand-orb-text: #f2f2fa;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.28);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(128, 130, 192, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.32);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(200, 200, 240, 0.07), rgba(200, 200, 240, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(200, 200, 240, 0.07), rgba(200, 200, 240, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(128, 130, 192, 0.18), rgba(128, 130, 192, 0.06));
+  --sidebar-item-active-border: rgba(128, 130, 192, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(128, 130, 192, 0.08);
+  --sidebar-dropzone-hover-border: rgba(128, 130, 192, 0.3);
+  --sidebar-dropzone-ring: rgba(128, 130, 192, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(128, 130, 192, 0.18), rgba(128, 130, 192, 0.07));
+  --sidebar-file-active-border: rgba(128, 130, 192, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(128, 130, 192, 0.1), rgba(128, 130, 192, 0) 46%),
+    linear-gradient(180deg, rgba(22, 22, 34, 0.94), rgba(16, 16, 26, 0.84)),
+    #181826;
+  --conversation-panel-border: rgba(238, 238, 248, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(238, 238, 248, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(238, 238, 248, 0.058), rgba(238, 238, 248, 0.032));
+  --assistant-message-border: rgba(238, 238, 248, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  --assistant-message-meta: rgba(238, 238, 248, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #141422;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(238, 238, 248, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(192, 192, 232, 0.14) 0%,
+      rgba(128, 130, 192, 0.24) 58%,
+      rgba(70, 72, 128, 0.36) 100%
+    );
+  --user-message-border: rgba(128, 130, 192, 0.22);
+  --user-message-text: #f2f2fa;
+  --user-message-meta: rgba(242, 242, 250, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(70, 72, 128, 0.22);
+}
+
+:root[data-theme-preset="dusk"] {
+  --bg-app: #f5f2ef;
+  --bg-overlay: rgba(245, 242, 239, 0.94);
+  --bg-panel: #faf8f5;
+  --bg-panel-soft: #f2efea;
+  --bg-panel-muted: #e6e0d8;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(18, 14, 12, 0.05);
+  --bg-canvas: #fcfaf8;
+  --bg-canvas-soft: #ede8e2;
+  --border-subtle: rgba(32, 24, 18, 0.09);
+  --border-strong: rgba(32, 24, 18, 0.16);
+  --text-primary: #1a1410;
+  --text-secondary: #7a7068;
+  --text-tertiary: #a09690;
+  --accent-strong: #c06a3a;
+  --accent-deep: #985232;
+  --accent-soft: #f4ddd0;
+  --accent-soft-strong: #6e3818;
+  --accent-contrast: #faf2ee;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #0e0a08 0%, #16100c 46%, #201814 100%);
+  --sidebar-text: #f4eeea;
+  --sidebar-secondary: rgba(244, 238, 234, 0.72);
+  --sidebar-tertiary: rgba(244, 238, 234, 0.46);
+  --sidebar-border: rgba(192, 106, 58, 0.14);
+  --sidebar-border-strong: rgba(192, 106, 58, 0.26);
+  --shadow-soft: 0 22px 52px rgba(18, 14, 12, 0.08);
+  --shadow-strong: 0 28px 72px rgba(10, 6, 4, 0.22);
+  --body-glow-a: rgba(192, 106, 58, 0.06);
+  --body-glow-b: rgba(60, 36, 22, 0.08);
+  --app-backdrop-a: rgba(192, 106, 58, 0.05);
+  --app-backdrop-b: rgba(60, 36, 22, 0.07);
+  --subtle-pill-bg: rgba(252, 248, 244, 0.72);
+  --soft-btn-bg: rgba(253, 250, 246, 0.78);
+  --soft-btn-hover-bg: rgba(255, 253, 250, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #201410 0%, #c06a3a 58%, #f0c8a8 100%);
+  --brand-orb-text: #faf2ee;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(18, 14, 12, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(192, 106, 58, 0.14),
+    0 14px 28px rgba(18, 14, 12, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(244, 220, 200, 0.06), rgba(244, 220, 200, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(244, 220, 200, 0.06), rgba(244, 220, 200, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(192, 106, 58, 0.18), rgba(192, 106, 58, 0.06));
+  --sidebar-item-active-border: rgba(192, 106, 58, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(192, 106, 58, 0.08);
+  --sidebar-dropzone-hover-border: rgba(192, 106, 58, 0.32);
+  --sidebar-dropzone-ring: rgba(192, 106, 58, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(192, 106, 58, 0.18), rgba(192, 106, 58, 0.07));
+  --sidebar-file-active-border: rgba(192, 106, 58, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(10, 6, 4, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(192, 106, 58, 0.12), rgba(192, 106, 58, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 246, 242, 0.8)),
+    #f8f4f0;
+  --conversation-panel-border: rgba(32, 24, 18, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(18, 14, 12, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(18, 14, 12, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 246, 242, 0.93));
+  --assistant-message-border: rgba(32, 24, 18, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(18, 14, 12, 0.05);
+  --assistant-message-meta: rgba(122, 112, 104, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #f2eee8;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(253, 250, 246, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #f4ddd0 0%, #e8c4ac 56%, #c06a3a 100%);
+  --user-message-border: rgba(152, 82, 50, 0.18);
+  --user-message-text: #1a100a;
+  --user-message-meta: rgba(26, 16, 10, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(152, 82, 50, 0.14);
+}
+
+:root.dark[data-theme-preset="dusk"] {
+  --bg-app: #120e0c;
+  --bg-overlay: rgba(18, 14, 12, 0.92);
+  --bg-panel: #1a1410;
+  --bg-panel-soft: #221a16;
+  --bg-panel-muted: #2c221c;
+  --bg-elevated: #281e18;
+  --bg-muted: rgba(244, 238, 234, 0.05);
+  --bg-canvas: #16110e;
+  --bg-canvas-soft: #201814;
+  --border-subtle: rgba(220, 190, 170, 0.1);
+  --border-strong: rgba(220, 190, 170, 0.18);
+  --text-primary: #f4eeea;
+  --text-secondary: #c0aa9e;
+  --text-tertiary: #8e7e74;
+  --accent-strong: #d8804a;
+  --accent-deep: #c06a3a;
+  --accent-soft: rgba(216, 128, 74, 0.2);
+  --accent-soft-strong: #f0c8a8;
+  --accent-contrast: #faf2ee;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #0a0706 0%, #120e0a 48%, #1a1410 100%);
+  --sidebar-text: #f4eeea;
+  --sidebar-secondary: rgba(244, 238, 234, 0.74);
+  --sidebar-tertiary: rgba(244, 238, 234, 0.44);
+  --sidebar-border: rgba(216, 128, 74, 0.1);
+  --sidebar-border-strong: rgba(216, 128, 74, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.4);
+  --body-glow-a: rgba(216, 128, 74, 0.08);
+  --body-glow-b: rgba(80, 44, 24, 0.14);
+  --app-backdrop-a: rgba(216, 128, 74, 0.08);
+  --app-backdrop-b: rgba(80, 44, 24, 0.1);
+  --subtle-pill-bg: rgba(244, 238, 234, 0.06);
+  --soft-btn-bg: rgba(244, 238, 234, 0.05);
+  --soft-btn-hover-bg: rgba(244, 238, 234, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #281a12 0%, #d8804a 56%, #f0c8a8 100%);
+  --brand-orb-text: #faf2ee;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.28);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(216, 128, 74, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.32);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(244, 220, 200, 0.07), rgba(244, 220, 200, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(244, 220, 200, 0.07), rgba(244, 220, 200, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(216, 128, 74, 0.18), rgba(216, 128, 74, 0.06));
+  --sidebar-item-active-border: rgba(216, 128, 74, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(216, 128, 74, 0.08);
+  --sidebar-dropzone-hover-border: rgba(216, 128, 74, 0.3);
+  --sidebar-dropzone-ring: rgba(216, 128, 74, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(216, 128, 74, 0.18), rgba(216, 128, 74, 0.07));
+  --sidebar-file-active-border: rgba(216, 128, 74, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(216, 128, 74, 0.1), rgba(216, 128, 74, 0) 46%),
+    linear-gradient(180deg, rgba(26, 20, 16, 0.94), rgba(20, 16, 12, 0.84)),
+    #1c1612;
+  --conversation-panel-border: rgba(244, 238, 234, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(244, 238, 234, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(244, 238, 234, 0.058), rgba(244, 238, 234, 0.032));
+  --assistant-message-border: rgba(244, 238, 234, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  --assistant-message-meta: rgba(244, 238, 234, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #1a1410;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(244, 238, 234, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(240, 200, 168, 0.14) 0%,
+      rgba(216, 128, 74, 0.24) 58%,
+      rgba(152, 82, 50, 0.36) 100%
+    );
+  --user-message-border: rgba(216, 128, 74, 0.22);
+  --user-message-text: #faf2ee;
+  --user-message-meta: rgba(250, 242, 238, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(152, 82, 50, 0.22);
+}
+
+/* ── 铜绿 Verdigris ── oxidized-copper patina ── */
+:root[data-theme-preset="verdigris"] {
+  --bg-app: #f0f2f1;
+  --bg-overlay: rgba(240, 242, 241, 0.94);
+  --bg-panel: #f8faf9;
+  --bg-panel-soft: #eff2f0;
+  --bg-panel-muted: #dfe4e1;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(14, 18, 16, 0.05);
+  --bg-canvas: #fafbfa;
+  --bg-canvas-soft: #e6ecea;
+  --border-subtle: rgba(14, 18, 16, 0.09);
+  --border-strong: rgba(14, 18, 16, 0.16);
+  --text-primary: #0e1210;
+  --text-secondary: #6a7a74;
+  --text-tertiary: #96a8a0;
+  --accent-strong: #4e8c7f;
+  --accent-deep: #3a6b62;
+  --accent-soft: #d0e2dd;
+  --accent-soft-strong: #2d544c;
+  --accent-contrast: #f0f6f4;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #0c1210 0%, #121a18 46%, #1a2622 100%);
+  --sidebar-text: #ecf2f0;
+  --sidebar-secondary: rgba(236, 242, 240, 0.72);
+  --sidebar-tertiary: rgba(236, 242, 240, 0.46);
+  --sidebar-border: rgba(78, 140, 127, 0.14);
+  --sidebar-border-strong: rgba(78, 140, 127, 0.26);
+  --shadow-soft: 0 22px 52px rgba(14, 18, 16, 0.07);
+  --shadow-strong: 0 28px 72px rgba(8, 12, 10, 0.2);
+  --body-glow-a: rgba(78, 140, 127, 0.06);
+  --body-glow-b: rgba(42, 60, 52, 0.08);
+  --app-backdrop-a: rgba(78, 140, 127, 0.05);
+  --app-backdrop-b: rgba(42, 60, 52, 0.07);
+  --subtle-pill-bg: rgba(246, 250, 248, 0.72);
+  --soft-btn-bg: rgba(248, 252, 250, 0.78);
+  --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #182822 0%, #4e8c7f 58%, #b4dcd4 100%);
+  --brand-orb-text: #f0f6f4;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(14, 18, 16, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(78, 140, 127, 0.14),
+    0 14px 28px rgba(14, 18, 16, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(180, 220, 212, 0.06), rgba(180, 220, 212, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(180, 220, 212, 0.06), rgba(180, 220, 212, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(78, 140, 127, 0.18), rgba(78, 140, 127, 0.06));
+  --sidebar-item-active-border: rgba(78, 140, 127, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(78, 140, 127, 0.08);
+  --sidebar-dropzone-hover-border: rgba(78, 140, 127, 0.32);
+  --sidebar-dropzone-ring: rgba(78, 140, 127, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(78, 140, 127, 0.18), rgba(78, 140, 127, 0.07));
+  --sidebar-file-active-border: rgba(78, 140, 127, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(8, 12, 10, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(78, 140, 127, 0.12), rgba(78, 140, 127, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 252, 250, 0.8)),
+    #f6f8f7;
+  --conversation-panel-border: rgba(14, 18, 16, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(14, 18, 16, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(14, 18, 16, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 250, 0.93));
+  --assistant-message-border: rgba(14, 18, 16, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(14, 18, 16, 0.05);
+  --assistant-message-meta: rgba(106, 122, 116, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #f0f4f2;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(248, 252, 250, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #c8ddd8 0%, #aecfcc 56%, #5a9a8c 100%);
+  --user-message-border: rgba(58, 107, 98, 0.18);
+  --user-message-text: #0a1612;
+  --user-message-meta: rgba(10, 22, 18, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(58, 107, 98, 0.14);
+}
+
+:root.dark[data-theme-preset="verdigris"] {
+  --bg-app: #0c100f;
+  --bg-overlay: rgba(12, 16, 15, 0.92);
+  --bg-panel: #141a18;
+  --bg-panel-soft: #1a2220;
+  --bg-panel-muted: #222c28;
+  --bg-elevated: #202824;
+  --bg-muted: rgba(236, 242, 240, 0.05);
+  --bg-canvas: #101412;
+  --bg-canvas-soft: #1a2020;
+  --border-subtle: rgba(160, 200, 190, 0.1);
+  --border-strong: rgba(160, 200, 190, 0.18);
+  --text-primary: #ecf2f0;
+  --text-secondary: #a8bcb4;
+  --text-tertiary: #7a948a;
+  --accent-strong: #6aafa0;
+  --accent-deep: #4e8c7f;
+  --accent-soft: rgba(106, 175, 160, 0.2);
+  --accent-soft-strong: #b4dcd4;
+  --accent-contrast: #f0f6f4;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #080c0a 0%, #0e1614 48%, #141e1a 100%);
+  --sidebar-text: #ecf2f0;
+  --sidebar-secondary: rgba(236, 242, 240, 0.74);
+  --sidebar-tertiary: rgba(236, 242, 240, 0.44);
+  --sidebar-border: rgba(106, 175, 160, 0.1);
+  --sidebar-border-strong: rgba(106, 175, 160, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.4);
+  --body-glow-a: rgba(106, 175, 160, 0.08);
+  --body-glow-b: rgba(42, 80, 68, 0.14);
+  --app-backdrop-a: rgba(106, 175, 160, 0.08);
+  --app-backdrop-b: rgba(42, 80, 68, 0.1);
+  --subtle-pill-bg: rgba(236, 242, 240, 0.06);
+  --soft-btn-bg: rgba(236, 242, 240, 0.05);
+  --soft-btn-hover-bg: rgba(236, 242, 240, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #1c3028 0%, #6aafa0 56%, #b4dcd4 100%);
+  --brand-orb-text: #f0f6f4;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.28);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(106, 175, 160, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.32);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(180, 220, 212, 0.07), rgba(180, 220, 212, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(180, 220, 212, 0.07), rgba(180, 220, 212, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(106, 175, 160, 0.18), rgba(106, 175, 160, 0.06));
+  --sidebar-item-active-border: rgba(106, 175, 160, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(106, 175, 160, 0.08);
+  --sidebar-dropzone-hover-border: rgba(106, 175, 160, 0.3);
+  --sidebar-dropzone-ring: rgba(106, 175, 160, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(106, 175, 160, 0.18), rgba(106, 175, 160, 0.07));
+  --sidebar-file-active-border: rgba(106, 175, 160, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(106, 175, 160, 0.1), rgba(106, 175, 160, 0) 46%),
+    linear-gradient(180deg, rgba(22, 30, 28, 0.94), rgba(16, 22, 20, 0.84)),
+    #1a2220;
+  --conversation-panel-border: rgba(236, 242, 240, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(236, 242, 240, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(236, 242, 240, 0.058), rgba(236, 242, 240, 0.032));
+  --assistant-message-border: rgba(236, 242, 240, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  --assistant-message-meta: rgba(236, 242, 240, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #161e1a;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(236, 242, 240, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(180, 220, 212, 0.14) 0%,
+      rgba(106, 175, 160, 0.24) 58%,
+      rgba(58, 107, 98, 0.36) 100%
+    );
+  --user-message-border: rgba(106, 175, 160, 0.22);
+  --user-message-text: #f0f6f4;
+  --user-message-meta: rgba(240, 246, 244, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(58, 107, 98, 0.22);
+}
+
+/* ── 霜岩 Hoarfrost ── arctic ice on dark stone ── */
+:root[data-theme-preset="hoarfrost"] {
+  --bg-app: #f4f6f8;
+  --bg-overlay: rgba(244, 246, 248, 0.94);
+  --bg-panel: #fafbfc;
+  --bg-panel-soft: #f0f2f6;
+  --bg-panel-muted: #e2e6ec;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(10, 14, 18, 0.05);
+  --bg-canvas: #fcfcfe;
+  --bg-canvas-soft: #e8ecf2;
+  --border-subtle: rgba(10, 14, 18, 0.09);
+  --border-strong: rgba(10, 14, 18, 0.16);
+  --text-primary: #0a0e12;
+  --text-secondary: #5e6e7e;
+  --text-tertiary: #8e9cac;
+  --accent-strong: #6b9bae;
+  --accent-deep: #4e7a8c;
+  --accent-soft: #d0dfe8;
+  --accent-soft-strong: #2e5262;
+  --accent-contrast: #f0f4f8;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #080c10 0%, #0e141a 46%, #161e28 100%);
+  --sidebar-text: #ecf0f4;
+  --sidebar-secondary: rgba(236, 240, 244, 0.72);
+  --sidebar-tertiary: rgba(236, 240, 244, 0.46);
+  --sidebar-border: rgba(107, 155, 174, 0.14);
+  --sidebar-border-strong: rgba(107, 155, 174, 0.26);
+  --shadow-soft: 0 22px 52px rgba(10, 14, 18, 0.07);
+  --shadow-strong: 0 28px 72px rgba(4, 6, 10, 0.2);
+  --body-glow-a: rgba(107, 155, 174, 0.06);
+  --body-glow-b: rgba(30, 50, 70, 0.08);
+  --app-backdrop-a: rgba(107, 155, 174, 0.05);
+  --app-backdrop-b: rgba(30, 50, 70, 0.07);
+  --subtle-pill-bg: rgba(248, 250, 252, 0.72);
+  --soft-btn-bg: rgba(250, 252, 254, 0.78);
+  --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #1a2430 0%, #6b9bae 58%, #b4d0dc 100%);
+  --brand-orb-text: #f0f4f8;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(10, 14, 18, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(107, 155, 174, 0.14),
+    0 14px 28px rgba(10, 14, 18, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(190, 218, 234, 0.06), rgba(190, 218, 234, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(190, 218, 234, 0.06), rgba(190, 218, 234, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(107, 155, 174, 0.18), rgba(107, 155, 174, 0.06));
+  --sidebar-item-active-border: rgba(107, 155, 174, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(107, 155, 174, 0.08);
+  --sidebar-dropzone-hover-border: rgba(107, 155, 174, 0.32);
+  --sidebar-dropzone-ring: rgba(107, 155, 174, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(107, 155, 174, 0.18), rgba(107, 155, 174, 0.07));
+  --sidebar-file-active-border: rgba(107, 155, 174, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(4, 6, 10, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(107, 155, 174, 0.12), rgba(107, 155, 174, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 254, 0.8)),
+    #f6f8fa;
+  --conversation-panel-border: rgba(10, 14, 18, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(10, 14, 18, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(10, 14, 18, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 254, 0.93));
+  --assistant-message-border: rgba(10, 14, 18, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(10, 14, 18, 0.05);
+  --assistant-message-meta: rgba(94, 110, 126, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #f2f4f8;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(250, 252, 254, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #c4d8e4 0%, #a8c4d4 56%, #5a8ea6 100%);
+  --user-message-border: rgba(78, 122, 140, 0.18);
+  --user-message-text: #0a1018;
+  --user-message-meta: rgba(10, 16, 24, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(78, 122, 140, 0.14);
+}
+
+:root.dark[data-theme-preset="hoarfrost"] {
+  --bg-app: #080c10;
+  --bg-overlay: rgba(8, 12, 16, 0.92);
+  --bg-panel: #0e141a;
+  --bg-panel-soft: #141c24;
+  --bg-panel-muted: #1a242e;
+  --bg-elevated: #182028;
+  --bg-muted: rgba(236, 240, 244, 0.05);
+  --bg-canvas: #0c1014;
+  --bg-canvas-soft: #141a22;
+  --border-subtle: rgba(170, 200, 220, 0.1);
+  --border-strong: rgba(170, 200, 220, 0.18);
+  --text-primary: #ecf0f4;
+  --text-secondary: #a8bcc8;
+  --text-tertiary: #7890a0;
+  --accent-strong: #8ab4c4;
+  --accent-deep: #6b9bae;
+  --accent-soft: rgba(138, 180, 196, 0.2);
+  --accent-soft-strong: #b4d0dc;
+  --accent-contrast: #f0f4f8;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #060810 0%, #0a1018 48%, #101820 100%);
+  --sidebar-text: #ecf0f4;
+  --sidebar-secondary: rgba(236, 240, 244, 0.74);
+  --sidebar-tertiary: rgba(236, 240, 244, 0.44);
+  --sidebar-border: rgba(138, 180, 196, 0.1);
+  --sidebar-border-strong: rgba(138, 180, 196, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.36);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.42);
+  --body-glow-a: rgba(138, 180, 196, 0.08);
+  --body-glow-b: rgba(50, 80, 100, 0.14);
+  --app-backdrop-a: rgba(138, 180, 196, 0.08);
+  --app-backdrop-b: rgba(50, 80, 100, 0.1);
+  --subtle-pill-bg: rgba(236, 240, 244, 0.06);
+  --soft-btn-bg: rgba(236, 240, 244, 0.05);
+  --soft-btn-hover-bg: rgba(236, 240, 244, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #1a2834 0%, #8ab4c4 56%, #b4d0dc 100%);
+  --brand-orb-text: #f0f4f8;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.3);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(138, 180, 196, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.34);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(190, 218, 234, 0.07), rgba(190, 218, 234, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(190, 218, 234, 0.07), rgba(190, 218, 234, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(138, 180, 196, 0.18), rgba(138, 180, 196, 0.06));
+  --sidebar-item-active-border: rgba(138, 180, 196, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(138, 180, 196, 0.08);
+  --sidebar-dropzone-hover-border: rgba(138, 180, 196, 0.3);
+  --sidebar-dropzone-ring: rgba(138, 180, 196, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(138, 180, 196, 0.18), rgba(138, 180, 196, 0.07));
+  --sidebar-file-active-border: rgba(138, 180, 196, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(138, 180, 196, 0.1), rgba(138, 180, 196, 0) 46%),
+    linear-gradient(180deg, rgba(18, 26, 34, 0.94), rgba(14, 20, 26, 0.84)),
+    #162028;
+  --conversation-panel-border: rgba(236, 240, 244, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(236, 240, 244, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(236, 240, 244, 0.058), rgba(236, 240, 244, 0.032));
+  --assistant-message-border: rgba(236, 240, 244, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+  --assistant-message-meta: rgba(236, 240, 244, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #121a22;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(236, 240, 244, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(180, 208, 220, 0.14) 0%,
+      rgba(138, 180, 196, 0.24) 58%,
+      rgba(78, 122, 140, 0.36) 100%
+    );
+  --user-message-border: rgba(138, 180, 196, 0.22);
+  --user-message-text: #f0f4f8;
+  --user-message-meta: rgba(240, 244, 248, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(78, 122, 140, 0.22);
+}
+
+/* ── 朱砂 Cinnabar ── Chinese seal-red on rice paper ── */
+:root[data-theme-preset="cinnabar"] {
+  --bg-app: #f4f2f0;
+  --bg-overlay: rgba(244, 242, 240, 0.94);
+  --bg-panel: #faf8f6;
+  --bg-panel-soft: #f0eeea;
+  --bg-panel-muted: #e4deda;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(18, 12, 10, 0.05);
+  --bg-canvas: #fcfaf8;
+  --bg-canvas-soft: #ebe6e0;
+  --border-subtle: rgba(26, 20, 18, 0.09);
+  --border-strong: rgba(26, 20, 18, 0.16);
+  --text-primary: #1a1412;
+  --text-secondary: #7a6e68;
+  --text-tertiary: #a0948e;
+  --accent-strong: #bf3b30;
+  --accent-deep: #8c2a22;
+  --accent-soft: #f0d0cc;
+  --accent-soft-strong: #6e1e18;
+  --accent-contrast: #faf0ee;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #100a08 0%, #181010 46%, #221614 100%);
+  --sidebar-text: #f4eeec;
+  --sidebar-secondary: rgba(244, 238, 236, 0.72);
+  --sidebar-tertiary: rgba(244, 238, 236, 0.46);
+  --sidebar-border: rgba(191, 59, 48, 0.14);
+  --sidebar-border-strong: rgba(191, 59, 48, 0.26);
+  --shadow-soft: 0 22px 52px rgba(18, 12, 10, 0.08);
+  --shadow-strong: 0 28px 72px rgba(10, 6, 4, 0.22);
+  --body-glow-a: rgba(191, 59, 48, 0.06);
+  --body-glow-b: rgba(60, 30, 22, 0.08);
+  --app-backdrop-a: rgba(191, 59, 48, 0.05);
+  --app-backdrop-b: rgba(60, 30, 22, 0.07);
+  --subtle-pill-bg: rgba(252, 248, 246, 0.72);
+  --soft-btn-bg: rgba(254, 250, 248, 0.78);
+  --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #221412 0%, #bf3b30 58%, #e8a8a4 100%);
+  --brand-orb-text: #faf0ee;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(18, 12, 10, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(191, 59, 48, 0.14),
+    0 14px 28px rgba(18, 12, 10, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(232, 168, 164, 0.06), rgba(232, 168, 164, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(232, 168, 164, 0.06), rgba(232, 168, 164, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(191, 59, 48, 0.18), rgba(191, 59, 48, 0.06));
+  --sidebar-item-active-border: rgba(191, 59, 48, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(191, 59, 48, 0.08);
+  --sidebar-dropzone-hover-border: rgba(191, 59, 48, 0.32);
+  --sidebar-dropzone-ring: rgba(191, 59, 48, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(191, 59, 48, 0.18), rgba(191, 59, 48, 0.07));
+  --sidebar-file-active-border: rgba(191, 59, 48, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(10, 6, 4, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(191, 59, 48, 0.12), rgba(191, 59, 48, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 246, 244, 0.8)),
+    #f8f4f2;
+  --conversation-panel-border: rgba(26, 20, 18, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(18, 12, 10, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(18, 12, 10, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 246, 244, 0.93));
+  --assistant-message-border: rgba(26, 20, 18, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(18, 12, 10, 0.05);
+  --assistant-message-meta: rgba(122, 110, 104, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #f4f0ee;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(254, 250, 248, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #f0ccc8 0%, #e4a8a2 56%, #bf3b30 100%);
+  --user-message-border: rgba(140, 42, 34, 0.18);
+  --user-message-text: #1a0e0c;
+  --user-message-meta: rgba(26, 14, 12, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(140, 42, 34, 0.14);
+}
+
+:root.dark[data-theme-preset="cinnabar"] {
+  --bg-app: #120c0a;
+  --bg-overlay: rgba(18, 12, 10, 0.92);
+  --bg-panel: #1a1210;
+  --bg-panel-soft: #221816;
+  --bg-panel-muted: #2c1e1a;
+  --bg-elevated: #281a16;
+  --bg-muted: rgba(244, 238, 236, 0.05);
+  --bg-canvas: #160e0c;
+  --bg-canvas-soft: #201614;
+  --border-subtle: rgba(220, 170, 164, 0.1);
+  --border-strong: rgba(220, 170, 164, 0.18);
+  --text-primary: #f4eeec;
+  --text-secondary: #c0a8a4;
+  --text-tertiary: #8e7470;
+  --accent-strong: #d4504a;
+  --accent-deep: #bf3b30;
+  --accent-soft: rgba(212, 80, 74, 0.2);
+  --accent-soft-strong: #e8a8a4;
+  --accent-contrast: #faf0ee;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #0a0604 0%, #120c0a 48%, #1a100e 100%);
+  --sidebar-text: #f4eeec;
+  --sidebar-secondary: rgba(244, 238, 236, 0.74);
+  --sidebar-tertiary: rgba(244, 238, 236, 0.44);
+  --sidebar-border: rgba(212, 80, 74, 0.1);
+  --sidebar-border-strong: rgba(212, 80, 74, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.4);
+  --body-glow-a: rgba(212, 80, 74, 0.08);
+  --body-glow-b: rgba(80, 30, 22, 0.14);
+  --app-backdrop-a: rgba(212, 80, 74, 0.08);
+  --app-backdrop-b: rgba(80, 30, 22, 0.1);
+  --subtle-pill-bg: rgba(244, 238, 236, 0.06);
+  --soft-btn-bg: rgba(244, 238, 236, 0.05);
+  --soft-btn-hover-bg: rgba(244, 238, 236, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #281412 0%, #d4504a 56%, #e8a8a4 100%);
+  --brand-orb-text: #faf0ee;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.28);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(212, 80, 74, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.32);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(232, 168, 164, 0.07), rgba(232, 168, 164, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(232, 168, 164, 0.07), rgba(232, 168, 164, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(212, 80, 74, 0.18), rgba(212, 80, 74, 0.06));
+  --sidebar-item-active-border: rgba(212, 80, 74, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(212, 80, 74, 0.08);
+  --sidebar-dropzone-hover-border: rgba(212, 80, 74, 0.3);
+  --sidebar-dropzone-ring: rgba(212, 80, 74, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(212, 80, 74, 0.18), rgba(212, 80, 74, 0.07));
+  --sidebar-file-active-border: rgba(212, 80, 74, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(212, 80, 74, 0.1), rgba(212, 80, 74, 0) 46%),
+    linear-gradient(180deg, rgba(24, 16, 14, 0.94), rgba(18, 12, 10, 0.84)),
+    #1c1210;
+  --conversation-panel-border: rgba(244, 238, 236, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(244, 238, 236, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(244, 238, 236, 0.058), rgba(244, 238, 236, 0.032));
+  --assistant-message-border: rgba(244, 238, 236, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  --assistant-message-meta: rgba(244, 238, 236, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #1a1210;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(244, 238, 236, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(232, 168, 164, 0.14) 0%,
+      rgba(212, 80, 74, 0.24) 58%,
+      rgba(140, 42, 34, 0.36) 100%
+    );
+  --user-message-border: rgba(212, 80, 74, 0.22);
+  --user-message-text: #faf0ee;
+  --user-message-meta: rgba(250, 240, 238, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(140, 42, 34, 0.22);
+}
+
+/* ── 深渊 Abyss ── deep-ocean bioluminescence ── */
+:root[data-theme-preset="abyss"] {
+  --bg-app: #eff2f2;
+  --bg-overlay: rgba(239, 242, 242, 0.94);
+  --bg-panel: #f8fafa;
+  --bg-panel-soft: #eef2f2;
+  --bg-panel-muted: #dce4e4;
+  --bg-elevated: #ffffff;
+  --bg-muted: rgba(6, 10, 12, 0.05);
+  --bg-canvas: #fafafa;
+  --bg-canvas-soft: #e4eaea;
+  --border-subtle: rgba(6, 10, 12, 0.09);
+  --border-strong: rgba(6, 10, 12, 0.16);
+  --text-primary: #0a1212;
+  --text-secondary: #5e7676;
+  --text-tertiary: #8ea4a4;
+  --accent-strong: #2a9d8f;
+  --accent-deep: #1f7a6e;
+  --accent-soft: #c8e4e0;
+  --accent-soft-strong: #185c52;
+  --accent-contrast: #f0f8f6;
+  --warning-soft: #fff2e3;
+  --warning-text: #9d6031;
+  --sidebar-surface: linear-gradient(180deg, #060a0c 0%, #0c1416 46%, #141e22 100%);
+  --sidebar-text: #ecf4f2;
+  --sidebar-secondary: rgba(236, 244, 242, 0.72);
+  --sidebar-tertiary: rgba(236, 244, 242, 0.46);
+  --sidebar-border: rgba(42, 157, 143, 0.14);
+  --sidebar-border-strong: rgba(42, 157, 143, 0.26);
+  --shadow-soft: 0 22px 52px rgba(6, 10, 12, 0.07);
+  --shadow-strong: 0 28px 72px rgba(2, 4, 6, 0.2);
+  --body-glow-a: rgba(42, 157, 143, 0.06);
+  --body-glow-b: rgba(20, 50, 48, 0.08);
+  --app-backdrop-a: rgba(42, 157, 143, 0.05);
+  --app-backdrop-b: rgba(20, 50, 48, 0.07);
+  --subtle-pill-bg: rgba(246, 252, 250, 0.72);
+  --soft-btn-bg: rgba(248, 252, 250, 0.78);
+  --soft-btn-hover-bg: rgba(255, 255, 255, 0.96);
+  --brand-orb-gradient: linear-gradient(145deg, #142224 0%, #2a9d8f 58%, #a0dcd4 100%);
+  --brand-orb-text: #f0f8f6;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 22px rgba(6, 10, 12, 0.22);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 3px rgba(42, 157, 143, 0.14),
+    0 14px 28px rgba(6, 10, 12, 0.24);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(160, 220, 212, 0.06), rgba(160, 220, 212, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(160, 220, 212, 0.06), rgba(160, 220, 212, 0.02));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.055);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(42, 157, 143, 0.18), rgba(42, 157, 143, 0.06));
+  --sidebar-item-active-border: rgba(42, 157, 143, 0.3);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(42, 157, 143, 0.08);
+  --sidebar-dropzone-hover-border: rgba(42, 157, 143, 0.32);
+  --sidebar-dropzone-ring: rgba(42, 157, 143, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.045);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(42, 157, 143, 0.18), rgba(42, 157, 143, 0.07));
+  --sidebar-file-active-border: rgba(42, 157, 143, 0.32);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(2, 4, 6, 0.16);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(42, 157, 143, 0.12), rgba(42, 157, 143, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 252, 250, 0.8)),
+    #f4f8f6;
+  --conversation-panel-border: rgba(6, 10, 12, 0.08);
+  --conversation-panel-shadow:
+    0 24px 54px rgba(6, 10, 12, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  --prompt-card-bg: rgba(255, 255, 255, 0.88);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.98);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(6, 10, 12, 0.08);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 252, 250, 0.93));
+  --assistant-message-border: rgba(6, 10, 12, 0.08);
+  --assistant-message-shadow: 0 10px 24px rgba(6, 10, 12, 0.05);
+  --assistant-message-meta: rgba(94, 118, 118, 0.76);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.74)),
+    #eef4f2;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.84);
+  --composer-bg: rgba(248, 252, 250, 0.94);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  --timeline-card-bg: rgba(255, 255, 255, 0.78);
+  --user-message-bg: linear-gradient(145deg, #b8dcd6 0%, #94ccc4 56%, #2a9d8f 100%);
+  --user-message-border: rgba(31, 122, 110, 0.18);
+  --user-message-text: #061412;
+  --user-message-meta: rgba(6, 20, 18, 0.5);
+  --user-message-shadow: 0 14px 30px rgba(31, 122, 110, 0.14);
+}
+
+:root.dark[data-theme-preset="abyss"] {
+  --bg-app: #060a0c;
+  --bg-overlay: rgba(6, 10, 12, 0.92);
+  --bg-panel: #0c1214;
+  --bg-panel-soft: #121a1c;
+  --bg-panel-muted: #1a2426;
+  --bg-elevated: #162022;
+  --bg-muted: rgba(236, 244, 242, 0.05);
+  --bg-canvas: #0a0e10;
+  --bg-canvas-soft: #121818;
+  --border-subtle: rgba(140, 210, 200, 0.1);
+  --border-strong: rgba(140, 210, 200, 0.18);
+  --text-primary: #ecf4f2;
+  --text-secondary: #9ec0ba;
+  --text-tertiary: #6e9490;
+  --accent-strong: #3cbfae;
+  --accent-deep: #2a9d8f;
+  --accent-soft: rgba(60, 191, 174, 0.2);
+  --accent-soft-strong: #a0dcd4;
+  --accent-contrast: #f0f8f6;
+  --warning-soft: rgba(120, 80, 42, 0.22);
+  --warning-text: #f0caa2;
+  --sidebar-surface: linear-gradient(180deg, #040608 0%, #0a1012 48%, #101a1c 100%);
+  --sidebar-text: #ecf4f2;
+  --sidebar-secondary: rgba(236, 244, 242, 0.74);
+  --sidebar-tertiary: rgba(236, 244, 242, 0.44);
+  --sidebar-border: rgba(60, 191, 174, 0.1);
+  --sidebar-border-strong: rgba(60, 191, 174, 0.18);
+  --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.36);
+  --shadow-strong: 0 24px 58px rgba(0, 0, 0, 0.42);
+  --body-glow-a: rgba(60, 191, 174, 0.08);
+  --body-glow-b: rgba(20, 70, 64, 0.16);
+  --app-backdrop-a: rgba(60, 191, 174, 0.08);
+  --app-backdrop-b: rgba(20, 70, 64, 0.12);
+  --subtle-pill-bg: rgba(236, 244, 242, 0.06);
+  --soft-btn-bg: rgba(236, 244, 242, 0.05);
+  --soft-btn-hover-bg: rgba(236, 244, 242, 0.09);
+  --brand-orb-gradient: linear-gradient(145deg, #142428 0%, #3cbfae 56%, #a0dcd4 100%);
+  --brand-orb-text: #f0f8f6;
+  --brand-orb-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 26px rgba(0, 0, 0, 0.3);
+  --brand-orb-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 3px rgba(60, 191, 174, 0.18),
+    0 18px 30px rgba(0, 0, 0, 0.34);
+  --sidebar-panel-overlay: linear-gradient(180deg, rgba(160, 220, 212, 0.07), rgba(160, 220, 212, 0));
+  --sidebar-section-bg: linear-gradient(180deg, rgba(160, 220, 212, 0.07), rgba(160, 220, 212, 0.018));
+  --sidebar-item-hover-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg: linear-gradient(180deg, rgba(60, 191, 174, 0.18), rgba(60, 191, 174, 0.06));
+  --sidebar-item-active-border: rgba(60, 191, 174, 0.28);
+  --sidebar-item-active-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --sidebar-dropzone-bg: rgba(255, 255, 255, 0.024);
+  --sidebar-dropzone-hover-bg: rgba(60, 191, 174, 0.08);
+  --sidebar-dropzone-hover-border: rgba(60, 191, 174, 0.3);
+  --sidebar-dropzone-ring: rgba(60, 191, 174, 0.1);
+  --sidebar-file-hover-bg: rgba(255, 255, 255, 0.04);
+  --sidebar-file-active-bg: linear-gradient(180deg, rgba(60, 191, 174, 0.18), rgba(60, 191, 174, 0.07));
+  --sidebar-file-active-border: rgba(60, 191, 174, 0.3);
+  --sidebar-file-active-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 30px rgba(0, 0, 0, 0.18);
+  --conversation-panel-bg:
+    radial-gradient(circle at top right, rgba(60, 191, 174, 0.1), rgba(60, 191, 174, 0) 46%),
+    linear-gradient(180deg, rgba(16, 24, 26, 0.94), rgba(12, 18, 20, 0.84)),
+    #141e20;
+  --conversation-panel-border: rgba(236, 244, 242, 0.08);
+  --conversation-panel-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(236, 244, 242, 0.04);
+  --prompt-card-bg: rgba(255, 255, 255, 0.045);
+  --prompt-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --prompt-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  --assistant-message-bg:
+    linear-gradient(180deg, rgba(236, 244, 242, 0.058), rgba(236, 244, 242, 0.032));
+  --assistant-message-border: rgba(236, 244, 242, 0.08);
+  --assistant-message-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  --assistant-message-meta: rgba(236, 244, 242, 0.48);
+  --tool-surface-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.03)),
+    #101a1a;
+  --tool-history-item-bg: rgba(255, 255, 255, 0.045);
+  --composer-bg: rgba(236, 244, 242, 0.058);
+  --composer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --timeline-card-bg: rgba(255, 255, 255, 0.045);
+  --user-message-bg:
+    linear-gradient(
+      145deg,
+      rgba(160, 220, 212, 0.14) 0%,
+      rgba(60, 191, 174, 0.24) 58%,
+      rgba(31, 122, 110, 0.36) 100%
+    );
+  --user-message-border: rgba(60, 191, 174, 0.22);
+  --user-message-text: #f0f8f6;
+  --user-message-meta: rgba(240, 248, 246, 0.54);
+  --user-message-shadow: 0 16px 30px rgba(31, 122, 110, 0.22);
 }
 
 :root[data-theme-preset="default"] {
@@ -1052,7 +2386,7 @@
     0 12px 24px color-mix(in srgb, var(--text-primary) 8%, transparent);
   --timeline-card-accent-border: 3px solid color-mix(in srgb, var(--accent-strong) 22%, transparent);
   --composer-panel-bg:
-    linear-gradient(180deg, rgba(202, 138, 4, 0.02), rgba(15, 23, 42, 0.04));
+    linear-gradient(180deg, rgba(74, 122, 181, 0.02), rgba(15, 23, 42, 0.04));
   --timeline-line-bg:
     repeating-linear-gradient(180deg, rgba(15, 23, 42, 0.18) 0 8px, transparent 8px 14px);
   --timeline-marker-size: 12px;
@@ -1060,7 +2394,7 @@
   --launch-backdrop-bg:
     radial-gradient(circle at 50% 30%, rgba(120, 154, 210, 0.18), transparent 18%),
     radial-gradient(circle at 15% 18%, rgba(25, 50, 92, 0.2), transparent 28%),
-    radial-gradient(circle at 82% 80%, rgba(202, 138, 4, 0.16), transparent 34%),
+    radial-gradient(circle at 82% 80%, rgba(74, 122, 181, 0.16), transparent 34%),
     linear-gradient(180deg, #101725 0%, #0b1220 48%, #07101c 100%);
   --launch-grid-opacity: 0.46;
   --launch-grid-size: 56px 56px;
@@ -1073,7 +2407,7 @@
   --launch-sheet-line-bg: rgba(232, 239, 250, 0.12);
   --launch-ring-radius: 34px;
   --launch-core-radius: 34px;
-  --launch-core-bg: linear-gradient(145deg, #f5f7fb 0%, #cfd9eb 24%, #1c2a40 100%);
+  --launch-core-bg: linear-gradient(145deg, #e8f0fa 0%, #8cb4d8 24%, #1c2a40 100%);
   --launch-core-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.54),
     0 34px 70px rgba(0, 0, 0, 0.4),
@@ -1086,7 +2420,7 @@
   --launch-title-color: #edf3ff;
   --launch-title-shadow: 0 16px 34px rgba(5, 12, 22, 0.42);
   --launch-slogan-color: rgba(208, 223, 255, 0.7);
-  --launch-slogan-accent: #f1cf7a;
+  --launch-slogan-accent: #6a9fd4;
   --font-display:
     "Segoe UI Variable Display",
     "Bahnschrift",
@@ -1310,7 +2644,7 @@
   --launch-backdrop-bg:
     radial-gradient(circle at 52% 32%, rgba(82, 127, 255, 0.22), rgba(82, 127, 255, 0.06) 18%, transparent 34%),
     radial-gradient(circle at 16% 18%, rgba(14, 64, 122, 0.18), transparent 30%),
-    radial-gradient(circle at 84% 76%, rgba(212, 162, 74, 0.14), transparent 34%),
+    radial-gradient(circle at 84% 76%, rgba(82, 127, 255, 0.14), transparent 34%),
     linear-gradient(180deg, #04070d 0%, #020408 42%, #010204 100%);
   --launch-grid-bg:
     linear-gradient(rgba(138, 176, 255, 0.08) 1px, transparent 1px),
@@ -1320,11 +2654,11 @@
   --launch-grid-mask: none;
   --launch-radial-bg:
     radial-gradient(circle at 50% 42%, rgba(138, 176, 255, 0.18), transparent 20%),
-    radial-gradient(circle at 50% 54%, rgba(212, 162, 74, 0.12), transparent 34%);
+    radial-gradient(circle at 50% 54%, rgba(82, 127, 255, 0.12), transparent 34%);
   --launch-radial-filter: blur(14px);
   --launch-noise-bg:
     repeating-linear-gradient(180deg, rgba(138, 176, 255, 0.06) 0 1px, transparent 1px 4px),
-    linear-gradient(90deg, rgba(212, 162, 74, 0.05), transparent 28%);
+    linear-gradient(90deg, rgba(82, 127, 255, 0.05), transparent 28%);
   --launch-noise-opacity: 0.28;
   --launch-trail-bg: linear-gradient(90deg, transparent, rgba(138, 176, 255, 0.66), transparent);
   --launch-sheet-radius: 20px;
@@ -1338,7 +2672,7 @@
   --launch-sheet-line-bg: rgba(224, 236, 255, 0.1);
   --launch-ring-radius: 28px;
   --launch-ring-border: rgba(138, 176, 255, 0.16);
-  --launch-ring-inner-border: rgba(212, 162, 74, 0.24);
+  --launch-ring-inner-border: rgba(82, 127, 255, 0.24);
   --launch-core-radius: 28px;
   --launch-core-bg: linear-gradient(145deg, #ecf3ff 0%, #86a7ff 28%, #0c1627 100%);
   --launch-core-shadow:
@@ -1363,7 +2697,7 @@
     0 0 24px rgba(82, 127, 255, 0.24),
     0 16px 36px rgba(0, 0, 0, 0.48);
   --launch-slogan-color: rgba(215, 230, 255, 0.72);
-  --launch-slogan-accent: #d8a95a;
+  --launch-slogan-accent: #6a94ff;
   --font-display:
     "Bahnschrift",
     "Segoe UI Variable Display",
@@ -1379,7 +2713,7 @@
   --surface-muted-border: 1px solid rgba(198, 214, 255, 0.12);
   --field-border: 1px solid rgba(198, 214, 255, 0.12);
   --chip-border: 1px solid rgba(198, 214, 255, 0.12);
-  --dropzone-border: 1px solid rgba(212, 162, 74, 0.22);
+  --dropzone-border: 1px solid rgba(82, 127, 255, 0.22);
   --surface-card-radius: 16px;
   --surface-muted-radius: 12px;
   --field-radius: 12px;
@@ -1418,11 +2752,895 @@
     #0b1018;
   --theme-card-active-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 0 0 1px rgba(212, 162, 74, 0.18),
+    0 0 0 1px rgba(106, 148, 255, 0.18),
     0 18px 32px rgba(0, 0, 0, 0.3);
   --primary-button-shadow:
-    0 0 0 1px rgba(212, 162, 74, 0.14),
-    0 14px 28px rgba(61, 39, 8, 0.28);
+    0 0 0 1px rgba(82, 127, 255, 0.14),
+    0 14px 28px rgba(30, 50, 100, 0.28);
+}
+
+:root[data-theme-preset="rosewood"] {
+  --body-pattern:
+    radial-gradient(circle at 86% 12%, rgba(160, 80, 80, 0.06), transparent 18%),
+    repeating-linear-gradient(135deg, rgba(160, 80, 80, 0.02) 0 14px, transparent 14px 30px);
+  --workspace-gap: 1rem;
+  --assistant-gap: 1rem;
+  --workspace-grid-columns: minmax(0, 1.74fr) minmax(344px, 0.76fr);
+  --topbar-action-radius: 16px;
+  --topbar-shell-bg:
+    radial-gradient(circle at top right, rgba(160, 80, 80, 0.1), transparent 30%),
+    linear-gradient(180deg, rgba(255, 253, 252, 0.82), rgba(248, 242, 240, 0.54));
+  --topbar-shell-border: 1px solid rgba(160, 80, 80, 0.1);
+  --topbar-shell-shadow: 0 14px 28px rgba(26, 16, 16, 0.05);
+  --topbar-shell-radius: 22px;
+  --topbar-shell-padding: 0.5rem 0.68rem 0.6rem;
+  --preview-stage-radius: 26px;
+  --preview-stage-bg:
+    radial-gradient(circle at top right, rgba(160, 80, 80, 0.06), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0)),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(244, 238, 236, 0.68));
+  --chat-thread-width: 47rem;
+  --message-card-padding: 0.54rem 0.68rem;
+  --message-assistant-radius: 18px 22px 22px 16px;
+  --message-user-radius: 22px 18px 16px 22px;
+  --tool-strip-radius: 20px;
+  --tool-history-radius: 18px;
+  --sidebar-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 14%, transparent), transparent 28%),
+    var(--sidebar-panel-overlay),
+    var(--sidebar-surface);
+  --conversation-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 14%, transparent), transparent 28%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 76%, transparent), color-mix(in srgb, var(--bg-panel-soft) 80%, transparent)),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 94%, transparent), color-mix(in srgb, var(--bg-panel-soft) 88%, transparent));
+  --assistant-message-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 28%, transparent);
+  --user-message-accent-border: 2px solid color-mix(in srgb, var(--accent-deep) 18%, transparent);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 64%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 8%, transparent);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 56%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 6%, transparent);
+  --timeline-card-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 80%, transparent), color-mix(in srgb, var(--bg-panel-soft) 72%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 18%, transparent);
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(160, 80, 80, 0.02), rgba(160, 80, 80, 0.04));
+  --timeline-line-bg:
+    linear-gradient(180deg, rgba(160, 80, 80, 0.2), rgba(160, 80, 80, 0.04));
+  --timeline-marker-size: 10px;
+  --timeline-marker-radius: 999px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 34%, rgba(200, 120, 120, 0.22), transparent 20%),
+    radial-gradient(circle at 18% 16%, rgba(100, 40, 40, 0.18), transparent 28%),
+    radial-gradient(circle at 84% 78%, rgba(160, 80, 80, 0.16), transparent 34%),
+    linear-gradient(180deg, #1a1012 0%, #120a0c 46%, #0c0606 100%);
+  --launch-grid-opacity: 0.24;
+  --launch-grid-size: 82px 82px;
+  --launch-grid-mask: radial-gradient(circle at 50% 42%, black 16%, rgba(0, 0, 0, 0.72) 50%, transparent 82%);
+  --launch-radial-bg:
+    radial-gradient(circle at 50% 42%, rgba(220, 140, 140, 0.16), transparent 24%),
+    radial-gradient(circle at 50% 54%, rgba(160, 80, 80, 0.12), transparent 36%);
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(220, 160, 160, 0.52), transparent);
+  --launch-trail-opacity: 0.42;
+  --launch-sheet-radius: 32px;
+  --launch-sheet-border: 1px solid rgba(220, 160, 160, 0.12);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
+    rgba(20, 12, 12, 0.76);
+  --launch-halo-bg:
+    radial-gradient(circle, rgba(200, 120, 120, 0.28) 0%, rgba(200, 120, 120, 0.06) 42%, transparent 72%);
+  --launch-core-radius: 48px;
+  --launch-core-bg: linear-gradient(145deg, #f8eeee 0%, #d4a8a8 34%, #5a2828 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 34px 70px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(240, 200, 200, 0.1);
+  --launch-glyph-color: #1a0c0c;
+  --launch-kicker-color: rgba(230, 200, 200, 0.58);
+  --launch-title-color: #f8f0f0;
+  --launch-title-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  --launch-slogan-color: rgba(230, 200, 200, 0.7);
+  --launch-slogan-accent: #c06a6a;
+  --font-display:
+    "Georgia",
+    "Palatino Linotype",
+    "Book Antiqua",
+    serif;
+  --font-label:
+    "Segoe UI Variable Display",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 26px;
+  --surface-muted-radius: 20px;
+  --field-radius: 16px;
+  --theme-chip-radius: 18px;
+  --theme-card-radius: 22px;
+  --composer-radius: 24px;
+  --timeline-radius: 20px;
+  --button-radius: 16px;
+  --pill-radius: 999px;
+  --orb-radius: 14px;
+  --file-card-radius: 18px;
+  --dropzone-radius: 20px;
+  --surface-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 14px 28px rgba(26, 16, 16, 0.04);
+  --surface-muted-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 10px 22px rgba(26, 16, 16, 0.03);
+  --chip-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48);
+  --theme-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 12px 24px rgba(26, 16, 16, 0.04);
+  --field-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --display-letter-spacing: -0.06em;
+  --label-letter-spacing: 0.18em;
+}
+
+:root[data-theme-preset="inkstone"] {
+  --body-pattern:
+    repeating-linear-gradient(0deg, rgba(92, 94, 160, 0.02) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(92, 94, 160, 0.016) 0 1px, transparent 1px 24px);
+  --workspace-gap: 0.82rem;
+  --assistant-gap: 0.82rem;
+  --workspace-grid-columns: minmax(0, 1.82fr) minmax(338px, 0.72fr);
+  --topbar-action-radius: 14px;
+  --topbar-shell-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(244, 244, 252, 0.62)),
+    repeating-linear-gradient(90deg, rgba(92, 94, 160, 0.03) 0 1px, transparent 1px 20px);
+  --topbar-shell-border: 1px solid rgba(92, 94, 160, 0.1);
+  --topbar-shell-shadow: 0 12px 24px rgba(14, 14, 24, 0.05);
+  --topbar-shell-radius: 18px;
+  --topbar-shell-padding: 0.55rem 0.7rem 0.62rem;
+  --preview-stage-radius: 18px;
+  --preview-stage-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0)),
+    repeating-linear-gradient(0deg, rgba(92, 94, 160, 0.024) 0 1px, transparent 1px 22px),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(240, 240, 250, 0.78)),
+    repeating-linear-gradient(90deg, rgba(92, 94, 160, 0.024) 0 1px, transparent 1px 20px),
+    var(--bg-canvas-soft);
+  --chat-thread-width: 45rem;
+  --message-card-padding: 0.55rem 0.68rem;
+  --message-assistant-radius: 12px 16px 16px 12px;
+  --message-user-radius: 16px 12px 12px 16px;
+  --tool-strip-radius: 14px;
+  --tool-history-radius: 14px;
+  --sidebar-section-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 8%, transparent), transparent),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--sidebar-text) 6%, transparent) 0 1px, transparent 1px 20px);
+  --conversation-panel-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 70%, transparent), color-mix(in srgb, var(--bg-panel-soft) 72%, transparent)),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--text-primary) 5%, transparent) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--text-primary) 5%, transparent) 0 1px, transparent 1px 20px),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 92%, transparent), color-mix(in srgb, var(--bg-panel-soft) 86%, transparent)),
+    var(--assistant-message-bg);
+  --assistant-message-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 32%, transparent);
+  --user-message-accent-border: 2px solid color-mix(in srgb, var(--accent-deep) 20%, transparent);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 58%, transparent),
+    0 12px 22px color-mix(in srgb, var(--text-primary) 8%, transparent);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 48%, transparent),
+    0 12px 22px color-mix(in srgb, var(--text-primary) 6%, transparent);
+  --timeline-card-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 78%, transparent), color-mix(in srgb, var(--bg-panel-soft) 70%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 20%, transparent);
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(92, 94, 160, 0.02), rgba(14, 14, 24, 0.04));
+  --timeline-line-bg:
+    repeating-linear-gradient(180deg, rgba(92, 94, 160, 0.18) 0 8px, transparent 8px 14px);
+  --timeline-marker-size: 11px;
+  --timeline-marker-radius: 4px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 30%, rgba(128, 130, 192, 0.18), transparent 18%),
+    radial-gradient(circle at 16% 18%, rgba(40, 40, 80, 0.2), transparent 28%),
+    radial-gradient(circle at 84% 80%, rgba(92, 94, 160, 0.16), transparent 34%),
+    linear-gradient(180deg, #0e0e1a 0%, #0a0a14 48%, #06060e 100%);
+  --launch-grid-opacity: 0.38;
+  --launch-grid-size: 60px 60px;
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(180, 180, 230, 0.54), transparent);
+  --launch-sheet-radius: 22px;
+  --launch-sheet-border: 1px solid rgba(180, 180, 230, 0.12);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
+    rgba(14, 14, 28, 0.76);
+  --launch-core-radius: 36px;
+  --launch-core-bg: linear-gradient(145deg, #eeeef8 0%, #a0a0d4 24%, #1a1a36 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 34px 70px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(180, 180, 230, 0.1);
+  --launch-glyph-color: #0c0c1a;
+  --launch-glyph-font: var(--font-label);
+  --launch-glyph-letter-spacing: 0.04em;
+  --launch-kicker-color: rgba(190, 190, 230, 0.58);
+  --launch-title-color: #eeeef8;
+  --launch-title-shadow: 0 16px 34px rgba(4, 4, 14, 0.38);
+  --launch-slogan-color: rgba(190, 190, 230, 0.7);
+  --launch-slogan-accent: #8082c0;
+  --font-display:
+    "Georgia",
+    "Palatino Linotype",
+    "Book Antiqua",
+    serif;
+  --font-label:
+    "Segoe UI Variable Display",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 20px;
+  --surface-muted-radius: 14px;
+  --field-radius: 14px;
+  --theme-chip-radius: 16px;
+  --theme-card-radius: 18px;
+  --composer-radius: 18px;
+  --timeline-radius: 16px;
+  --button-radius: 14px;
+  --pill-radius: 999px;
+  --orb-radius: 10px;
+  --file-card-radius: 14px;
+  --dropzone-radius: 14px;
+  --surface-card-shadow: 0 14px 28px rgba(14, 14, 24, 0.05);
+  --surface-muted-shadow: 0 12px 24px rgba(14, 14, 24, 0.04);
+  --chip-shadow: 0 10px 22px rgba(14, 14, 24, 0.04);
+  --theme-card-shadow: 0 14px 26px rgba(14, 14, 24, 0.05);
+  --field-shadow: 0 8px 16px rgba(14, 14, 24, 0.03);
+  --display-letter-spacing: -0.065em;
+  --label-letter-spacing: 0.16em;
+}
+
+:root[data-theme-preset="dusk"] {
+  --body-pattern:
+    radial-gradient(circle at 14% 20%, rgba(192, 106, 58, 0.06), transparent 20%),
+    repeating-linear-gradient(120deg, rgba(192, 106, 58, 0.022) 0 12px, transparent 12px 28px);
+  --workspace-gap: 1.04rem;
+  --assistant-gap: 1.04rem;
+  --workspace-grid-columns: minmax(0, 1.7fr) minmax(348px, 0.8fr);
+  --topbar-action-radius: 18px;
+  --topbar-shell-bg:
+    radial-gradient(circle at top right, rgba(192, 106, 58, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 253, 250, 0.84), rgba(248, 242, 238, 0.56));
+  --topbar-shell-border: 1px solid rgba(192, 106, 58, 0.1);
+  --topbar-shell-shadow: 0 16px 30px rgba(18, 14, 12, 0.06);
+  --topbar-shell-radius: 24px;
+  --topbar-shell-padding: 0.52rem 0.72rem 0.62rem;
+  --preview-stage-radius: 28px;
+  --preview-stage-bg:
+    radial-gradient(circle at top right, rgba(192, 106, 58, 0.06), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0)),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(244, 238, 232, 0.68));
+  --chat-thread-width: 49rem;
+  --message-card-padding: 0.56rem 0.72rem;
+  --message-assistant-radius: 22px 22px 22px 14px;
+  --message-user-radius: 22px 22px 14px 22px;
+  --tool-strip-radius: 20px;
+  --tool-history-radius: 18px;
+  --sidebar-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 16%, transparent), transparent 26%),
+    var(--sidebar-panel-overlay),
+    var(--sidebar-surface);
+  --conversation-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 14%, transparent), transparent 28%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 80%, transparent), color-mix(in srgb, var(--bg-panel-soft) 84%, transparent)),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 94%, transparent), color-mix(in srgb, var(--bg-panel-soft) 88%, transparent));
+  --assistant-message-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 24%, transparent);
+  --user-message-accent-border: 2px solid color-mix(in srgb, var(--accent-deep) 16%, transparent);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 62%, transparent),
+    0 14px 26px color-mix(in srgb, var(--text-primary) 7%, transparent);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 58%, transparent),
+    0 14px 26px color-mix(in srgb, var(--text-primary) 6%, transparent);
+  --timeline-card-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 82%, transparent), color-mix(in srgb, var(--bg-panel-soft) 74%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(192, 106, 58, 0.02), rgba(192, 106, 58, 0.05));
+  --timeline-line-bg:
+    linear-gradient(180deg, rgba(192, 106, 58, 0.2), rgba(192, 106, 58, 0.04));
+  --timeline-marker-size: 11px;
+  --timeline-marker-radius: 999px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 34%, rgba(240, 170, 120, 0.22), transparent 20%),
+    radial-gradient(circle at 18% 16%, rgba(120, 60, 30, 0.18), transparent 28%),
+    radial-gradient(circle at 84% 78%, rgba(192, 106, 58, 0.16), transparent 34%),
+    linear-gradient(180deg, #1a1410 0%, #12100c 46%, #0c0a08 100%);
+  --launch-grid-opacity: 0.22;
+  --launch-grid-size: 90px 90px;
+  --launch-grid-mask: radial-gradient(circle at 50% 42%, black 14%, rgba(0, 0, 0, 0.72) 52%, transparent 82%);
+  --launch-radial-bg:
+    radial-gradient(circle at 50% 42%, rgba(240, 180, 130, 0.16), transparent 26%),
+    radial-gradient(circle at 50% 54%, rgba(192, 106, 58, 0.12), transparent 38%);
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(240, 180, 130, 0.52), transparent);
+  --launch-trail-opacity: 0.42;
+  --launch-sheet-radius: 38px;
+  --launch-sheet-border: 1px solid rgba(240, 180, 130, 0.12);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)),
+    rgba(20, 14, 10, 0.74);
+  --launch-halo-bg:
+    radial-gradient(circle, rgba(220, 150, 100, 0.28) 0%, rgba(220, 150, 100, 0.06) 42%, transparent 72%);
+  --launch-core-radius: 52px;
+  --launch-core-bg: linear-gradient(145deg, #f8efe8 0%, #dab89e 34%, #5a3020 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 34px 70px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(240, 200, 170, 0.1);
+  --launch-glyph-color: #1a100a;
+  --launch-kicker-color: rgba(230, 200, 180, 0.6);
+  --launch-title-color: #f8f2ee;
+  --launch-title-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+  --launch-slogan-color: rgba(230, 200, 180, 0.72);
+  --launch-slogan-accent: #d8804a;
+  --font-display:
+    "Constantia",
+    "Book Antiqua",
+    Georgia,
+    serif;
+  --font-label:
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 28px;
+  --surface-muted-radius: 22px;
+  --field-radius: 17px;
+  --theme-chip-radius: 20px;
+  --theme-card-radius: 24px;
+  --composer-radius: 26px;
+  --timeline-radius: 22px;
+  --button-radius: 17px;
+  --pill-radius: 999px;
+  --orb-radius: 14px;
+  --file-card-radius: 18px;
+  --dropzone-radius: 20px;
+  --surface-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 14px 28px rgba(18, 14, 12, 0.04);
+  --surface-muted-shadow: 0 14px 28px rgba(18, 14, 12, 0.04);
+  --chip-shadow: 0 12px 24px rgba(18, 14, 12, 0.04);
+  --theme-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 16px 28px rgba(18, 14, 12, 0.05);
+  --field-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.64),
+    0 8px 18px rgba(18, 14, 12, 0.03);
+  --panel-backdrop-filter: blur(8px);
+  --display-letter-spacing: -0.055em;
+  --label-letter-spacing: 0.2em;
+}
+
+/* ── 铜绿 结构化 token ── */
+:root[data-theme-preset="verdigris"] {
+  --body-pattern:
+    radial-gradient(circle at 10% 14%, rgba(78, 140, 127, 0.06), transparent 18%),
+    repeating-linear-gradient(130deg, rgba(78, 140, 127, 0.022) 0 12px, transparent 12px 28px);
+  --workspace-gap: 1rem;
+  --assistant-gap: 1rem;
+  --workspace-grid-columns: minmax(0, 1.72fr) minmax(346px, 0.78fr);
+  --topbar-action-radius: 16px;
+  --topbar-shell-bg:
+    radial-gradient(circle at top right, rgba(78, 140, 127, 0.1), transparent 28%),
+    linear-gradient(180deg, rgba(255, 253, 252, 0.82), rgba(246, 250, 248, 0.54));
+  --topbar-shell-border: 1px solid rgba(78, 140, 127, 0.1);
+  --topbar-shell-shadow: 0 14px 28px rgba(14, 18, 16, 0.05);
+  --topbar-shell-radius: 24px;
+  --topbar-shell-padding: 0.52rem 0.68rem 0.6rem;
+  --preview-stage-radius: 28px;
+  --preview-stage-bg:
+    radial-gradient(circle at top right, rgba(78, 140, 127, 0.06), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0)),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(240, 246, 244, 0.68));
+  --chat-thread-width: 48rem;
+  --message-card-padding: 0.56rem 0.7rem;
+  --message-assistant-radius: 20px 22px 22px 16px;
+  --message-user-radius: 22px 20px 16px 22px;
+  --tool-strip-radius: 20px;
+  --tool-history-radius: 18px;
+  --sidebar-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 14%, transparent), transparent 26%),
+    var(--sidebar-panel-overlay),
+    var(--sidebar-surface);
+  --conversation-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 14%, transparent), transparent 28%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 78%, transparent), color-mix(in srgb, var(--bg-panel-soft) 82%, transparent)),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 94%, transparent), color-mix(in srgb, var(--bg-panel-soft) 88%, transparent));
+  --assistant-message-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 24%, transparent);
+  --user-message-accent-border: 2px solid color-mix(in srgb, var(--accent-deep) 16%, transparent);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 64%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 7%, transparent);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 56%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 5%, transparent);
+  --timeline-card-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 80%, transparent), color-mix(in srgb, var(--bg-panel-soft) 72%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(78, 140, 127, 0.02), rgba(78, 140, 127, 0.04));
+  --timeline-line-bg:
+    linear-gradient(180deg, rgba(78, 140, 127, 0.2), rgba(78, 140, 127, 0.04));
+  --timeline-marker-size: 10px;
+  --timeline-marker-radius: 999px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 34%, rgba(160, 220, 212, 0.22), transparent 20%),
+    radial-gradient(circle at 18% 16%, rgba(48, 90, 80, 0.18), transparent 28%),
+    radial-gradient(circle at 84% 78%, rgba(78, 140, 127, 0.16), transparent 34%),
+    linear-gradient(180deg, #121a18 0%, #0c1210 46%, #080e0c 100%);
+  --launch-grid-opacity: 0.24;
+  --launch-grid-size: 86px 86px;
+  --launch-grid-mask: radial-gradient(circle at 50% 42%, black 14%, rgba(0, 0, 0, 0.72) 50%, transparent 82%);
+  --launch-radial-bg:
+    radial-gradient(circle at 50% 42%, rgba(180, 220, 212, 0.16), transparent 24%),
+    radial-gradient(circle at 50% 54%, rgba(78, 140, 127, 0.12), transparent 36%);
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(180, 220, 212, 0.54), transparent);
+  --launch-trail-opacity: 0.42;
+  --launch-sheet-radius: 34px;
+  --launch-sheet-border: 1px solid rgba(180, 220, 212, 0.12);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
+    rgba(14, 20, 18, 0.74);
+  --launch-halo-bg:
+    radial-gradient(circle, rgba(160, 220, 212, 0.28) 0%, rgba(160, 220, 212, 0.06) 42%, transparent 72%);
+  --launch-core-radius: 50px;
+  --launch-core-bg: linear-gradient(145deg, #f0f8f6 0%, #a0d4c8 34%, #2a5a4e 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 34px 70px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(180, 220, 212, 0.1);
+  --launch-glyph-color: #0e1a16;
+  --launch-kicker-color: rgba(200, 230, 222, 0.58);
+  --launch-title-color: #f2f8f6;
+  --launch-title-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+  --launch-slogan-color: rgba(200, 230, 222, 0.7);
+  --launch-slogan-accent: #6aafa0;
+  --font-display:
+    "Georgia",
+    "Palatino Linotype",
+    "Book Antiqua",
+    serif;
+  --font-label:
+    "Segoe UI Variable Display",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 26px;
+  --surface-muted-radius: 20px;
+  --field-radius: 16px;
+  --theme-chip-radius: 18px;
+  --theme-card-radius: 22px;
+  --composer-radius: 24px;
+  --timeline-radius: 20px;
+  --button-radius: 16px;
+  --pill-radius: 999px;
+  --orb-radius: 14px;
+  --file-card-radius: 18px;
+  --dropzone-radius: 20px;
+  --surface-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 14px 28px rgba(14, 18, 16, 0.04);
+  --surface-muted-shadow: 0 14px 28px rgba(14, 18, 16, 0.04);
+  --chip-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48);
+  --theme-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 14px 26px rgba(14, 18, 16, 0.04);
+  --field-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --display-letter-spacing: -0.06em;
+  --label-letter-spacing: 0.18em;
+}
+
+/* ── 霜岩 结构化 token ── */
+:root[data-theme-preset="hoarfrost"] {
+  --body-pattern:
+    repeating-linear-gradient(0deg, rgba(107, 155, 174, 0.028) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(90deg, rgba(107, 155, 174, 0.02) 0 1px, transparent 1px 20px);
+  --workspace-gap: 0.78rem;
+  --assistant-gap: 0.78rem;
+  --workspace-grid-columns: minmax(0, 1.84fr) minmax(334px, 0.7fr);
+  --topbar-action-radius: 12px;
+  --topbar-shell-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 248, 252, 0.66));
+  --topbar-shell-border: 1px solid rgba(107, 155, 174, 0.08);
+  --topbar-shell-shadow: 0 12px 24px rgba(10, 14, 18, 0.05);
+  --topbar-shell-radius: 16px;
+  --topbar-shell-padding: 0.55rem 0.7rem 0.62rem;
+  --preview-stage-radius: 16px;
+  --preview-stage-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0)),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(250, 252, 254, 0.96), rgba(232, 240, 246, 0.88));
+  --chat-thread-width: 44rem;
+  --message-card-padding: 0.54rem 0.66rem;
+  --message-assistant-radius: 10px 14px 14px 10px;
+  --message-user-radius: 14px 10px 10px 14px;
+  --tool-strip-radius: 12px;
+  --tool-history-radius: 12px;
+  --sidebar-section-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 8%, transparent), transparent);
+  --conversation-panel-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 68%, transparent), color-mix(in srgb, var(--bg-panel-soft) 72%, transparent)),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--text-primary) 5%, transparent) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--text-primary) 5%, transparent) 0 1px, transparent 1px 20px),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 92%, transparent), color-mix(in srgb, var(--bg-panel-soft) 86%, transparent)),
+    var(--assistant-message-bg);
+  --assistant-message-accent-border: 3px solid color-mix(in srgb, var(--accent-strong) 38%, transparent);
+  --user-message-accent-border: 3px solid color-mix(in srgb, var(--accent-deep) 22%, transparent);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 60%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 9%, transparent);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 50%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 7%, transparent);
+  --timeline-card-surface:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 76%, transparent), color-mix(in srgb, var(--bg-panel-soft) 68%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 3px solid color-mix(in srgb, var(--accent-strong) 22%, transparent);
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(107, 155, 174, 0.02), rgba(10, 14, 18, 0.04));
+  --timeline-line-bg:
+    repeating-linear-gradient(180deg, rgba(107, 155, 174, 0.2) 0 6px, transparent 6px 12px);
+  --timeline-marker-size: 11px;
+  --timeline-marker-radius: 3px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 28%, rgba(160, 200, 220, 0.16), transparent 16%),
+    radial-gradient(circle at 14% 20%, rgba(30, 60, 80, 0.2), transparent 28%),
+    radial-gradient(circle at 86% 82%, rgba(107, 155, 174, 0.14), transparent 34%),
+    linear-gradient(180deg, #0a1016 0%, #060a10 48%, #040608 100%);
+  --launch-grid-opacity: 0.5;
+  --launch-grid-size: 52px 52px;
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(190, 218, 234, 0.56), transparent);
+  --launch-sheet-radius: 18px;
+  --launch-sheet-border: 1px solid rgba(190, 218, 234, 0.12);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
+    rgba(10, 16, 22, 0.78);
+  --launch-core-radius: 32px;
+  --launch-core-bg: linear-gradient(145deg, #ecf4f8 0%, #a0c4d4 24%, #1a2a34 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.54),
+    0 32px 66px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(190, 218, 234, 0.1);
+  --launch-glyph-color: #0a1018;
+  --launch-glyph-font: var(--font-label);
+  --launch-glyph-letter-spacing: 0.04em;
+  --launch-kicker-color: rgba(190, 218, 234, 0.56);
+  --launch-title-color: #ecf2f8;
+  --launch-title-shadow: 0 16px 34px rgba(2, 4, 8, 0.4);
+  --launch-slogan-color: rgba(190, 218, 234, 0.68);
+  --launch-slogan-accent: #8ab4c4;
+  --font-display:
+    "Bahnschrift",
+    "Segoe UI Variable Display",
+    "Inter",
+    "Segoe UI",
+    sans-serif;
+  --font-label:
+    "Segoe UI Variable Display",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 14px;
+  --surface-muted-radius: 12px;
+  --field-radius: 12px;
+  --theme-chip-radius: 14px;
+  --theme-card-radius: 14px;
+  --composer-radius: 14px;
+  --timeline-radius: 12px;
+  --button-radius: 10px;
+  --pill-radius: 999px;
+  --orb-radius: 9px;
+  --file-card-radius: 12px;
+  --dropzone-radius: 12px;
+  --surface-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(107, 155, 174, 0.06),
+    0 12px 24px rgba(10, 14, 18, 0.04);
+  --surface-muted-shadow:
+    0 0 0 1px rgba(107, 155, 174, 0.05),
+    0 10px 20px rgba(10, 14, 18, 0.03);
+  --chip-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 0 0 1px rgba(107, 155, 174, 0.04);
+  --theme-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 0 0 1px rgba(107, 155, 174, 0.06),
+    0 14px 24px rgba(10, 14, 18, 0.04);
+  --field-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.66),
+    0 0 0 1px rgba(107, 155, 174, 0.04);
+  --panel-backdrop-filter: blur(4px);
+  --display-letter-spacing: -0.04em;
+  --label-letter-spacing: 0.14em;
+}
+
+/* ── 朱砂 结构化 token ── */
+:root[data-theme-preset="cinnabar"] {
+  --body-pattern:
+    radial-gradient(circle at 88% 12%, rgba(191, 59, 48, 0.06), transparent 16%),
+    repeating-linear-gradient(0deg, rgba(26, 20, 18, 0.022) 0 1px, transparent 1px 24px);
+  --workspace-gap: 0.96rem;
+  --assistant-gap: 0.96rem;
+  --workspace-grid-columns: minmax(0, 1.76fr) minmax(342px, 0.76fr);
+  --topbar-action-radius: 16px;
+  --topbar-shell-bg:
+    linear-gradient(180deg, rgba(255, 253, 252, 0.82), rgba(250, 244, 242, 0.54));
+  --topbar-shell-border: 1px solid rgba(191, 59, 48, 0.08);
+  --topbar-shell-shadow: 0 14px 28px rgba(18, 12, 10, 0.05);
+  --topbar-shell-radius: 22px;
+  --topbar-shell-padding: 0.5rem 0.68rem 0.6rem;
+  --preview-stage-radius: 24px;
+  --preview-stage-bg:
+    radial-gradient(circle at top right, rgba(191, 59, 48, 0.06), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0)),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(248, 240, 238, 0.66));
+  --chat-thread-width: 46rem;
+  --message-card-padding: 0.54rem 0.68rem;
+  --message-assistant-radius: 14px 20px 20px 14px;
+  --message-user-radius: 20px 14px 14px 20px;
+  --tool-strip-radius: 16px;
+  --tool-history-radius: 16px;
+  --conversation-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 16%, transparent), transparent 26%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 76%, transparent), color-mix(in srgb, var(--bg-panel-soft) 80%, transparent)),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 94%, transparent), color-mix(in srgb, var(--bg-panel-soft) 88%, transparent));
+  --assistant-message-accent-border: 3px solid color-mix(in srgb, var(--accent-strong) 44%, transparent);
+  --user-message-accent-border: 3px solid color-mix(in srgb, var(--accent-deep) 22%, transparent);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 62%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 8%, transparent);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 54%, transparent),
+    0 12px 24px color-mix(in srgb, var(--text-primary) 6%, transparent);
+  --timeline-card-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 80%, transparent), color-mix(in srgb, var(--bg-panel-soft) 72%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 18%, transparent);
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(191, 59, 48, 0.02), rgba(191, 59, 48, 0.05));
+  --timeline-line-bg:
+    linear-gradient(180deg, rgba(191, 59, 48, 0.22), rgba(191, 59, 48, 0.04));
+  --timeline-marker-size: 10px;
+  --timeline-marker-radius: 999px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 36%, rgba(212, 80, 74, 0.2), transparent 18%),
+    radial-gradient(circle at 16% 18%, rgba(80, 28, 22, 0.2), transparent 28%),
+    radial-gradient(circle at 84% 80%, rgba(191, 59, 48, 0.14), transparent 34%),
+    linear-gradient(180deg, #16100e 0%, #100a08 46%, #0a0604 100%);
+  --launch-grid-opacity: 0.22;
+  --launch-grid-size: 78px 78px;
+  --launch-grid-mask: radial-gradient(circle at 50% 42%, black 18%, rgba(0, 0, 0, 0.74) 48%, transparent 80%);
+  --launch-radial-bg:
+    radial-gradient(circle at 50% 42%, rgba(232, 140, 134, 0.16), transparent 22%),
+    radial-gradient(circle at 50% 54%, rgba(191, 59, 48, 0.12), transparent 34%);
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(232, 140, 134, 0.52), transparent);
+  --launch-trail-opacity: 0.4;
+  --launch-sheet-radius: 30px;
+  --launch-sheet-border: 1px solid rgba(232, 140, 134, 0.12);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
+    rgba(18, 12, 10, 0.76);
+  --launch-halo-bg:
+    radial-gradient(circle, rgba(212, 100, 90, 0.26) 0%, rgba(212, 100, 90, 0.06) 42%, transparent 72%);
+  --launch-core-radius: 46px;
+  --launch-core-bg: linear-gradient(145deg, #f8eeee 0%, #d4887c 34%, #3a1612 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 34px 70px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(232, 140, 134, 0.1);
+  --launch-glyph-color: #1a0c0a;
+  --launch-kicker-color: rgba(230, 180, 174, 0.56);
+  --launch-title-color: #f8eeec;
+  --launch-title-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  --launch-slogan-color: rgba(230, 180, 174, 0.68);
+  --launch-slogan-accent: #d4504a;
+  --font-display:
+    "Iowan Old Style",
+    "Palatino Linotype",
+    "Book Antiqua",
+    Georgia,
+    serif;
+  --font-label:
+    "Segoe UI Variable Display",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 22px;
+  --surface-muted-radius: 16px;
+  --field-radius: 15px;
+  --theme-chip-radius: 18px;
+  --theme-card-radius: 20px;
+  --composer-radius: 22px;
+  --timeline-radius: 18px;
+  --button-radius: 999px;
+  --pill-radius: 999px;
+  --orb-radius: 12px;
+  --file-card-radius: 16px;
+  --dropzone-radius: 18px;
+  --surface-card-shadow: var(--shadow-soft);
+  --surface-muted-shadow: none;
+  --chip-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  --theme-card-shadow: none;
+  --field-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+  --display-letter-spacing: -0.065em;
+  --label-letter-spacing: 0.2em;
+}
+
+/* ── 深渊 结构化 token ── */
+:root[data-theme-preset="abyss"] {
+  --body-pattern:
+    radial-gradient(circle at 12% 82%, rgba(42, 157, 143, 0.06), transparent 22%),
+    radial-gradient(circle at 88% 18%, rgba(20, 50, 48, 0.05), transparent 18%);
+  --workspace-gap: 1.08rem;
+  --assistant-gap: 1.08rem;
+  --workspace-grid-columns: minmax(0, 1.66fr) minmax(356px, 0.84fr);
+  --topbar-action-radius: 18px;
+  --topbar-shell-bg:
+    radial-gradient(circle at top right, rgba(42, 157, 143, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(255, 253, 252, 0.84), rgba(244, 250, 248, 0.56));
+  --topbar-shell-border: 1px solid rgba(42, 157, 143, 0.1);
+  --topbar-shell-shadow: 0 16px 30px rgba(6, 10, 12, 0.06);
+  --topbar-shell-radius: 28px;
+  --topbar-shell-padding: 0.54rem 0.74rem 0.64rem;
+  --preview-stage-radius: 30px;
+  --preview-stage-bg:
+    radial-gradient(circle at top right, rgba(42, 157, 143, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0)),
+    var(--bg-canvas);
+  --preview-stage-bar-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(240, 248, 246, 0.7));
+  --chat-thread-width: 50rem;
+  --message-card-padding: 0.6rem 0.78rem;
+  --message-assistant-radius: 26px 26px 26px 14px;
+  --message-user-radius: 26px 26px 14px 26px;
+  --tool-strip-radius: 24px;
+  --tool-history-radius: 22px;
+  --sidebar-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 18%, transparent), transparent 24%),
+    var(--sidebar-panel-overlay),
+    var(--sidebar-surface);
+  --sidebar-section-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 24%, transparent),
+    0 14px 28px color-mix(in srgb, var(--text-primary) 8%, transparent);
+  --conversation-panel-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 16%, transparent), transparent 30%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 80%, transparent), color-mix(in srgb, var(--bg-panel-soft) 86%, transparent)),
+    var(--conversation-panel-bg);
+  --assistant-message-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 10%, transparent), transparent 40%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 94%, transparent), color-mix(in srgb, var(--bg-panel-soft) 88%, transparent));
+  --tool-call-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 30%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-panel) 96%, transparent), color-mix(in srgb, var(--bg-panel-soft) 92%, transparent)),
+    var(--tool-surface-bg);
+  --tool-call-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 66%, transparent),
+    0 14px 28px color-mix(in srgb, var(--text-primary) 7%, transparent);
+  --tool-history-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 8%, transparent), transparent 30%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-panel) 96%, transparent), color-mix(in srgb, var(--bg-panel-soft) 92%, transparent)),
+    var(--tool-surface-bg);
+  --tool-history-box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg-elevated) 60%, transparent),
+    0 14px 28px color-mix(in srgb, var(--text-primary) 6%, transparent);
+  --timeline-card-surface:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 10%, transparent), transparent 40%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 82%, transparent), color-mix(in srgb, var(--bg-panel-soft) 74%, transparent)),
+    var(--timeline-card-bg);
+  --timeline-card-accent-border: 2px solid color-mix(in srgb, var(--accent-strong) 14%, transparent);
+  --composer-surface-bg:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--accent-strong) 10%, transparent), transparent 26%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 98%, transparent), color-mix(in srgb, var(--bg-panel-soft) 92%, transparent));
+  --composer-panel-bg:
+    linear-gradient(180deg, rgba(42, 157, 143, 0.02), rgba(42, 157, 143, 0.06));
+  --timeline-line-bg:
+    linear-gradient(180deg, rgba(42, 157, 143, 0.22), rgba(42, 157, 143, 0.04));
+  --timeline-marker-size: 12px;
+  --timeline-marker-radius: 999px;
+  --launch-backdrop-bg:
+    radial-gradient(circle at 50% 30%, rgba(60, 191, 174, 0.2), transparent 18%),
+    radial-gradient(circle at 16% 18%, rgba(14, 50, 46, 0.22), transparent 28%),
+    radial-gradient(circle at 84% 80%, rgba(42, 157, 143, 0.16), transparent 34%),
+    linear-gradient(180deg, #0c1416 0%, #081012 46%, #04080a 100%);
+  --launch-grid-opacity: 0.2;
+  --launch-grid-size: 92px 92px;
+  --launch-grid-mask: radial-gradient(circle at 50% 42%, black 10%, rgba(0, 0, 0, 0.76) 48%, transparent 82%);
+  --launch-radial-bg:
+    radial-gradient(circle at 50% 42%, rgba(160, 220, 212, 0.2), transparent 22%),
+    radial-gradient(circle at 50% 55%, rgba(60, 191, 174, 0.14), transparent 36%);
+  --launch-trail-bg: linear-gradient(90deg, transparent, rgba(160, 220, 212, 0.58), transparent);
+  --launch-trail-opacity: 0.46;
+  --launch-sheet-radius: 44px;
+  --launch-sheet-border: 1px solid rgba(160, 220, 212, 0.14);
+  --launch-sheet-bg:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02)),
+    rgba(10, 18, 20, 0.72);
+  --launch-halo-bg:
+    radial-gradient(circle, rgba(120, 210, 196, 0.32) 0%, rgba(120, 210, 196, 0.08) 42%, transparent 72%);
+  --launch-core-radius: 58px;
+  --launch-core-bg: linear-gradient(145deg, #eef8f6 0%, #78ccc0 34%, #1a3a34 100%);
+  --launch-core-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    0 34px 70px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(160, 220, 212, 0.12);
+  --launch-glyph-color: #081412;
+  --launch-kicker-color: rgba(180, 230, 222, 0.6);
+  --launch-title-color: #f0f8f6;
+  --launch-title-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  --launch-slogan-color: rgba(180, 230, 222, 0.72);
+  --launch-slogan-accent: #3cbfae;
+  --font-display:
+    "Constantia",
+    "Book Antiqua",
+    Georgia,
+    serif;
+  --font-label:
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  --surface-card-radius: 32px;
+  --surface-muted-radius: 24px;
+  --field-radius: 18px;
+  --theme-chip-radius: 22px;
+  --theme-card-radius: 26px;
+  --composer-radius: 28px;
+  --timeline-radius: 24px;
+  --button-radius: 18px;
+  --pill-radius: 999px;
+  --orb-radius: 16px;
+  --file-card-radius: 20px;
+  --dropzone-radius: 22px;
+  --surface-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 16px 30px rgba(6, 10, 12, 0.04);
+  --surface-muted-shadow: 0 16px 30px rgba(6, 10, 12, 0.04);
+  --chip-shadow: 0 14px 26px rgba(6, 10, 12, 0.04);
+  --theme-card-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 18px 34px rgba(6, 10, 12, 0.05);
+  --field-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    0 8px 18px rgba(6, 10, 12, 0.03);
+  --panel-backdrop-filter: blur(12px);
+  --display-letter-spacing: -0.05em;
+  --label-letter-spacing: 0.22em;
 }
 
 html,
